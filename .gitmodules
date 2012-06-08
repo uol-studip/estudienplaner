@@ -1,0 +1,3 @@
+[submodule "gui/ajax_upload"]
+	path = gui/ajax_upload
+	url = https://github.com/valums/file-uploader.git
