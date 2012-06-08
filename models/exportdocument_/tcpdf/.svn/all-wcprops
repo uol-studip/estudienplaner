@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf
+END
+LICENSE.TXT
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf/LICENSE.TXT
+END
+unicode_data.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf/unicode_data.php
+END
+tcpdf.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf/tcpdf.php
+END
+README.TXT
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf/README.TXT
+END
+htmlcolors.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/exportdocument/tcpdf/htmlcolors.php
+END

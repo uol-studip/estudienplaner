@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models
+END
+DBHelper.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/DBHelper.class.php
+END
+DBFile.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/DBFile.class.php
+END
+StgFile.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/StgFile.class.php
+END
+Verlaufsplan.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/Verlaufsplan.php
+END
+qqUploader license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/qqUploader%20license.txt
+END
+fristen.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/fristen.php
+END
+Studiengang.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/Studiengang.class.php
+END
+StgProfil.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/StgProfil.class.php
+END
+qqUploader.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/qqUploader.php
+END
+PersonalRechte.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/PersonalRechte.php
+END
+Fristen.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/Fristen.class.php
+END
+StgAnsprechpartner.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/StgAnsprechpartner.class.php
+END
+GetterSetter.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/GetterSetter.php
+END
+StgBereich.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/StgBereich.class.php
+END
+StgVerlaufsplan.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/StgVerlaufsplan.class.php
+END
+SORM.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/SORM.class.php
+END
+Module.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/Module.php
+END
+SearchStg.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/models/SearchStg.class.php
+END

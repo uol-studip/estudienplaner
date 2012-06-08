@@ -1,0 +1,26 @@
+<h1 style="text-align: center;"><?= _("Bewerbungsfristen") ?></h1>
+
+<? if (PersonalRechte::isRoot()) : ?>
+<form action="?" method="post">
+    <div style="margin-left: auto; margin-right: auto; text-align: center;">
+        <label for="table_filter"><?= _("Filter:") ?></label>
+        <input id="table_filter" name="table_filter" type="text" onKeyUp="STUDIP.zsb.filterTable('.zsb_timetable', this.value);" value="<?= htmlReady(Request::get('table_filter')) ?>">
+        <script>jQuery(function () { jQuery("#table_filter").trigger('keyup'); });</script>
+    </div>
+<?= add_safely_security_token() ?>
+<div style="width: 100%; text-align: center;">
+    <?= makebutton("absenden", "input") ?> <a href="?"><?= makebutton("abbrechen") ?></a>
+</div>
+<script>
+STUDIP.zsb.editFristen = true;
+</script>
+<? endif ?>
+<?= $this->render_partial("zsb_studiengang/fristen_table.php", compact('zielgruppen', 'profile')) ?>
+<? if (PersonalRechte::isRoot()) : ?>
+<div style="width: 100%; text-align: center;">
+    <?= makebutton("absenden", "input") ?> <a href="?"><?= makebutton("abbrechen") ?></a>
+</div>
+</form>
+<? endif ?>
+
+

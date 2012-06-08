@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan
+END
+_color_legend.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/_color_legend.php
+END
+get_module_children.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/get_module_children.php
+END
+modul.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/modul.php
+END
+newEmptyPHP.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/newEmptyPHP.php
+END
+verlaufsplan_plugin.php
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/verlaufsplan_plugin.php
+END
+modulliste.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/modulliste.php
+END
+verlaufsplan.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/verlaufsplan.php
+END
+details.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/details.php
+END
+verlaufsplan_grid.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/views/zsb_verlaufsplan/verlaufsplan_grid.php
+END

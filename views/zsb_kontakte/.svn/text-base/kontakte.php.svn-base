@@ -1,0 +1,34 @@
+<?php
+$headers = array(_("Name"), _("Typ"));
+$items = array();
+foreach ($ansprechpartner as $kontakt) {
+    $items[] = array(
+        'content' => array(
+            $kontakt->getAvatar()." ".$kontakt->getName(),
+            StgAnsprechpartner::getAnsprechpartnerTypName($kontakt['ansprechpartner_typ_id'])
+        ),
+        'url' => URLHelper::getLink("?", array('kontakt_id' => $kontakt->getId())),
+        'item' => $kontakt
+    );
+}
+$preformatted = true;
+if (PersonalRechte::isRoot() || PersonalRechte::isPamt() || PersonalRechte::isIamt()) {
+    $neu = URLHelper::getLink("?", array('kontakt_id' => "neu"));
+}
+?>
+<h1 style="text-align: center;"><?= _("Ansprechpartner") ?></h1>
+
+<select id="prefilter" onChange="jQuery('#table_filter').val(this.value).trigger('keyup');" style="display: block; margin: 3px; margin-left: auto; margin-right: auto;">
+    <option value=""><?= _("Typ auswählen") ?></option>
+</select>
+<script>
+    jQuery(function () {
+        jQuery('table.zsb_editable > tbody > tr > td:nth-child(2) ').each(function (index, value) {
+            if (jQuery('#prefilter > option[value=' + jQuery(value).text() + ']').length === 0) {
+                jQuery('#prefilter').append('<option value="' + jQuery(value).text() + '">' + jQuery(value).text() + '</option>');
+            }
+        });
+    });
+</script>
+
+<?= $this->render_partial("zsb/partials/editable.php", compact("headers", "items", "preformatted", "neu")) ?>

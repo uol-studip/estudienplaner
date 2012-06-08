@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers
+END
+zsb_fachkombination.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_fachkombination.php
+END
+zsb_datenfelder.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_datenfelder.php
+END
+zsb_kontakte.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_kontakte.php
+END
+zsb_verlaufsplan.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_verlaufsplan.php
+END
+zsb_controller.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_controller.php
+END
+zsb_personal.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_personal.php
+END
+application.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/application.php
+END
+zsb_ablaufplan.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_ablaufplan.php
+END
+zsb_bereiche.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_bereiche.php
+END
+config.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/config.php
+END
+zsb_studiengang.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_studiengang.php
+END
+zsb_dateien.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3286/Stud.IP-Plugins/eStudienplaner/trunk/controllers/zsb_dateien.php
+END

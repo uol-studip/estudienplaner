@@ -1,0 +1,7 @@
+<h1 style="text-align: center;"><?= _("Studiengänge") ?></h1>
+<?
+$headers = array(_("Fach"), _("Abschluss"));
+$items = $studiengaenge;
+$neu = PersonalRechte::isRoot() ? URLHelper::getLink($url, array("item_id" => "neu")) : null;
+?>
+<?= $this->render_partial("zsb/partials/editable.php", compact('headers', 'items', 'informationen', 'neu')) ?>
