@@ -17,7 +17,7 @@ if ($infobox) {
     $infobox['template'] = $GLOBALS['template_factory']->open('infobox/infobox_generic_content');
 
 ?>
-<div id="layout_infobox">
+<div id="layout_sidebar">
     <?= $this->render_partial($infobox['template'], $infobox) ?>
 </div>
 <div id="layout_content">
