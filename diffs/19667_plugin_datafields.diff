@@ -1,0 +1,11 @@
+Index: /trunk/lib/classes/DataFieldEntry.class.php
+===================================================================
+--- /trunk/lib/classes/DataFieldEntry.class.php	(revision 19666)
++++ /trunk/lib/classes/DataFieldEntry.class.php	(revision 19667)
+@@ -110,4 +110,6 @@
+                     $clause2 = "((object_class & " . (int) $object_class . ") OR object_class IS NULL)";
+                     break;
++                case 'plugin':
++                    $clause2 = '(object_class=' . (int) $object_class_hint . ')';
+             }
+             $query = "SELECT a.*, content ";
