@@ -37,7 +37,8 @@ $studiengang_suche =
     '.$studiengang_suche.'
 </select>
 </form>';
-foreach ($abschluesse as $abschluss) {
+foreach ($abschluesse as $abschluss_id) {
+    $abschluss = new Abschluss($abschluss_id);
     $abschluss_suche .= '<option value="'. htmlReady($abschluss->getId()).'" title="'.htmlReady($abschluss['name']).'"'.($abschluss->getId() === Request::get("abschluss_id") ? " selected" : "").'>'. htmlReady($abschluss['name']).'</option>';
 }
 $abschluss_suche = 

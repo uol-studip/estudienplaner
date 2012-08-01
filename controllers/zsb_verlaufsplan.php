@@ -46,7 +46,7 @@ class ZsbVerlaufsplanController extends ZsbController {
         
         //$this->studiengaenge = PersonalRechte::meineStudiengaenge(null, true);
         $this->studiengaenge = StgVerlaufsplan::findUsedStudiengaenge();
-        $this->abschluesse = Abschluss::findAllUsed();
+        $this->abschluesse = StgVerlaufsplan::findUsedAbschluesse();
     }
 
     public function verlaufsplan_details($item_id) {

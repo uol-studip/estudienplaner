@@ -15,10 +15,30 @@ class StgVerlaufsplan extends SORM {
         return $db->query(
             "SELECT DISTINCT studiengaenge.studiengang_id " .
             "FROM studiengaenge " .
-                "INNER JOIN stg_profil ON (stg_profil.fach_id = studiengaenge.studiengang_id) " .
-                "JOIN stg_fach_kombination ON (stg_fach_kombination.stg_profil_id = stg_profil.profil_id OR stg_fach_kombination.kombi_stg_profil_id = stg_profil.profil_id) " .
-                "INNER JOIN stg_verlaufsplan ON (stg_verlaufsplan.stg_profil_id = stg_profil.profil_id OR stg_verlaufsplan.fach_kombi_id = stg_fach_kombination.fach_kombi_id) " .
+                "INNER JOIN stg_profil AS p ON (p.fach_id = studiengaenge.studiengang_id) " .
+                "JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
+                    "OR k.kombi_stg_profil_id = p.profil_id " .
+                ") " .
+                "INNER JOIN stg_verlaufsplan AS v ON (v.stg_profil_id = p.profil_id " .
+                    "OR v.fach_kombi_id = k.fach_kombi_id " .
+                ") " .
             "ORDER BY studiengaenge.name ASC " .
+        "")->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
+
+    static public function findUsedAbschluesse() {
+        $db = DBManager::get();
+        return $db->query(
+            "SELECT DISTINCT abschluss.abschluss_id " .
+            "FROM abschluss " .
+                "INNER JOIN stg_profil AS p ON (p.abschluss_id = abschluss.abschluss_id) " .
+                "JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
+                    "OR k.kombi_stg_profil_id = p.profil_id " .
+                ") " .
+                "INNER JOIN stg_verlaufsplan AS v ON (v.stg_profil_id = p.profil_id " .
+                    "OR v.fach_kombi_id = k.fach_kombi_id " .
+                ") " .
+            "ORDER BY abschluss.name ASC " .
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
     }
     
