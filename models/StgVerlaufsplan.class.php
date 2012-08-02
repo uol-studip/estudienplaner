@@ -16,7 +16,7 @@ class StgVerlaufsplan extends SORM {
             "SELECT DISTINCT studiengaenge.studiengang_id " .
             "FROM studiengaenge " .
                 "INNER JOIN stg_profil AS p ON (p.fach_id = studiengaenge.studiengang_id) " .
-                "JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
+                "LEFT JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
                     "OR k.kombi_stg_profil_id = p.profil_id " .
                 ") " .
                 "INNER JOIN stg_verlaufsplan AS v ON (v.stg_profil_id = p.profil_id " .
@@ -32,7 +32,7 @@ class StgVerlaufsplan extends SORM {
             "SELECT DISTINCT abschluss.abschluss_id " .
             "FROM abschluss " .
                 "INNER JOIN stg_profil AS p ON (p.abschluss_id = abschluss.abschluss_id) " .
-                "JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
+                "LEFT JOIN stg_fach_kombination AS k ON (k.stg_profil_id = p.profil_id " .
                     "OR k.kombi_stg_profil_id = p.profil_id " .
                 ") " .
                 "INNER JOIN stg_verlaufsplan AS v ON (v.stg_profil_id = p.profil_id " .
