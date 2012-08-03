@@ -11,7 +11,7 @@
 
 //see also diffs/
 
-class InitPlugin extends DBMigration
+class AddPluginDatafields extends DBMigration
 {
 	function up(){
 		DBManager::get()->exec("
