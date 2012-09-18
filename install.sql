@@ -42,6 +42,7 @@ CREATE TABLE `stg_bereiche` (
   `sichtbar_iamt` tinyint(1) default NULL,
   `sichtbar_stuko` tinyint(1) default NULL,
   `sichtbar_stab` tinyint(1) default NULL,
+  `oeffentlich` tinyint(1) default NULL,
   PRIMARY KEY  (`bereichs_id`)
 );
 
