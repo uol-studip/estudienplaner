@@ -103,12 +103,13 @@ class ZsbDateienController extends ZsbController {
     	$this->render_nothing();
     }
     
-    public function download_file_action() {
-        $datei = new StgFile(Request::get("doku_id") !== 'neu' ? Request::get("doku_id") : null);
-        $datei->download(true);
+    public function download_file_action($id = null, $attachment = true) {
+        if ($id === null && Request::option('doku_id') !== 'neu') {
+            $id = Request::option('doku_id');
+        }
+        $datei = new StgFile($id);
+        $datei->download($attachment);
         $this->render_nothing();
     }
-    
-    
 }
 
