@@ -62,6 +62,9 @@ class ZsbDateienController extends ZsbController {
         if (Request::get("absenden_x")) {
             $this->datei['name'] = Request::get("name");
             $this->datei['quick_link'] = Request::get("quick_link");
+            if ($this->datei['quick_link']) {
+                
+            }
             $this->datei['sichtbar'] = Request::get("sichtbar") ? "1" : "0";
             if (Request::get("doku_typ_id")) {
                 $this->datei['doku_typ_id'] = Request::get("doku_typ_id");

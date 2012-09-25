@@ -105,7 +105,8 @@ class StgFile extends DBFile {
             "FROM stg_bereiche " .
                 "INNER JOIN stg_doku_typ_bereich_zuord ON (stg_bereiche.bereichs_id = stg_doku_typ_bereich_zuord.stg_bereichs_id) " .
             "WHERE stg_doku_typ_bereich_zuord.stg_doku_typ_id = ".$db->quote($this['doku_typ_id'])." " .
-                "AND stg_bereiche.oeffentlich = '1' ".
+                "AND ( stg_bereiche.oeffentlich = '1' ".
+                    "OR stg_bereiche.oeffentlich IS NULL ) " .
             "GROUP BY stg_bereiche.bereichs_id " .
         "")->fetch(PDO::FETCH_COLUMN, 0);
     }

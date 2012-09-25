@@ -51,13 +51,16 @@
                 <? endif ?>
             </li>
             <li>
-                <label for="quick_link"><?= _("URL") ?></label>
-                <input type="text" id="quick_link" name="quick_link" value="<?= htmlReady($datei['quick_link']) ?>">
-            </li>
-            <li>
                 <label for="jahr"><?= _("Jahr") ?></label>
                 <input type="text" maxlength="4" id="jahr" name="jahr" value="<?= htmlReady($datei['jahr']) ?>">
             </li>
+            <? if ($datei['quick_link'] || $datei->isNew()) : ?>
+            <li>
+                <label for="quick_link"><?= _("URL") ?></label>
+                <input type="text" id="quick_link" name="quick_link" value="<?= htmlReady($datei['quick_link']) ?>">
+            </li>
+            <? endif ?>
+            <? if (!$datei['quick_link'] || $datei->isNew()) : ?>
             <li>
                 <? if ($datei['filename']) : ?>
                 <a href="<?= URLHelper::getLink($download_action, array('doku_id' => $datei->getId())) ?>">
@@ -92,6 +95,7 @@
                     });
                 </script>
             </li>
+            <? endif ?>
             <li>
                 <label for="tags"><?= _("Schlagwörter") ?></label>
                 <textarea id="tags" name="tags" class="clean"><?= htmlReady(implode(" ", $datei->getTags())) ?></textarea>
