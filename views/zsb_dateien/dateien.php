@@ -1,5 +1,5 @@
 <?php
-$headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Letzte Änderung"), _("Größe in kB"));
+$headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
 $items = array();
 foreach ($dateien as $datei) {
     $items[] = array(
@@ -7,7 +7,7 @@ foreach ($dateien as $datei) {
             $datei['name'],
             $datei['filename'],
             StgFile::getDokuTypName($datei['doku_typ_id']),
-            $datei['chdate'],
+            date("j.n.Y", strtotime($datei['chdate'])),
             $datei['filesize'] ? round($datei['filesize'] / 1024, 2) : "0"
         ),
         'url' => URLHelper::getLink("?", array('doku_id' => $datei->getId())),

@@ -70,7 +70,7 @@
                 <div id="text-failed" style="display:none;"><?= _("Fehler!") ?></div>
                 <div id="text-cancel" style="display:none;"><?= _("abbrechen") ?></div>
                 <!-- Und hier kommt der Uploader hin -->
-                <div id="file-uploader">       
+                <div id="file-uploader">
                     <noscript>
                         <p>Please enable JavaScript to use file uploader.</p>
                         <!-- oder iframe für non-JS-Uploader -->
@@ -155,7 +155,7 @@ if (count($dokumente)) {
     }
     $nav_select .= "</select></form>";
     if ($lastone) {
-        $zurueck = '<a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('doku_id' => $lastone->getId())).'" title="'._("zurück").'"></a>';
+        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('doku_id' => $lastone->getId())).'" title="'._("zurück").'"></a></div>';
     }
     if ($nextone) {
         $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('doku_id' => $nextone->getId())).'" title="'._("vorwärts").'"></a></div>';
@@ -184,7 +184,7 @@ $infobox = array(
             ),
             array(
                 "icon" => "",
-                "text" => $zurueck." ".$vor
+                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('doku_id' => null, 'typ_id' => Request::get('typ_id'))).'" title="'._("Zur Dokumentübersicht").'"></a> '.$vor.'</div>'
             )
         )
     ) : null),
