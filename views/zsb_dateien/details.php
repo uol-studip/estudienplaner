@@ -144,7 +144,7 @@
 if (count($dokumente)) {
     $nav_select = '<form action="'.URLHelper::getLink("?").'" method="GET">';
     $nav_select .= '<input type="hidden" name="typ_id" value="'.htmlReady(Request::option("typ_id")).'">';
-    $nav_select .= '<select class="text-top" aria-label="'._("Springen Sie zu einem anderen Ansprechpartner.").'" name="doku_id" onkeydown="if (event.keyCode === 13) { jQuery(this).closest('."'form'".')[0].submit(); }" onclick="jQuery(this).closest('."'form'".')[0].submit();" size="'.(count($dokumente) < 8 ? count($dokumente) : 8).'" style="max-width: 200px; cursor: pointer;">';
+    $nav_select .= '<select class="text-top" aria-label="'._("Springen Sie zu einem anderen Ansprechpartner.").'" name="doku_id" onchange="jQuery(this).closest('."'form'".')[0].submit();" style="max-width: 200px; cursor: pointer;">';
     $lastone = $nextone = null;
     $one = false;
     foreach ($dokumente as $dokument) {

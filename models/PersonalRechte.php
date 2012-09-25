@@ -17,6 +17,7 @@ class PersonalRechte {
     protected static $usersStgProfile = array();
     protected static $usersModule = array();
     protected static $userIsStab = array();
+    protected static $userVersteckteBereiche = array();
     
     static public function studiengangRecht($studiengang_id, $user_id = null) {
         global $user, $perm;
