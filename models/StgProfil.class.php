@@ -305,7 +305,7 @@ class StgProfil extends SORM {
             return;
         }
         $db = DBManager::get();
-        $db->query("INSERT IGNORE INTO stg_doku_zuord " .
+        return $db->exec("INSERT IGNORE INTO stg_doku_zuord " .
                     "SET doku_id = ".$db->quote($doku_id).", " .
                     "stg_profil_id = ".$db->quote($this->getId()));
     }

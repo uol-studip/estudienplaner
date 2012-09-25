@@ -127,7 +127,11 @@ class ZsbStudiengangController extends ZSBController {
                 $dokument->store();
                 $dokument->setTags(Request::get("neues_dokument_tags"));
                 $this->profil->addDoku($dokument->getId());
-                $this->flash_now("success", _("Neues Dokument angelegt und hinzugefügt"));
+                if ($dokument->isPublic()) {
+                    $this->flash_now("success", _("Neues Dokument angelegt und hinzugefügt"));
+                } else {
+                    $this->flash_now("success", _("Neues internes Dokument angelegt und hinzugefügt. Es kann unter Akkreditierung gefunden werden."));
+                }
             }
             if (Request::get("neuer_ansprechpartner")) {
                 $kontakt = new StgAnsprechpartner();
