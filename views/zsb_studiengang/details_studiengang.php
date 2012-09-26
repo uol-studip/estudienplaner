@@ -607,7 +607,7 @@ if (count($profile)) {
     $nav_select = '<form action="'.URLHelper::getLink("?").'" method="GET">';
     $nav_select .= '<input type="hidden" name="studiengang_id" value="'.htmlReady(Request::option("studiengang_id")).'">';
     $nav_select .= '<input type="hidden" name="abschluss_id" value="'.htmlReady(Request::option("abschluss_id")).'">';
-    $nav_select .= '<select class="text-top" aria-label="'._("Springen Sie zu einem anderen Studiengangsprofil.").'" name="item_id" onkeydown="if (event.keyCode === 13) { jQuery(this).closest('."'form'".')[0].submit(); }" onclick="jQuery(this).closest('."'form'".')[0].submit();" size="'.(count($profile) < 8 ? count($profile) : 8).'" style="max-width: 200px; cursor: pointer;">';
+    $nav_select .= '<select class="text-top" aria-label="'._("Springen Sie zu einem anderen Studiengangsprofil.").'" name="item_id" onchange="jQuery(this).closest('."'form'".')[0].submit();" style="max-width: 200px; cursor: pointer;">';
     $lastone = $nextone = null;
     $one = false;
     foreach ($profile as $profil) {
