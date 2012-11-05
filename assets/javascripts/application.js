@@ -125,9 +125,10 @@ STUDIP.zsb = {
         STUDIP.zsb.addToList(id, name, "#stg_dokumente_profil", "doku_id", url, false);
     },
     profilAddDokumentToStudiengaenge: function (id, name) {
-        var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_dateien/change_datei_profil?";
+        /*var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_dateien/change_datei_profil?";
         url = url + "profil_id=" + jQuery("#profil_id").val() + "&doku_id=" + id;
-        STUDIP.zsb.addToList(id, name, "#dateien", "doku_id", url, true);
+        STUDIP.zsb.addToList(id, name, "#dateien", "doku_id", url, true);*/
+        location.href = STUDIP.URLHelper.getURL(location.href, { 'addDocument': id, 'delete_x': 0});
     },
     
     addAufbaustudiengang: function (id, name) {
@@ -188,7 +189,7 @@ STUDIP.zsb = {
         var type = id.substr(0, id.lastIndexOf("_"));
         id = id.substr(id.lastIndexOf("_") + 1);
         jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsächlich löschen?<br>' +
-                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type}) + "'" + '">löschen</div> ' +
+                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type, 'addDocument': 0}) + "'" + '">löschen</div> ' +
                         '<div class="studip_button" onClick="' + "jQuery(this).parent().parent().find('.ui-dialog-titlebar-close').trigger('click');" + '">abbrechen</div></div>').dialog({
             title: "Sicherheitsabfrage",
             hide: "fade",
@@ -264,7 +265,7 @@ jQuery(function () {
         collapsible: true,
         autoHeight: false
     });
-    jQuery('.accordion textarea:not(.clean)').addToolbar(STUDIP.Markup.buttonSet);
+    jQuery('.accordion textarea:not(.clean)').addToolbar(STUDIP.Markup ? STUDIP.Markup.buttonSet : STUDIP.Toolbar.buttonset);
     
     jQuery("ul.sortable#ansprechpartner").sortable({
         axis: "y",

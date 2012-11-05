@@ -305,7 +305,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </a>
         </div>
     </div>
-    <h2><?= _("Verknüpfte öffentliche Dokumente") ?></h2>
+    <h2 id="documents"><?= _("Verknüpfte öffentliche Dokumente") ?></h2>
     <div>
         <?
         $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));

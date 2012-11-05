@@ -92,6 +92,10 @@ class ZsbStudiengangController extends ZSBController {
             $this->profil->deleteDoku(Request::get("item_id"));
             $this->flash_now("success", _("Dokumentenzuordnung gelöscht"));
         }
+        if (Request::get("addDocument")) {
+            $this->profil->addDoku(Request::get("addDocument"));
+            $this->flash_now("success", _("Dokumentenzuordnung hinzugefügt"));
+        }
         //Profil ändern, falls Informationen gesendet worden sind:
         if (Request::submitted("absenden")) {
             if (Request::get("studiengang_id")) {
