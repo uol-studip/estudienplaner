@@ -3,10 +3,11 @@
 $headers = array(_("Studiengang"), _("Abschluss"));
 $items = $profile;
 $neu = PersonalRechte::isRoot() ? URLHelper::getLink($url, array("item_id" => "neu")) : null;
+$type = "studienprofil";
 ?>
 
 <? if (count($items)) : ?>
-<?= $this->render_partial("zsb/partials/editable.php", compact('headers', 'items', 'informationen', 'neu')) ?>
+<?= $this->render_partial("zsb/partials/editable.php", compact('headers', 'items', 'informationen', 'neu', 'type')) ?>
 <? else : ?>
 <?= MessageBox::info(_("Bitte wählen Sie in der Infobox einen Filter aus.")) ?>
 <? endif ?>

@@ -35,7 +35,7 @@ class eStudienplaner extends StudIPPlugin implements SystemPlugin {
         //Sichten für zsb_zentral, fsb, stuko, p_amt und i_amt:
         if (PersonalRechte::hasPermission()) {
             $params = array('abschluss_id' => 0, 'studiengang_id' => 0, 'typ_id' => 0);
-            $navigation = new AutoNavigation(_("e-Studienplaner (Backend)"), PluginEngine::getURL($this, $params, 'zsb_studiengang/studiengaenge'));
+            $navigation = new AutoNavigation(_("eStudiengangsinformationssystem (eSIS)"), PluginEngine::getURL($this, $params, 'zsb_studiengang/studiengaenge'));
             Navigation::addItem('/start/zsb', $navigation);
             Navigation::addItem('/zsb', $navigation);
             
@@ -87,17 +87,12 @@ class eStudienplaner extends StudIPPlugin implements SystemPlugin {
                 $navigation = new AutoNavigation(_("Datenfelder"), PluginEngine::getURL($this, $params, 'zsb_datenfelder/datenfelder'));
                 Navigation::addItem('/zsb/verwaltung/datenfelder', $navigation);
             }
-            
-            if (Navigation::getItem("/zsb")->isActive()) {
-                PageLayout::setTitle($this->getDisplayTitle());
-            }
         }
-        
         
     }
 
     function getDisplayTitle() {
-        return _("eStudienplaner");
+        return _("eStudiengangsinformationssystem (eSIS)");
     }
 
     function restoreConfig() {

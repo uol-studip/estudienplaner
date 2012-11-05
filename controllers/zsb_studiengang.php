@@ -28,14 +28,14 @@ class ZsbStudiengangController extends ZSBController {
     }
 
     public function studiengaenge_action() {
-        if (Request::get("delete_x") && Request::get("item_id")) {
+        if (Request::get("delete_x") && Request::get("item_id") && Request::get("type") === "studienprofil") {
             $profil = new StgProfil(Request::get("item_id"));
             if ($profil->delete()) {
                 $this->flash_now("success", _("Studiengangsprofil gelöscht"));
             } else {
                 $this->flash_now("error", _("Konnte Studiengang nicht löschen"));
             }
-        } elseif (Request::get("item_id")) {
+        } elseif (Request::get("studienprofil_id")) {
             $this->studiengang_details();
             return;
         }
@@ -50,7 +50,7 @@ class ZsbStudiengangController extends ZSBController {
                         $profil->getStudiengang(),
                         $profil->getAbschluss()
                     ),
-                    'url' => $this->link_for("zsb_studiengang/studiengaenge", array('item_id' => $profil->getId())),
+                    'url' => $this->link_for("zsb_studiengang/studiengaenge", array('studienprofil_id' => $profil->getId())),
                     'item' => $profil
                 );
             }
@@ -61,6 +61,7 @@ class ZsbStudiengangController extends ZSBController {
      * Hiernach wird die Action nicht mehr gerendert.
      */
     public function studiengang_details() {
+
         //Sprachen rausfinden:
         $this->sprachen = StgProfil::getPossibleLanguages();
         //Abschlüsse suchen:
@@ -83,9 +84,13 @@ class ZsbStudiengangController extends ZSBController {
             return;
         }
         
-        $this->profil = new StgProfil(Request::get("item_id") !== "neu" ? Request::get("item_id") : null);
+        $this->profil = new StgProfil(Request::get("studienprofil_id") !== "neu" ? Request::get("studienprofil_id") : null);
         if (!$this->profil->hasPermission()) {
             throw new AccessDeniedException(_("Sie dürfen diesen Studiengang nicht bearbeiten"));
+        }
+        if (Request::get("delete_x") && Request::get("item_id") && Request::get("type") === "dokument") {
+            $this->profil->deleteDoku(Request::get("item_id"));
+            $this->flash_now("success", _("Dokumentenzuordnung gelöscht"));
         }
         //Profil ändern, falls Informationen gesendet worden sind:
         if (Request::submitted("absenden")) {
@@ -192,7 +197,7 @@ class ZsbStudiengangController extends ZSBController {
                     "SELECT stg_dokumente.doku_id, CONCAT(stg_dokumente.name, ' - ', stg_dokumente.filename) " .
                     "FROM stg_dokumente " .
                     "WHERE CONCAT(stg_dokumente.name, ' - ', stg_dokumente.filename) LIKE :input " .
-                "", _("Dokument hinzufügen"));
+                "", _("Dokument suchen und hinzufügen"));
         } elseif (PersonalRechte::isPamt() || PersonalRechte::isIamt()) {
             //P-Amt und I-Amt
             return new SQLSearch(
@@ -211,7 +216,7 @@ class ZsbStudiengangController extends ZSBController {
                             "(roles.rolename = 'stg_p-amt' AND stg_bereiche.sichtbar_pamt = '1') " .
                             "OR (roles.rolename = 'stg_i-amt' AND stg_bereiche.sichtbar_iamt = '1') " .
                         ") " .
-                "", _("Dokument hinzufügen"));
+                "", _("Dokument suchen und hinzufügen"));
         } else {
             //FSB, StuKo
             return new SQLSearch(
@@ -225,7 +230,7 @@ class ZsbStudiengangController extends ZSBController {
                         "AND (" .
                             "(stg_fsb_rollen.rollen_typ = 'FSB' AND stg_bereiche.sichtbar_fsb = '1') " .
                         ") " .
-                "", _("Dokument hinzufügen"));
+                "", _("Dokument suchen und hinzufügen"));
         }
     }
 

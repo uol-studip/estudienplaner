@@ -184,8 +184,11 @@ STUDIP.zsb = {
 
     deleteItem: function (event, ui) {
         event.stopImmediatePropagation();
+        var id = jQuery(this).parents("tr[id]")[0].id;
+        var type = id.substr(0, id.lastIndexOf("_"));
+        id = id.substr(id.lastIndexOf("_") + 1);
         jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsächlich löschen?<br>' +
-                        '<div class="studip_button" onClick="' + "location.href='?delete_x=true&item_id=" + jQuery(this).parents("tr[id]")[0].id + "'" + '">löschen</div> ' +
+                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type}) + "'" + '">löschen</div> ' +
                         '<div class="studip_button" onClick="' + "jQuery(this).parent().parent().find('.ui-dialog-titlebar-close').trigger('click');" + '">abbrechen</div></div>').dialog({
             title: "Sicherheitsabfrage",
             hide: "fade",

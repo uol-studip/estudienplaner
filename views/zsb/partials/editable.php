@@ -19,7 +19,7 @@ $preformatted || $preformatted = false;
         </tr>
     <? else : ?>
     <? foreach($items as $key => $item_attributes) : ?>
-        <tr id="<?= $item_attributes['item'] ? $item_attributes['item']->getId() : "" ?>" url="<?= $item_attributes['url'] ?>" class="firstrow">
+        <tr id="<?= $type ?>_<?= $item_attributes['item'] ? $item_attributes['item']->getId() : "" ?>" url="<?= $item_attributes['url'] ?>" class="firstrow">
         <? foreach ($item_attributes['content'] as $attributeKey => $attribute) : ?>
             <td><?= ($attribute !== null && $attribute !== '') ? ($preformatted ? $attribute : htmlReady($attribute)) : "-" ?></td>
         <? endforeach ?>
@@ -35,11 +35,18 @@ $preformatted || $preformatted = false;
     <? endforeach ?>
     <? endif ?>
     </tbody>
-    <? if ($neu) : ?>
     <tfoot>
+        <? if ($neu) : ?>
         <tr>
-            <td>
+            <td colspan="<?= count($headers)+2 ?>">
                 <a href="<?= $neu ?>" title="<?= _("Neu hinzufügen") ?>" class="icon_plus"></a>
+            </td>
+        </tr>
+        <? endif ?>
+        <? if ($footer_controls) : ?>
+        <tr>
+            <td colspan="<?= count($headers)+2 ?>">
+                <?= $footer_controls ?>
             </td>
         </tr>
     </tfoot>

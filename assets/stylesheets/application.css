@@ -95,12 +95,14 @@ table.zsb_editable > thead > tr > th {
     padding-right: 20px;
 }
 table.zsb_editable > thead > tr > th.headerSortUp {
-    background: url('../../../../../assets/images/icons/16/yellow/arr_1up.png') no-repeat right 3px,
-                url('../../../../../assets/images/steelgraudunkel.gif');
+    background-image: url('../../../../../assets/images/icons/16/yellow/arr_1up.png');
+    background-repeat: no-repeat;
+    background-position: right 3px;
 }
 table.zsb_editable > thead > tr > th.headerSortDown {
-    background: url('../../../../../assets/images/icons/16/yellow/arr_1down.png') no-repeat right 3px,
-                url('../../../../../assets/images/steelgraudunkel.gif');
+    background-image: url('../../../../../assets/images/icons/16/yellow/arr_1down.png');
+    background-repeat: no-repeat;
+    background-position: right 3px;
 }
 
 

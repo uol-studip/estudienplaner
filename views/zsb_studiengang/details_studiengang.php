@@ -305,35 +305,38 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </a>
         </div>
     </div>
-    <h2><?= _("Verknüpfte Dokumente") ?></h2>
+    <h2><?= _("Verknüpfte öffentliche Dokumente") ?></h2>
     <div>
-        <div style="float:left; width: 45%;">
-            <?= QuickSearch::get("doku_id", $dokumentensuche)
+        <?
+        $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
+        $items = array();
+        $footer_controls = '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
+        $footer_controls .= QuickSearch::get("doku_id", $dokumentensuche)
+                        ->setInputStyle("width: 49%;")
                         ->noSelectbox()
                         ->fireJSFunctionOnSelect("STUDIP.zsb.profilAddDokumentToStudiengaenge")
-                        ->render() ?>
-            <ul class="sortable" id="dateien">
-                <? foreach ($dateien as $key => $datei) : ?>
-                <? if ($datei->isPublic()) : ?>
-                <li id="doku_id_<?= $datei->getId() ?>">
-                    <? /*<a class="icon_file" href="<?= URLHelper::getLink($datei_url, array('doku_id' => $datei->getId())) ?>"></a>*/ ?>
-                    <?= htmlReady($datei['name']." (".StgFile::getDokuTypName($datei['doku_typ_id']).")") ?>
-                    <? if (Personalrechte::isRoot() || in_array($datei->getId(), Personalrechte::meineDateien())) : ?>
-                        <a class="icon_trash"></a>
-                        <a class="icon_edit"></a>
-                    <? else : ?>
-                        <? Assets::img("icons/16/grey/trash.png") ?>
-                        <? Assets::img("icons/16/grey/edit.png") ?>
-                    <? endif ?>
-                </li>
-                <? else : ?>
-                    <? $versteckteDokumente = true ?>
-                <? endif ?>
-                <? endforeach ?>
-            </ul>
-            <p class="info">
-                <?= _("Ziehen Sie die Dokumente, um die interne Reihenfolge zu bestimmen. Diese Änderung wird sofort wirksam, auch wenn Sie nicht auf <i>absenden</i> klicken.") ?>
-            </p>
+                        ->render();
+        foreach ($dateien as $datei) {
+            if ($datei->isPublic()) {
+                $items[] = array(
+                    'content' => array(
+                        $datei['name'],
+                        $datei['filename'],
+                        StgFile::getDokuTypName($datei['doku_typ_id']),
+                        date("j.n.Y", strtotime($datei['chdate'])),
+                        $datei['filesize'] ? round($datei['filesize'] / 1024, 2) : "0"
+                    ),
+                    'url' => URLHelper::getLink("plugins.php/estudienplaner/zsb_dateien/dateien?", array('doku_id' => $datei->getId())),
+                    'item' => $datei
+                );
+            }
+        }
+        $preformatted = true;
+        $type = "dokument";
+        ?>
+        <?= $this->render_partial("zsb/partials/editable.php", compact("headers", "items", "preformatted", "footer_controls", "type")) ?>
+
+        <div style="float:left; width: 45%;">
             <div id="dokument_delete_question" style="display: none;">
                 <?= _("Möchten Sie wirklich die Verbindung zu dem Dokument löschen?") ?>
                 <input type="hidden" id="dokument_delete_question_id">
@@ -341,69 +344,6 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <a href="" onClick="STUDIP.zsb.deleteDokumentFromProfil(); return false;"><?= makebutton("ok") ?></a>
                 <a href="" onClick="jQuery('#dokument_delete_question').dialog('close'); return false;"><?= makebutton("abbrechen") ?></a>
             </div>
-        </div>
-        <div style="float:left; width: 45%; margin-left: 5px; border: thin solid #aaaaaa; -moz-border-radius: 10px; padding: 5px;">
-            <label for="neues_dokument"><?= _("Direkt neues Dokument hochladen und hinzufügen") ?></label>
-            <input type="checkbox" id="neues_dokument" name="neues_dokument" onClick="jQuery('#neues_dokument_daten').toggle('slide');">
-            <table id="neues_dokument_daten" style="display: none;">
-                <tbody>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_name"><?= _("Name") ?></label>
-                        </td>
-                        <td>
-                            <input type="text" name="neues_dokument_name" id="neues_dokument_name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_sichtbar"><?= _("Sichtbar") ?></label>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="neues_dokument_sichtbar" id="neues_dokument_sichtbar" checked>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_jahr"><?= _("Jahr") ?></label>
-                        </td>
-                        <td>
-                            <input type="input" name="neues_dokument_jahr" id="neues_dokument_jahr">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_doku_typ_id"><?= _("Dokumententyp") ?></label>
-                        </td>
-                        <td>
-                            <select name="neues_dokument_doku_typ_id" id="neues_dokument_doku_typ_id">
-                                <? foreach (StgFile::getTypen() as $typ) : ?>
-                                <option value="<?= htmlReady($typ['doku_typ_id']) ?>"><?= htmlReady($typ['name']) ?></option>
-                                <? endforeach ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_quick_link"><?= _("Dokument") ?></label>
-                        </td>
-                        <td>
-                            <?= _("URL") ?><br>
-                            <input type="text" name="neues_dokument_quick_link" id="neues_dokument_quick_link"><br>
-                            <?= _("oder hochladen") ?><br>
-                            <input type="file" name="qqfile"><!-- muss qqfile heißen, damit es angenommen wird -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="neues_dokument_tags"><?= _("Schlagwörter") ?></label>
-                        </td>
-                        <td>
-                            <textarea name="neues_dokument_tags" id="neues_dokument_tags" class="clean" style="width: 270px; height: 70px;"></textarea>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
     <? endif ?>
@@ -579,6 +519,76 @@ $abschlussfeld = $abschlusssuchfeld->render();
     <? endif ?>
 </div>
 </form>
+
+<div id="neues_dokument_window" style="display: none;">
+    <form action="?" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="profil_id" name="item_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
+        <input type="hidden" name="neues_dokument" value="1">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_name"><?= _("Name") ?></label>
+                    </td>
+                    <td>
+                        <input type="text" name="neues_dokument_name" id="neues_dokument_name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_sichtbar"><?= _("Sichtbar") ?></label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="neues_dokument_sichtbar" id="neues_dokument_sichtbar" checked>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_jahr"><?= _("Jahr") ?></label>
+                    </td>
+                    <td>
+                        <input type="input" name="neues_dokument_jahr" id="neues_dokument_jahr">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_doku_typ_id"><?= _("Dokumententyp") ?></label>
+                    </td>
+                    <td>
+                        <select name="neues_dokument_doku_typ_id" id="neues_dokument_doku_typ_id">
+                            <? foreach (StgFile::getTypen() as $typ) : ?>
+                            <option value="<?= htmlReady($typ['doku_typ_id']) ?>"><?= htmlReady($typ['name']) ?></option>
+                            <? endforeach ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_quick_link"><?= _("Dokument") ?></label>
+                    </td>
+                    <td>
+                        <?= _("URL") ?><br>
+                        <input type="text" name="neues_dokument_quick_link" id="neues_dokument_quick_link"><br>
+                        <?= _("oder hochladen") ?><br>
+                        <input type="file" name="qqfile"><!-- muss qqfile heißen, damit es angenommen wird -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="neues_dokument_tags"><?= _("Schlagwörter") ?></label>
+                    </td>
+                    <td>
+                        <textarea name="neues_dokument_tags" id="neues_dokument_tags" class="clean" style="width: 270px; height: 70px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><?= makebutton("absenden", "input") ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
 
 <? 
 foreach ($studiengaenge as $studiengang_id) {
