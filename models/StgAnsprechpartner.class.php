@@ -9,10 +9,10 @@ require_once dirname(__file__)."/PersonalRechte.php";
 
 class StgAnsprechpartner extends SORM {
     protected $db_table = 'stg_ansprechpartner';
-    
+
     static protected $infos = array();
     static protected $publicTypes = array();
-    
+
     static public function getByStgProfil($profil_id) {
         $db = DBManager::get();
         $ansprechpartner = $db->query(
@@ -20,7 +20,7 @@ class StgAnsprechpartner extends SORM {
             "FROM stg_ansprech_zuord " .
                 "INNER JOIN stg_ansprechpartner ON (stg_ansprech_zuord.stg_ansprechpartner_id = stg_ansprechpartner.ansprechpartner_id) " .
             "WHERE stg_ansprech_zuord.stg_profil_id = ".$db->quote($profil_id)." " .
-            "ORDER BY stg_ansprech_zuord.position DESC " .
+            "ORDER BY stg_ansprech_zuord.position ASC" .
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
         if (!is_array($ansprechpartner)) {
             return false;
@@ -96,16 +96,16 @@ class StgAnsprechpartner extends SORM {
             "")->fetchAll(PDO::FETCH_ASSOC);
         }
     }
-    
+
     static public function get($ansprechpartner_id) {
         return new StgAnsprechpartner($ansprechpartner_id);
     }
-    
+
     public function __construct($ansprechpartner_id = null) {
         //self::expireTableScheme();
         parent::__construct($ansprechpartner_id);
     }
-    
+
     public function getStgProfile() {
         $db = DBManager::get();
         return $db->query("SELECT stg_profil_id " .
@@ -113,7 +113,7 @@ class StgAnsprechpartner extends SORM {
                           "WHERE stg_ansprechpartner_id = ".$db->quote($this->getId())." "
         )->fetchAll(PDO::FETCH_COLUMN, 0);
     }
-    
+
     public function getTyp() {
         $db = DBManager::get();
         return $db->query("SELECT name " .
@@ -121,7 +121,7 @@ class StgAnsprechpartner extends SORM {
                           "WHERE ansprechpartner_typ_id = ".$db->quote($this['ansprechpartner_typ_id'])." "
         )->fetch(PDO::FETCH_COLUMN, 0);
     }
-    
+
     public function isPublic() {
         if (isset(self::$publicTypes[$this['doku_typ_id']])) {
             self::$publicTypes[$this['ansprechpartner_typ_id']];
@@ -136,7 +136,7 @@ class StgAnsprechpartner extends SORM {
             "GROUP BY stg_bereiche.bereichs_id " .
         "")->fetch(PDO::FETCH_COLUMN, 0);
     }
-    
+
     public function getAvatar($size = Avatar::SMALL) {
         if ($this['range_typ'] === "institute") {
             return InstituteAvatar::getAvatar($this['range_id'])->getImageTag($size);
@@ -146,7 +146,7 @@ class StgAnsprechpartner extends SORM {
             return "";
         }
     }
-    
+
     /**
      * the homepage within Stud.IP either of the user or of the institute or handwritten
      */
@@ -160,18 +160,18 @@ class StgAnsprechpartner extends SORM {
             return $this['freitext_homepage'];
         }
     }
-    
+
     public function getName() {
         if ($this['range_typ'] === "institute") {
             $useless_array = get_object_name($this['range_id'], "inst");
-        	return $useless_array['name'];
+            return $useless_array['name'];
         } elseif ($this['range_typ'] === "auth_user_md5") {
             return get_fullname($this['range_id']);
         } else {
             return $this['freitext_name'];
         }
     }
-    
+
     public function getRangeTyp() {
         $map = array(
             'auth_user_md5' => _("Nutzer"),
@@ -183,7 +183,7 @@ class StgAnsprechpartner extends SORM {
             return _("Externer Ansprechpartner");
         }
     }
-    
+
     public function getEmail() {
         $db = DBManager::get();
         if ($this['range_typ'] === "institute") {
@@ -194,7 +194,7 @@ class StgAnsprechpartner extends SORM {
             return $this['freitext_mail'];
         }
     }
-    
+
     public function getTelefon() {
         $db = DBManager::get();
         if ($this['range_typ'] === "institute") {
@@ -205,7 +205,7 @@ class StgAnsprechpartner extends SORM {
             return $this['freitext_telefon'];
         }
     }
-    
+
     public function getStudiengaenge() {
         $db = DBManager::get();
         $studiengaenge = $db->query(
@@ -216,7 +216,7 @@ class StgAnsprechpartner extends SORM {
         }
         return $studiengaenge;
     }
-    
+
     public function setStudiengaenge($profile) {
         $db = DBManager::get();
         $studiengaenge = $db->query(
@@ -232,7 +232,7 @@ class StgAnsprechpartner extends SORM {
     }
 
     public function addToProfil() {
-        
+
     }
 
     public function delete() {
