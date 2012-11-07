@@ -20,7 +20,7 @@ class StgAnsprechpartner extends SORM {
             "FROM stg_ansprech_zuord " .
                 "INNER JOIN stg_ansprechpartner ON (stg_ansprech_zuord.stg_ansprechpartner_id = stg_ansprechpartner.ansprechpartner_id) " .
             "WHERE stg_ansprech_zuord.stg_profil_id = ".$db->quote($profil_id)." " .
-            "ORDER BY stg_ansprech_zuord.position ASC" .
+            "ORDER BY stg_ansprech_zuord.position > 0 DESC, stg_ansprech_zuord.position ASC" .
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
         if (!is_array($ansprechpartner)) {
             return false;
