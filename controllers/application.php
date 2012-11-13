@@ -13,7 +13,11 @@ class ApplicationController extends Trails_Controller{
         $this->current_action = $action;
         $this->flash = Trails_Flash::instance();
         $this->standard_templates = $GLOBALS['STUDIP_BASE_PATH'] . '/templates/';
-        $this->set_layout('layout.php');
+        if (version_compare($GLOBALS['SOFTWARE_VERSION'], "2.3.99", ">")) {
+            $this->set_layout($GLOBALS['template_factory']->open("layouts/base"));
+        } else {
+            $this->set_layout('layout.php');
+        }
         PageLayout::setTitle($this->plugin->getDisplayTitle());
 
         $this->assets_url = $this->plugin->getPluginUrl(). '/assets/';

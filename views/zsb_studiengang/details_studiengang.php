@@ -621,21 +621,21 @@ if (count($profile)) {
     $lastone = $nextone = null;
     $one = false;
     foreach ($profile as $profil) {
-        $nav_select .= '<option value="'.$profil->getId().'"'.($profil->getId() === Request::get("item_id") ? " selected" : "").'>'.htmlReady(StgProfil::getName($profil->getId())).'</option>';
+        $nav_select .= '<option value="'.$profil->getId().'"'.($profil->getId() === Request::get("studienprofil_id") ? " selected" : "").'>'.htmlReady(StgProfil::getName($profil->getId())).'</option>';
         if ($profil->getId() !== Request::get("item_id") && $lastone !== null && $nextone === null) {
             $nextone = $profil;
         }
-        if ($profil->getId() === Request::get("item_id")) {
+        if ($profil->getId() === Request::get("studienprofil_id")) {
             $lastone = $one;
         }
         $one = $profil;
     }
     $nav_select .= "</select></form>";
     if ($lastone) {
-        $zurueck = '<a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('item_id' => $lastone->getId())).'" title="'._("zurück").'"></a>';
+        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('studienprofil_id' => $lastone->getId())).'" title="'._("zurück").'"></a></div>';
     }
     if ($nextone) {
-        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('item_id' => $nextone->getId())).'" title="'._("vorwärts").'"></a></div>';
+        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('studienprofil_id' => $nextone->getId())).'" title="'._("vorwärts").'"></a></div>';
     }
 }
 $infobox = array(
@@ -648,7 +648,7 @@ $infobox = array(
             ),
             array(
                 "icon" => "",
-                "text" => $zurueck." ".$vor
+                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('studiengang_id' => Request::get('studiengang_id'), 'abschluss_id' => Request::get('abschluss_id'))).'" title="'._("Zur Profilübersicht").'"></a> '.$vor.'</div>'
             )
         )
     ) : null),
