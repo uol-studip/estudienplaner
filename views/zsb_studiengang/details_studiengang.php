@@ -12,7 +12,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
 ?>
 <form action="?" method="post" enctype="multipart/form-data">
 <?= add_safely_security_token() ?>
-<input type="hidden" id="profil_id" name="item_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
+<input type="hidden" id="profil_id" name="studienprofil_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
 <h2 style="text-align: center;">
 <? if ($profil) : ?>
 <?= $profil->getStudiengang()." ".$profil->getAbschluss() ?>
