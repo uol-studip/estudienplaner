@@ -218,7 +218,13 @@ class StgProfil extends SORM {
                     //Datenfelder aktualisieren:
                     $datafield_entries = DataFieldEntry::getDataFieldEntries($profil_information_id, 'plugin', $plugin_info['id']);
                     foreach ($datafield_entries as $datafield_id => $datafield_entry) {
-                        $datafield_entry->setValue($sprach_infos[$info_form]['datenfelder'][$datafield_id]);
+                        if (is_array($sprach_infos[$info_form]['datenfelder'][$datafield_id])) {
+                            //Kombo-Box
+                            $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id][$sprach_infos[$info_form]['datenfelder'][$datafield_id]['combo']];
+                        } else {
+                            $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id];
+                        }
+                        $datafield_entry->setValue($value);
                         $datafield_entry->store();
                     }
                 }
