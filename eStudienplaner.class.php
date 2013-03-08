@@ -76,6 +76,10 @@ class eStudienplaner extends StudIPPlugin implements SystemPlugin {
             }
 
             if (PersonalRechte::isRoot()) {
+                $navigation = new AutoNavigation(_("Textbausteine"), PluginEngine::getURL($this, $params, 'zsb_textbausteine/index'));
+                Navigation::addItem('/start/zsb/textbausteine', $navigation);
+                Navigation::addItem('/zsb/textbausteine', $navigation);
+
                 $navigation = new AutoNavigation(_("Verwaltung"), PluginEngine::getURL($this, $params, 'zsb_bereiche/bereiche'));
 
                 Navigation::addItem('/start/zsb/verwaltung', $navigation);

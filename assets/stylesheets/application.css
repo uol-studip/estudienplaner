@@ -466,3 +466,11 @@ img.icon:hover {
     font-weight: bold;
     margin-right: 10px;
 }
+
+.erroneous input, .erroneous textarea {
+    border: 1px solid red;
+}
+.erroneous span:after {
+    color: red;
+    content: " (Dieses Feld wird benötigt!)";
+}
