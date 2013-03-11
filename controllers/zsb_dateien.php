@@ -5,8 +5,6 @@ require_once dirname(__file__).'/../models/StgProfil.class.php';
 require_once dirname(__file__).'/../models/StgFile.class.php';
 require_once dirname(__file__).'/../models/qqUploader.php';
 
-SimpleORMap::expireTableScheme();
-
 class ZsbDateienController extends ZsbController {
 
     function before_filter($action, $args) {
