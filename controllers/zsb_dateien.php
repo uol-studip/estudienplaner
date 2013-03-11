@@ -5,9 +5,10 @@ require_once dirname(__file__).'/../models/StgProfil.class.php';
 require_once dirname(__file__).'/../models/StgFile.class.php';
 require_once dirname(__file__).'/../models/qqUploader.php';
 
+SimpleORMap::expireTableScheme();
 
 class ZsbDateienController extends ZsbController {
-    
+
     function before_filter($action, $args) {
         parent::before_filter($action, $args);
         if (!PersonalRechte::hasPermission()) {
@@ -25,7 +26,7 @@ class ZsbDateienController extends ZsbController {
             "");
         URLHelper::bindLinkParam("typ_id", Request::get("typ_id"));
     }
-    
+
     public function dateien_action() {
         if (Request::get("delete_x") && Request::get("item_id")) {
             $file = new StgFile(Request::get("item_id"));
@@ -44,10 +45,10 @@ class ZsbDateienController extends ZsbController {
                 $this->dateien[$key] = new StgFile($doku_id);
             }
         }
-        
+
         $this->typen = StgFile::getTypen();
     }
-    
+
     public function details($doku_id) {
         //letztes als auch nächstes Profil herausfinden:
 
@@ -57,13 +58,13 @@ class ZsbDateienController extends ZsbController {
                 $this->dokumente[$key] = new StgFile($dokument_id);
             }
         }
-        
-    	$this->datei = new StgFile($doku_id !== 'neu' ? $doku_id : null);
+
+        $this->datei = new StgFile($doku_id !== 'neu' ? $doku_id : null);
         if (Request::get("absenden_x")) {
             $this->datei['name'] = Request::get("name");
             $this->datei['quick_link'] = Request::get("quick_link");
             if ($this->datei['quick_link']) {
-                
+
             }
             $this->datei['sichtbar'] = Request::get("sichtbar") ? "1" : "0";
             if (Request::get("doku_typ_id")) {
@@ -72,6 +73,7 @@ class ZsbDateienController extends ZsbController {
             if ($verknuepfte_studiengaenge = Request::getArray("verknuepfte_studiengaenge")) {
                 $this->datei->setStudiengaenge($verknuepfte_studiengaenge);
             }
+            $this->datei['language'] = Request::option('language');
             $this->datei['jahr'] = Request::get("jahr");
             $this->datei['version'] = Request::get("version");
             $this->datei['doku_typ_id'] = Request::get("doku_typ_id");
@@ -84,7 +86,7 @@ class ZsbDateienController extends ZsbController {
         $this->typen = StgFile::getTypen();
         $this->render_template('zsb_dateien/details', $this->layout);
     }
-    
+
     public function change_datei_profil_action() {
         if (Request::get("doku_id") && Request::get("profil_id")) {
             $profil = new StgProfil(Request::get("profil_id"));
@@ -99,13 +101,13 @@ class ZsbDateienController extends ZsbController {
         }
         $this->render_nothing();
     }
-    
+
     public function upload_action() {
-    	$datei = new StgFile(Request::get("doku_id") !== 'neu' ? Request::get("doku_id") : null);
-    	$datei->upload();
-    	$this->render_nothing();
+        $datei = new StgFile(Request::get("doku_id") !== 'neu' ? Request::get("doku_id") : null);
+        $datei->upload();
+        $this->render_nothing();
     }
-    
+
     public function download_file_action($id = null, $attachment = true) {
         if ($id === null && Request::option('doku_id') !== 'neu') {
             $id = Request::option('doku_id');

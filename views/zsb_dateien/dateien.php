@@ -1,5 +1,5 @@
 <?php
-$headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
+$headers = array(_("Name"), _("Dateiname"), _("Typ"), _('Sprache'), _("Datum"), _("Größe"));
 $items = array();
 foreach ($dateien as $datei) {
     $items[] = array(
@@ -7,6 +7,7 @@ foreach ($dateien as $datei) {
             $datei['name'],
             $datei['filename'],
             StgFile::getDokuTypName($datei['doku_typ_id']),
+            $datei['language'] === 'de' ? _('deutsch') : _('englisch'),
             date("j.n.Y", strtotime($datei['chdate'])),
             $datei['filesize'] ? round($datei['filesize'] / 1024, 2) : "0"
         ),
@@ -27,11 +28,11 @@ $preformatted = true;
 <?= MessageBox::info(_("Bitte wählen Sie in der Infobox einen Filter aus.")) ?>
 <? endif ?>
 
-<? 
+<?
 foreach ($typen as $typ) {
     $typ_suche .= '<option value="'. htmlReady($typ['doku_typ_id']) .'" title="'.htmlReady($typ['name']).'"'.(Request::get('typ_id') === $typ['doku_typ_id'] ? " selected" : "").'>'. htmlReady($typ['name']) .'</option>';
 }
-$typ_suche = 
+$typ_suche =
 '<form action="?" method="get">
 <select name="typ_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>

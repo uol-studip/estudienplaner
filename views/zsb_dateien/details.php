@@ -51,6 +51,13 @@
                 <? endif ?>
             </li>
             <li>
+                <label for="language"><?= _('Sprache des Dokuments') ?></label>
+                <select id="language" name="language">
+                    <option value="de" <? if ($datei['language'] === 'de') echo 'selected'; ?>><?= _('deutsch') ?></option>
+                    <option value="en" <? if ($datei['language'] === 'en') echo 'selected'; ?>><?= _('englisch') ?></option>
+                </select>
+            </li>
+            <li>
                 <label for="jahr"><?= _("Jahr") ?></label>
                 <input type="text" maxlength="4" id="jahr" name="jahr" value="<?= htmlReady($datei['jahr']) ?>">
             </li>
@@ -140,7 +147,7 @@
 </div>
 </form>
 
-<? 
+<?
 if (count($dokumente)) {
     $nav_select = '<form action="'.URLHelper::getLink("?").'" method="GET">';
     $nav_select .= '<input type="hidden" name="typ_id" value="'.htmlReady(Request::option("typ_id")).'">';
@@ -169,7 +176,7 @@ if (count($dokumente)) {
 foreach ($typen as $typ) {
     $typ_suche .= '<option value="'. htmlReady($typ['doku_typ_id']) .'" title="'.htmlReady($typ['name']).'"'.(Request::get('typ_id') === $typ['doku_typ_id'] ? " selected" : "").'>'. htmlReady($typ['name']) .'</option>';
 }
-$typ_suche = 
+$typ_suche =
 '<form action="?" method="get">
 <select name="typ_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>
