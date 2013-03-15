@@ -18,7 +18,7 @@ class PersonalRechte {
     protected static $usersModule = array();
     protected static $userIsStab = array();
     protected static $userVersteckteBereiche = array();
-    
+
     static public function studiengangRecht($studiengang_id, $user_id = null) {
         global $user, $perm;
         if (self::isRoot()) {
@@ -39,16 +39,16 @@ class PersonalRechte {
         global $user;
         $db = DBManager::get();
         $user_id || $user_id = $user->id;
-    	if (isset(self::$usersStudiengaenge[$user_id]) && $existent === false) {
+        if (isset(self::$usersStudiengaenge[$user_id]) && $existent === false) {
             return self::$usersStudiengaenge[$user_id];
         }
         $studiengaenge = array();
-    	if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
+        if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
             $studiengaenge = $db->query(
                 "SELECT DISTINCT studiengaenge.studiengang_id " .
                 "FROM studiengaenge " .
                     ($existent !== false ? "INNER JOIN stg_profil ON (studiengaenge.studiengang_id = stg_profil.fach_id)" : "") .
-                "ORDER BY name ASC " .
+                "ORDER BY name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             $studiengaenge = $db->query(
@@ -58,7 +58,7 @@ class PersonalRechte {
                     ($existent !== false ? "INNER JOIN stg_profil ON (studiengaenge.studiengang_id = stg_profil.fach_id)" : "") .
                 "WHERE stg_fsb_rollen.rollen_typ IN ('FSB', 'StuKo') " .
                     "AND stg_fsb_rollen.user_id = ".$db->quote($user_id)." " .
-                "ORDER BY name ASC " .
+                "ORDER BY name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
         $studiengaenge = $studiengaenge ? $studiengaenge : array();
@@ -77,11 +77,11 @@ class PersonalRechte {
         global $user;
         $db = DBManager::get();
         $user_id || $user_id = $user->id;
-    	if (isset(self::$usersStgProfile[$user_id])) {
+        if (isset(self::$usersStgProfile[$user_id])) {
             return self::$usersStgProfile[$user_id];
         }
         $profile = array();
-    	if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
+        if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
             $profile = $db->query(
                 "SELECT stg_profil.profil_id " .
                 "FROM stg_profil " .
@@ -109,11 +109,11 @@ class PersonalRechte {
         global $user;
         $db = DBManager::get();
         $user_id || $user_id = $user->id;
-    	if (isset(self::$usersStgProfile[$user_id]) && $studiengang === null && $abschluss === null) {
+        if (isset(self::$usersStgProfile[$user_id]) && $studiengang === null && $abschluss === null) {
             return self::$usersStgProfile[$user_id];
         }
         $profile = array();
-    	if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
+        if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
             $profile = $db->query(
                 "SELECT stg_fach_kombination.fach_kombi_id " .
                 "FROM stg_fach_kombination " .
@@ -124,7 +124,7 @@ class PersonalRechte {
                 "WHERE 1=1 " .
                     ($studiengang ? "AND (s1.studiengang_id = ".$db->quote($studiengang)." OR s2.studiengang_id = ".$db->quote($studiengang)." ) " : "") .
                     ($abschluss ? "AND (p1.abschluss_id = ".$db->quote($abschluss)." OR p2.abschluss_id = ".$db->quote($abschluss)." ) " : "") .
-                "ORDER BY s1.name ASC, s2.name ASC " .
+                "ORDER BY s1.name COLLATE latin1_german2_ci ASC, s2.name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             $studiengaenge = self::meineStudiengaenge($user_id);
@@ -139,7 +139,7 @@ class PersonalRechte {
                     ($studiengang ? "AND (s1.studiengang_id = ".$db->quote($studiengang)." OR s2.studiengang_id = ".$db->quote($studiengang)." ) " : "") .
                     ($abschluss ? "AND (p1.abschluss_id = ".$db->quote($abschluss)." OR p2.abschluss_id = ".$db->quote($abschluss)." ) " : "") .
                     "AND (s1.studiengang_id IN ('".implode("',", $studiengaenge)."') AND s2.studiengang_id IN ('".implode("',", $studiengaenge)."')) " .
-                "ORDER BY s1.name ASC, s2.name ASC " .
+                "ORDER BY s1.name COLLATE latin1_german2_ci ASC, s2.name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
         $profile = $profile ? $profile : array();
@@ -153,11 +153,11 @@ class PersonalRechte {
         global $user;
         $db = DBManager::get();
         $user_id || $user_id = $user->id;
-    	if (isset(self::$usersVerlaufsplaene[$user_id]) && $studiengang_id === null && $abschluss_id === null) {
+        if (isset(self::$usersVerlaufsplaene[$user_id]) && $studiengang_id === null && $abschluss_id === null) {
             return self::$usersVerlaufsplaene[$user_id];
         }
         $verlaufsplaene = array();
-    	if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
+        if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
             $verlaufsplaene = $db->query(
                 "SELECT stg_verlaufsplan.verlaufsplan_id " .
                 "FROM stg_verlaufsplan " .
@@ -292,7 +292,7 @@ class PersonalRechte {
                 "SELECT stg_ansprechpartner.ansprechpartner_id " .
                 "FROM stg_ansprechpartner " .
                 ($ansprechpartner_typ_id ? "WHERE ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
-                "ORDER BY freitext_name ASC " .
+                "ORDER BY freitext_name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } elseif(self::isPamt($user_id) || self::isIamt($user_id)) {
             $ansprechpartner = $db->query(
@@ -312,7 +312,7 @@ class PersonalRechte {
                         "OR (roles.rolename = 'stg_stabstelle_akkreditierung' AND stg_bereiche.sichtbar_stab = '1') " .
                     " ) " .
                     ($ansprechpartner_typ_id ? "AND ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
-                "ORDER BY freitext_name ASC " .
+                "ORDER BY freitext_name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             $ansprechpartner = $db->query(
@@ -329,7 +329,7 @@ class PersonalRechte {
                         "OR (stg_fsb_rollen.rollen_typ = 'StuKo' OR stg_bereiche.sichtbar_stuko = '1') " .
                     ") " .
                     ($ansprechpartner_typ_id ? "AND ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
-                "ORDER BY freitext_name ASC " .
+                "ORDER BY freitext_name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
         $ansprechpartner = $ansprechpartner ? $ansprechpartner : array();
@@ -352,7 +352,7 @@ class PersonalRechte {
                 "SELECT stg_dokumente.doku_id " .
                     "FROM stg_dokumente " .
                 ($doku_typ_id ? "WHERE doku_typ_id = ".$db->quote($doku_typ_id)." " : "") .
-                "ORDER BY name ASC " .
+                "ORDER BY name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } elseif (self::isPamt($user_id) || self::isIamt($user_id))  {
             $dateien = $db->query(
@@ -372,7 +372,7 @@ class PersonalRechte {
                         "OR (roles.rolename = 'stg_i-amt' AND stg_bereiche.sichtbar_iamt = '1') " .
                         "OR (roles.rolename = 'stg_stabstelle_akkreditierung' AND stg_bereiche.sichtbar_stab = '1') " .
                     " ) " .
-                "ORDER BY name " .
+                "ORDER BY COLLATE latin1_german2_ci name " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             //FSB, StuKo
@@ -390,7 +390,7 @@ class PersonalRechte {
                         "OR (stg_fsb_rollen.rollen_typ = 'StuKo' OR stg_bereiche.sichtbar_stuko = '1') " .
                     ") " .
                     ($doku_typ_id ? "AND doku_typ_id = ".$db->quote($doku_typ_id)." " : "") .
-                "ORDER BY name " .
+                "ORDER BY COLLATE latin1_german2_ci name " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
         if ($doku_typ_id === null) {
@@ -424,7 +424,7 @@ class PersonalRechte {
         global $perm, $user;
         $user_id || $user_id = $user->id;
         if (isset(self::$userIsRoot[$user_id])) {
-        	return self::$userIsRoot[$user_id];
+            return self::$userIsRoot[$user_id];
         }
         $db = DBManager::get();
         $roles = $db->query(
@@ -557,7 +557,7 @@ class PersonalRechte {
         global $user;
         $user_id || $user_id = $user->id;
         if (isset(self::$userIsPamt[$user_id])) {
-        	return self::$userIsPamt[$user_id];
+            return self::$userIsPamt[$user_id];
         }
         if (self::isRoot($user_id)) {
             return self::$userIsPamt[$user_id] = true;
@@ -580,7 +580,7 @@ class PersonalRechte {
         global $user;
         $user_id || $user_id = $user->id;
         if (isset(self::$userIsIamt[$user_id])) {
-        	return self::$userIsIamt[$user_id];
+            return self::$userIsIamt[$user_id];
         }
         if (self::isRoot($user_id)) {
             return self::$userIsIamt[$user_id] = true;
@@ -598,7 +598,7 @@ class PersonalRechte {
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
         return self::$userIsIamt[$user_id] = (count($roles) > 0);
     }
-    
+
     static public function isStab($user_id = null) {
         global $user;
         $user_id || $user_id = $user->id;
@@ -621,7 +621,7 @@ class PersonalRechte {
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
         return self::$userIsStab[$user_id] = (count($roles) > 0);
     }
-    
+
     static public function meineVerstecktenBereiche($user_id = null) {
         global $user;
         $user_id || $user_id = $user->id;
