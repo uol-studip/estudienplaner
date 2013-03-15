@@ -11,7 +11,7 @@ STUDIP.eStudienplaner = {
     verlaufsplan_id : -1,
 
     dragModule: function () {
-            
+
     },
 
     /**
@@ -64,7 +64,7 @@ STUDIP.eStudienplaner = {
                     var notiz = jQuery('#edit_module textarea[name=notiz]').val();
 
                     // set data to all of these modules in the studyplan
-                    
+
                     jQuery('.' + id)
                         .attr('data-module', STUDIP.eStudienplaner.getDataString(id, kp, type, notiz));
 
@@ -83,7 +83,7 @@ STUDIP.eStudienplaner = {
                     }
 
                     STUDIP.eStudienplaner.recalculateKP();
-                    
+
                     //and save it!
                     STUDIP.eStudienplaner.saveVerlaufsplan();
 
@@ -171,7 +171,7 @@ STUDIP.eStudienplaner = {
                 var coord = element.attr('id').split("_");
                 var prev_row = parseInt(coord[1], 10);
                 var prev_col = parseInt(coord[2], 10);
-                
+
                 if (jQuery('#field_' + prev_row + '_' + prev_col).find('a').length ||
                     jQuery('#field_' + prev_row + '_' + (prev_col + 1)).find('a').length) {
                     STUDIP.eStudienplaner.expandSemester(this);
@@ -296,7 +296,7 @@ STUDIP.eStudienplaner = {
             jQuery("#field_" + (row - 1) + "_" + col).hide().html('');
             jQuery('#field_' + (row - 1) + '_' + (col + 1)).hide().html('');
             jQuery("#drop_" + (row - 1) + "_" + (col + 1)).hide().html('');
-            
+
             //old:
             //jQuery('#field_' + row + '_' + col).hide().html('');
             //jQuery('#field_' + row + '_' + (col + 1)).hide().html('');
@@ -320,7 +320,7 @@ STUDIP.eStudienplaner = {
             jQuery("#field_" + (row - 1) + "_" + col).show();
             jQuery('#field_' + (row - 1) + '_' + (col + 1)).show();
             jQuery("#drop_" + (row - 1) + "_" + (col + 1)).show();
-            
+
             // recreate droppables
         }
 
@@ -335,7 +335,7 @@ STUDIP.eStudienplaner = {
         var data_module = jQuery(ui.draggable).attr('data-module');
         var id = JSON.parse(data_module).id;
         var module = ui.draggable.clone();
-        
+
         if (id != "free") {
             if (jQuery("#studyplan ." + id).length > 0) {
                 var json = JSON.parse(jQuery("#studyplan ." + id).attr('data-module'));
@@ -349,7 +349,7 @@ STUDIP.eStudienplaner = {
             json.id = id = "z" + Math.floor(Math.random()* 1000000);
             module.addClass(json.id);
         }
-        
+
         module.removeAttr('style')
                     .attr("id", id)
                     .addClass('placedmodule')
@@ -558,7 +558,7 @@ STUDIP.eStudienplaner = {
                         tempArr['type'] = json.type;
                         tempArr['notiz'] = json.notiz;
 
-                        
+
                         // append data to submit-structure
                         submit_data[submit_data.length] = tempArr;
                     });

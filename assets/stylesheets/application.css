@@ -40,8 +40,8 @@ a.icon_doctoral_cap:hover { background-image: url(../../../../../assets/images/i
 
 
 #layout_container {
-	background-color: white;
-	padding: 0 0 1em 0;
+    background-color: white;
+    padding: 0 0 1em 0;
 }
 
 table.zsb_editable {
@@ -83,7 +83,7 @@ table.zsb_editable > tbody > tr:first-of-type > td {
     border-top: 0px;
 }
 table.zsb_editable > tbody > tr:last-of-type > td {
-    border-bottom: thin solid #dddddd; 
+    border-bottom: thin solid #dddddd;
 }
 
 table.zsb_editable > tbody > tr:hover > td {
@@ -147,7 +147,7 @@ table.zsb_timetable input.date {
     border: 2px solid #dddddd;
     border-top-color: #777777;
     border-left-color: #777777;
-    
+
 }
 table.zsb_timetable input.copypaste {
     width: 47%;
@@ -196,9 +196,9 @@ div.beschraenkungsbox > div > div.selected {
 td.rotate-cell {
     text-align: center;
     /*rotation: -90deg;
-    transform: rotate(-90deg); 
-    -webkit-transform: rotate(-90deg); 
-    -o-transform: rotate(-90deg); 
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);*/
 }
@@ -210,7 +210,7 @@ td.rotate-cell {
 
 
 ul.zsb_detail_list {
-    
+
 }
 .accordion ul textarea {
     display: block;
@@ -467,10 +467,154 @@ img.icon:hover {
     margin-right: 10px;
 }
 
-.erroneous input, .erroneous textarea {
-    border: 1px solid red;
+.erroneous ~ input, .erroneous ~ textarea {
+    border-color: red;
 }
 .erroneous span:after {
     color: red;
     content: " (Dieses Feld wird benötigt!)";
+}
+
+ul.three-columns {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+ul.three-columns li {
+    border-left: 1px solid #aaa;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 1em;
+}
+ul.three-columns li:first-child {
+    border-left: 0;
+    padding-left: 0;
+}
+ul.three-columns label {
+    font-weight: normal;
+}
+#texteditor-combinations {
+    margin-bottom: 1em;
+}
+#texteditor-stage {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    height: 450px;
+    overflow-y: auto;
+    margin-right: 1%;
+    width: 59%;
+}
+#texteditor-stage .empty {
+    color: #888;
+}
+#texteditor-stage.active {
+    border-color: green;
+}
+#texteditor-stage.hovered {
+    background: #fec;
+    border-color: red;
+}
+#texteditor-options {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 40%;
+}
+#texteditor-choices {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 250px;
+}
+#texteditor-choices .ui-tabs-panel {
+    padding: 0.5em 0;
+}
+#texteditor-infobox {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 10px;
+    height: 190px;
+}
+#texteditor-infobox h4 {
+    font-size: 1.1em;
+    margin: 0;
+    margin-bottom: 0.2em;
+    margin-top: 0.5em;
+}
+#texteditor-infobox h4:first-child {
+    margin-top: 0;
+}
+#texteditor-infobox select {
+    width: 100%;
+}
+#texteditor-infobox option[value=""] {
+    color: #888;
+}
+
+.selection, .selection li, .choices, .choices li {
+    list-style: none;
+    margin: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0;
+}
+.stage .options, .choices .options {
+    float: right;
+}
+.options .remove {
+    background: url(../../../../../assets/images/icons/16/blue/trash.png) center no-repeat;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    text-indent: 100%;
+    overflow: hidden;
+}
+.options .add {
+    background: url(../../../../../assets/images/icons/16/blue/plus.png) center no-repeat;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    text-indent: 100%;
+    overflow: hidden;
+}
+.sortable-placeholder {
+    background: #fea;
+    border: 1px solid orange;
+    height: 1.5em;
+}
+.selector {
+    background: #dfeffc;
+    border: 1px solid #79b7e7;
+    border-width: 0 1px;
+    display: inline-block;
+    vertical-align: top;
+}
+.selector:hover {
+    text-decoration: none !important;
+}
+.selector span {
+    color: #888;
+    display: inline-block;
+    text-align: center;
+    width: 16px;
+}
+.selector span.selected {
+    color: #e17009;
+    font-weight: bold;
+}
+.ui-tabs .ui-tabs-nav li.tabs-title {
+    padding: 0.5em 1em;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-state-default {
+    background-color: #f5f8f9;
+}
+select.copy-error {
+    color: red;
+    font-weight: bold;
 }

@@ -24,7 +24,7 @@ STUDIP.zsb = {
         }
         return "hsl(" + zwischenergebnis + ", 100%, " + lightness + "%)";
     },
-    
+
     clipboard: "",
     copyString: function (input) {
         if (typeof input === "string") {
@@ -37,14 +37,14 @@ STUDIP.zsb = {
         return false;
     },
     pasteString: function (element) {
-        if (this.clipboard) { 
+        if (this.clipboard) {
             jQuery(element).val(this.clipboard)
                                          .trigger("change");
             return true;
         }
         return false;
     },
-    
+
     toggleDisabling: function (profil, semester, zielgruppe) {
         if (jQuery("td.zielgruppe_" + zielgruppe + ".profil_" + profil + "." + semester + " input[type=text][disabled]").length) {
             jQuery("td.zielgruppe_" + zielgruppe + ".profil_" + profil + "." + semester + " input:not([type=checkbox])").removeAttr("disabled");
@@ -52,7 +52,7 @@ STUDIP.zsb = {
             jQuery("td.zielgruppe_" + zielgruppe + ".profil_" +    profil + "." + semester + " input:not([type=checkbox])").attr("disabled", "disabled");
         }
     },
-    
+
     filterTable: function (tableselector, value) {
         value = value.split(" ");
         value = jQuery.map(function (index, val) {
@@ -87,7 +87,7 @@ STUDIP.zsb = {
             }
         });
     },
-    
+
     addToList: function (id, name, listselector, prefix, url, edit_option) {
         if (jQuery("li#" + prefix + "_" + id, listselector).length === 0) {
             jQuery.ajax({
@@ -101,11 +101,11 @@ STUDIP.zsb = {
                                  .append(jQuery('<a class="icon_trash"></a>'))
                                  .append(edit_option ? jQuery('<a class="icon_edit"></a>') : jQuery("<div/>"))
                                  .slideDown(function () {
-                                        jQuery(this).css("display", ""); 
+                                        jQuery(this).css("display", "");
                                     });
                 }
             });
-            
+
         }
     },
     addToStudiengaenge: function (id, name) {
@@ -118,7 +118,7 @@ STUDIP.zsb = {
         url = url + "profil_id=" + jQuery("#profil_id").val() + "&kontakt_id=" + id;
         STUDIP.zsb.addToList(id, name, "#ansprechpartner", "ansprechpartner", url, true);
     },
-    
+
     addDokumentToStudiengaenge: function (id, name) {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_dateien/change_datei_profil?";
         url = url + "profil_id=" + id + "&doku_id=" + jQuery("#doku_id").val();
@@ -130,13 +130,13 @@ STUDIP.zsb = {
         STUDIP.zsb.addToList(id, name, "#dateien", "doku_id", url, true);*/
         location.href = STUDIP.URLHelper.getURL(location.href, { 'addDocument': id, 'delete_x': 0});
     },
-    
+
     addAufbaustudiengang: function (id, name) {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_studiengang/add_aufbaustudiengang?";
         url = url + "profil_id=" + jQuery("#profil_id").val() + "&aufbaustudiengang_id=" + id;
         STUDIP.zsb.addToList(id, name, "#aufbaustudiengaenge", "aufbau_stg_profil_id", url);
     },
-    
+
     "addPersonalToFSB": function (id, name) {
         var dynamicname = "FSB";
         STUDIP.zsb.addPersonal(id, name, dynamicname);
@@ -158,7 +158,7 @@ STUDIP.zsb = {
         url = url + "studiengang_id=" + jQuery("#studiengang_id").val() + "&user_id=" + id + "&rollen_typ=" + dynamicname;
         STUDIP.zsb.addToList(id, name, "#role_" + dynamicname, "role_" + dynamicname, url);
     },
-    
+
     addAnsprechpartnerTyp: function (name) {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_bereiche/add_ansprechpartner?";
         url = url + "bereichs_id=" + jQuery("#bereichs_id").val() + "&ansprechpartner_typ_neu=" + encodeURIComponent(name);
@@ -174,13 +174,13 @@ STUDIP.zsb = {
                     jQuery("li#" + prefix + "_" + id, listselector)
                                  .css("display", "none")
                                  .append(jQuery('<a class="icon_trash"></a>'))
-                                 .slideDown(function () { 
-                                        jQuery(this).css("display", ""); 
+                                 .slideDown(function () {
+                                        jQuery(this).css("display", "");
                                     });
                 }
             }
         });
-        
+
     },
 
     deleteItem: function (event, ui) {
@@ -233,7 +233,7 @@ STUDIP.zsb = {
             }
         });
     }
-    
+
 };
 
 
@@ -256,7 +256,7 @@ jQuery(function () {
             });
         }
     });
-    
+
 });
 
 
@@ -266,7 +266,7 @@ jQuery(function () {
         autoHeight: false
     });
     jQuery('.accordion textarea:not(.clean)').addToolbar(STUDIP.Markup ? STUDIP.Markup.buttonSet : STUDIP.Toolbar.buttonset);
-    
+
     jQuery("ul.sortable#ansprechpartner").sortable({
         axis: "y",
         revert: 200,
@@ -376,8 +376,8 @@ jQuery(".accordion ul#aufbaustudiengaenge li a.icon_trash").live("click", functi
             profil_id: jQuery("#profil_id").val()
         },
         success: function () {
-            jQuery(li).slideUp(function () { 
-                jQuery(this).remove(); 
+            jQuery(li).slideUp(function () {
+                jQuery(this).remove();
             });
         }
     });
@@ -397,8 +397,8 @@ jQuery(".accordion ul[id^=role_] li a.icon_trash").live("click", function (event
             rollen_typ: role_type
         },
         success: function () {
-            jQuery(li).slideUp(function () { 
-                jQuery(this).remove(); 
+            jQuery(li).slideUp(function () {
+                jQuery(this).remove();
             });
         }
     });
@@ -414,7 +414,7 @@ jQuery(".accordion ul#ansprechpartner_typen li a.icon_trash").live("click", func
             bereichs_id: jQuery("#bereichs_id").val()
         },
         success: function () {
-            jQuery(li).slideUp(function () { 
+            jQuery(li).slideUp(function () {
                 jQuery(this).remove();
             });
         }
@@ -459,52 +459,301 @@ jQuery(function () {
             jQuery("#sichtbar_fach2_li input[type=text]").removeAttr('required');
         }
     });
-})
+});
 
-// 
-jQuery('a.open-in-dialog').live('click', function () {
-    var href = $(this).attr('href');
-    $.get(href, function (response) {
-        var $content = $(response),
-            title    = $content.find(':header').remove().text(),
-            buttons  = {};
+//
+(function ($) {
 
-        buttons["Speichern".toLocaleString()] = function () {
-            $content.find('label.erroneous').removeClass('error');
+    var replaceSelection = function (element, text) {
+        var scroll_top = element.scrollTop;
+        if (!!document.selection) {
+            element.focus();
+            var range = document.selection.createRange();
+            range.text = text;
+            range.select();
+        } else if (!!element.setSelectionRange) {
+            var selection_start = element.selectionStart;
+            element.value = element.value.substring(0, selection_start) +
+                text +
+                element.value.substring(element.selectionEnd);
+            element.setSelectionRange(selection_start + text.length,
+                                      selection_start + text.length);
+        }
+        element.focus();
+        element.scrollTop = scroll_top;
+    };
 
-            var probes = ['code', 'title', 'content'],
-                error = false,
-                temp, i;
-            for (i = 0; i < probes.length; i++) {
-                temp = $content.find('[name=' + probes[i] + ']');
-                if (!temp.val()) {
-                    if (!error) {
-                        temp.focus();
-                        error = true;
+    $('a.open-in-dialog').live('click', function () {
+        var href = $(this).attr('href');
+        $.get(href, function (response) {
+            var $content = $(response),
+                title    = $content.find(':header').remove().text(),
+                buttons  = {};
+
+            buttons["Speichern".toLocaleString()] = function () {
+                $content.find('label.erroneous').removeClass('error');
+
+                var probes = ['code', 'title', 'content'],
+                    error = false,
+                    temp, i;
+                for (i = 0; i < probes.length; i++) {
+                    temp = $content.find('[name=' + probes[i] + ']');
+                    if (!temp.val()) {
+                        if (!error) {
+                            temp.focus();
+                            error = true;
+                        }
+                        temp.one('change', function () {
+                            $(this).siblings('label').removeClass('erroneous');
+                        }).siblings('label').addClass('erroneous');
                     }
-                    temp.one('change', function () {
-                        $(this).closest('label').removeClass('erroneous');
-                    }).closest('label').addClass('erroneous');
                 }
-            }
-            if (!error) {
-                $content.filter('form').submit();
-            }
-        };
-        buttons["Abbrechen".toLocaleString()] = function () {
-            $content.dialog('close');
-        };
+                if (!error) {
+                    $content.filter('form').submit();
+                }
+            };
+            buttons["Vorschau".toLocaleString()] = function () {
+                var content = $('textarea[name=content]').val();
+                $.get(href, {content: content, preview: true}, function (response) {
+                    var preview = $(response).filter('#preview');
+                    $('<div/>').html(preview).dialog({
+                        title: "Vorschau".toLocaleString(),
+                        width: $(document).width() * 3 / 4,
+                        height: $(document).height() * 3 / 4,
+                        buttons: {
+                            "Ok": function () { $(this).dialog('close'); }
+                        },
+                        modal: true
+                    });
+                });
+            };
+            buttons["Abbrechen".toLocaleString()] = function () {
+                $content.dialog('close');
+            };
 
-        $content.find('.type-button').remove();
-        $content.find('.add_toolbar').addToolbar();
+            $content.find('.type-button').remove();
 
-        $content.dialog({
-            title: title,
-            width: $(document).width() * 2 / 3,
-            height: $(document).height() * 2 / 3,
-            buttons: buttons,
-            modal: true
+            var var_button = $('<button>#{var}</button>').click(function () {
+                alert('variables');
+                return false;
+            });
+            $content.find('.add_toolbar').addToolbar(STUDIP.Markup ? STUDIP.Markup.buttonSet : STUDIP.Toolbar.buttonset).prev().append(var_button);
+
+            $content.dialog({
+                title: title,
+                width: $(document).width() * 2 / 3,
+                height: $(document).height() * 2 / 3,
+                buttons: buttons,
+                modal: true
+            });
         });
+        return false;
     });
-    return false;
+
+}(jQuery));
+
+//
+jQuery(function ($) {
+
+    var addSelection = function (stage, element) {
+        var stage_id = stage.attr('id'),
+            id       = element.find('input[type=hidden]').val(),
+            text     = element.find('span.content').text(),
+            li       = $('<li class="ui-widget-content"/>').text(text);
+        $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][semester]" value="always"/>').appendTo(li);
+        $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][restriction]" value="always"/>').appendTo(li);
+        $('<span class="options"><a href="#" class="semester selector"><span class="selected">W</span><span class="selected">S</span></a> <a href="#" class="restriction selector"><span class="selected">F</span><span class="selected">B</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
+        $('ul li.empty', stage).hide();
+        $('ul', stage).append(li);
+
+        stage.sortable('refresh');
+    }
+
+    $('.tabify').tabs();
+
+    $('#texteditor-choices .draggable').draggable({
+        revert: 'valid',
+        cursor: 'move',
+        helper: function (event) {
+            var content = $(this).find('.content').text(),
+                width   = $(this).width();
+            return $('<div class="ui-widget-content"/>').text(content).width(width);
+        }
+    });
+    $('#texteditor-stage').droppable({
+        accept: '.choice',
+        activeClass: 'active',
+        hoverClass: 'hovered',
+        drop: function (event, ui) {
+            var stage = $(this).find('.stage:visible');
+            addSelection(stage, ui.draggable);
+       }
+    });
+    $('#texteditor-stage .stage .selection').sortable({
+        axis: 'y',
+        placeholder: 'sortable-placeholder'
+    });
+
+    $('#texteditor-stage .selector').live('click', function () {
+        var spans = $('span', this),
+            state = 0,
+            pos   = 1,
+            index = $(this).hasClass('semester') ? 'semester' : 'restriction',
+            value = 'always';
+        spans.each(function () {
+            if ($(this).is('.selected')) {
+                state += pos;
+            }
+            pos += 1;
+        });
+        if (state === 1) {
+            value =  $('span', this).removeClass('selected').last().addClass('selected').text().toLowerCase();
+        } else if (state === 2) {
+            $('span', this).addClass('selected');
+        } else if (state === 3) {
+            value = $('span', this).removeClass('selected').first().addClass('selected').text().toLowerCase();
+        }
+        $(this).closest('li').find('input[type=hidden][name*=' + index + ']').val(value);
+        return false;
+    });
+
+    $('#texteditor-stage .options .remove').live('click', function () {
+        $(this).closest('li').hide('slow', function () {
+            var stage = $(this).closest('.stage');
+            if ($(this).siblings().length === 1) {
+                $(this).siblings().show();
+            }
+            $(this).remove();
+            stage.sortable('refresh');
+        });
+        return false;
+    });
+    $('#texteditor-choices .options .add').live('click', function () {
+        var stage   = $('#texteditor-stage .stage:visible'),
+            element = $(this).closest('li');
+        addSelection(stage, element);
+
+        return false;
+    });
+
+    $('#text-preview').click(function () {
+        var ids = [],
+            url = $(this).attr('href');
+        $('#texteditor-stage .stage:visible input[name=tb_id]').each(function () {
+            var val = $(this).val();
+            ids.push(val)
+        });
+        if (ids.length === 0) {
+            alert('Keine Textbausteine ausgewählt');
+        } else {
+            $('<div/>').load(url, {ids: ids}, function () {
+                $(this).dialog({
+                    modal: true,
+                    title: "Vorschau".toLocaleString(),
+                    width: $(window).width() * 3 / 4,
+                    height: $(window).height() * 3 / 4,
+                    buttons: {
+                        "Schliessen": function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            });
+        }
+        return false;
+    });
+
+    $('#texteditor-combinations input[name=language]').change(function () {
+        var language = $(this).val();
+        $(this).closest('li').siblings().hide().filter('.language-' + language).show();
+    }).filter(':checked').change();
+
+    $('#texteditor-combinations input[type=radio]').change(function () {
+        var checkboxes = $(this).closest('ul').find('input[type=radio]:visible:checked'),
+            id = '';
+        checkboxes.each(function () { id += $(this).val(); });
+        $('#texteditor-stage .stage').hide().filter('#' + (id || 'de1de')).show();
+    }).filter(':checked').change();
+
+
+    $('#texteditor-infobox #copy-from a').click(function () {
+        var url       = $(this).attr('href'),
+            data      = {},
+            erroneous = false;
+        $(this).closest('div').find('select').each(function () {
+            var name  = $(this).attr('name').replace(/copy_(?:from|to)\[(.*?)\]/, '$1'),
+                value = $(this).val();
+            if (!value) {
+                erroneous = true;
+                $(this).addClass('copy-error').one('focus', function () {
+                    $(this).removeClass('copy-error');
+                })
+            };
+            data[name] = value;
+        });
+        if (!erroneous) {
+            data.profil_id = $('#profil_id').val();
+            $.getJSON(url, data, function (json) {
+                if (json === false) {
+                    alert("Es gibt keinen Studiengang mit dieser Fach-/Abschlusskombination.".toLocaleString());
+                } else if (json !== true) {
+                    if ($.isArray(json) && !json.length && !confirm("Dem ausgewählten Studiengang sind keine Textbausteine zugeordnet. Wollen Sie wirklich fortfahren?\nIhre aktuelle Textkombinationen werden gelöscht, wenn Sie fortfahren.")) {
+                        return;
+                    }
+                    $('.selection li:not(.empty)').remove();
+                    $.each(json, function (code, ids) {
+                        var stage = $('#' + code);
+                        $.each(ids, function (index, id) {
+                            var element = $('#tb-' + id);
+                            addSelection(stage, element);
+                        });
+                    });
+                }
+            });
+        } else {
+            alert("Bitte wählen Sie sowohl ein Fach als auch einen Abschluss aus.".toLocaleString());
+        }
+        return false;
+    });
+
+    $('#texteditor-infobox #copy-to a').click(function () {
+        var url   = $(this).attr('href'),
+            data  = {},
+            count = 0,
+            tb    = {},
+            temp;
+        $(this).closest('div').find('select').each(function () {
+            var name  = $(this).attr('name').replace(/copy_(?:from|to)\[(.*?)\]/, '$1'),
+                value = $(this).val();
+            if (value) {
+                data[name] = value;
+                count += 1;
+            };
+        });
+
+        if (count === 0) {
+            alert("Sie müssen mindestens ein Fach, einen Abschluss oder einen Status auswählen.".toLocaleString());
+        } else {
+            $('.stage input[type=hidden][name^=textcombination]').each(function () {
+                var temp  = $(this).attr('name').split(/\[|\]\[|\]/),
+                    code  = temp[1],
+                    id    = temp[2],
+                    type  = temp[3],
+                    value = $(this).val();
+                if (!tb[code]) {
+                    tb[code] = {};
+                }
+                if (!tb[code][id]) {
+                    tb[code][id] = {};
+                }
+                tb[code][id][type] = value;
+            });
+            data.textcombinations = tb;
+            data.profil_id = $('#profil_id').val();
+            $.post(url, data, function (json) {
+                alert("Diese Textkombinationen wurden erfolgreich in "  + json + " Profile kopiert!");
+            }, 'json');
+        }
+        return false;
+    });
 });

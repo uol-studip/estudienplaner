@@ -280,7 +280,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             <? endforeach ?>
             <? endif ?>
         </ul>
-        
+
     </div>
     <? endforeach ?>
     <? endforeach ?>
@@ -450,7 +450,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </table>
         </div>
         <div style="clear: both;"></div>
-        
+
     </div>
     <? endif ?>
     <? if ($profil && (PersonalRechte::isStab() or PersonalRechte::meineVerstecktenBereiche())) : ?>
@@ -509,6 +509,204 @@ $abschlussfeld = $abschlusssuchfeld->render();
         <? endif ?>
     </div>
     <? endif ?>
+    <? if (PersonalRechte::isRoot()): ?>
+    <h2><?= _('Texteditor "Bewerben"') ?></h2>
+    <div>
+        <ul class="three-columns" id="texteditor-combinations">
+            <li>
+                <?= _('Sprache') ?>:
+                <label>
+                    <input type="radio" name="language" value="de" checked>
+                    <?= _('deutsch') ?>
+                </label>
+                <label>
+                    <input type="radio" name="language" value="en">
+                    <?= _('englisch') ?>
+                </label>
+            </li>
+            <li class="language-de">
+                <?= _('Studienbeginn') ?>:
+                <label>
+                    <input type="radio" name="begin" value="1" checked>
+                    <?= _('1. Semester') ?>
+                </label>
+                <label>
+                    <input type="radio" name="begin" value="h">
+                    <?= _('Höheres Semester') ?>
+                </label>
+            </li>
+            <li class="language-de">
+                <abbr title="<?= _('Hochschulzugangsberechtigung') ?>">
+                    <?= _('HZB') ?>
+                </abbr>:
+                <label>
+                    <input type="radio" name="qualification" value="de" checked>
+                    <?= _('deutsch') ?>
+                </label>
+                <label>
+                    <input type="radio" name="qualification" value="int">
+                    <?= _('international') ?>
+                </label>
+            </li>
+            <li class="language-en">
+                <?= _('Studienbeginn') ?>:
+                <label>
+                    <input type="radio" name="begin_en" value="1" checked>
+                    <?= _('1. Semester') ?>
+                </label>
+                <label>
+                    <input type="radio" name="begin_en" value="h">
+                    <?= _('Höheres Semester') ?>
+                </label>
+                <label>
+                    <input type="radio" name="begin_en" value="ex">
+                    <?= _('Austauschstudent') ?>
+                </label>
+            </li>
+        </ul>
+        <div id="texteditor-stage" class="ui-widget ui-widget-content ui-corner-all ui-tabs">
+            <div class="ui-widget-header ui-tabs-nav">
+                <span style="float: right;">
+                    <a href="<?= $controller->url_for('zsb_textbausteine/preview') ?>" id="text-preview">
+                        <?= makebutton('vorschau', 'img', _('Vorschau anzeigen'), 'preview') ?>
+                    </a>
+                </span>
+                <?= _('Textkombinationen') ?>
+                <br style="clear:right;">
+            </div>
+        <? foreach (array('de1de', 'de1int', 'dehde', 'dehint', 'en1', 'enh', 'enex') as $k): ?>
+            <div class="stage" id="<?= $k ?>">
+                <ul class="selection">
+                    <li class="empty" <? if (!empty($textcombinations[$k])) echo 'style="display:none;"'; ?>>
+                        <?= _('leer') ?>
+                    </li>
+                <? foreach ((array)@$textcombinations[$k] as $c): ?>
+                    <li class="ui-widget-content">
+                        <span class="options">
+                            <a href="#" class="semester selector"><span <? if (in_array($c['semester'], array('always', 'w'))) echo 'class="selected"'; ?>>W</span><span <? if (in_array($c['semester'], array('always', 's'))) echo 'class="selected"'; ?>>S</span></a>
+                            <a href="#" class="restriction selector"><span <? if (in_array($c['restriction'], array('always', 'f'))) echo 'class="selected"'; ?>>F</span><span <? if (in_array($c['restriction'], array('always', 'b'))) echo 'class="selected"'; ?>>B</span></a>
+                            <a href="#" class="remove">Eintrag entfernen</a>
+                        </span>
+                        <span class="content">
+                            <?= htmlReady($c['tb_code']) ?>
+                            &ndash;
+                            <?= htmlReady($c['title']) ?>
+                        </span>
+                        <input type="hidden" name="tb_id" value="<?= $c['textbaustein_id'] ?>">
+                        <input type="hidden" name="textcombination[<?= $k ?>][<?= $c['textbaustein_id'] ?>][semester]" value="<?= $c['semester'] ?>">
+                        <input type="hidden" name="textcombination[<?= $k ?>][<?= $c['textbaustein_id'] ?>][restriction]" value="<?= $c['restriction'] ?>">
+                    </li>
+                <? endforeach; ?>
+                </ul>
+            </div>
+        <? endforeach; ?>
+        </div>
+        <div id="texteditor-options">
+            <div id="texteditor-choices" class="tabify">
+                <ul>
+                    <li class="tabs-title"><?= _('Textbausteine') ?></li>
+                    <li><a href="#choices-de"><?= _('deutsch') ?></a></li>
+                    <li><a href="#choices-en"><?= _('englisch') ?></a></li>
+                </ul>
+            <? foreach (array('de', 'en') as $l): ?>
+                <div id="choices-<?= $l ?>">
+                    <ul class="choices">
+                    <? foreach ($textbausteine[$l] as $textbaustein): ?>
+                        <li class="draggable choice ui-widget-content" id="tb-<?= $textbaustein['textbaustein_id'] ?>">
+                            <span class="options">
+                                <a href="#" class="add">
+                                    <?= _('Eintrag zur Auswahl hinzufügen') ?>
+                                </a>
+                            </span>
+                            <input type="hidden" name="not-visible" value="<?= $textbaustein['textbaustein_id'] ?>">
+                            <span class="content">
+                                <?= htmlReady($textbaustein['code']) ?>
+                                &ndash;
+                                <?= htmlReady($textbaustein['title']) ?>
+                            </span>
+                         </li>
+                    <? endforeach; ?>
+                    </ul>
+                </div>
+            <? endforeach; ?>
+            </div>
+            <div id="texteditor-infobox" class="tabify">
+                <ul>
+                    <li class="tabs-title"><?= _('Kopieren') ?></li>
+                    <li><a href="#copy-from"><?= _('Von') ?></a></li>
+                    <li><a href="#copy-to"><?= _('Nach') ?></a></li>
+                </ul>
+                <div id="copy-from">
+                    <select name="copy_from[studiengang_id]">
+                        <option value="">
+                            &ndash; <?= _('Fach wählen') ?>
+                        </option>
+                    <? foreach ($studiengaenge as $studiengang_id):
+                         $studiengang = new Studiengang($studiengang_id);
+                    ?>
+                        <option value="<?= $studiengang_id ?>">
+                            <?= htmlReady($studiengang['name']) ?>
+                        </option>
+                    <? endforeach; ?>
+                    </select>
+                    <br>
+                    <select name="copy_from[abschluss_id]">
+                        <option value="">
+                            &ndash; <?= _('Abschluss wählen') ?>
+                        </option>
+                    <? foreach ($abschluesse as $abschluss): ?>
+                        <option value="<?= $abschluss->getId() ?>">
+                            <?= htmlReady($abschluss['name']) ?>
+                        </option>
+                    <? endforeach; ?>
+                    </select>
+                    <br>
+                    <a href="<?= $controller->url_for('zsb_textbausteine/copy_from', array('studiengang_id' => null, 'abschluss_id' => null)) ?>">
+                        <?= makebutton('kopieren', 'img', 'copy_from') ?>
+                    </a>
+                </div>
+                <div id="copy-to">
+                    <select name="copy_to[studiengang_id]">
+                        <option value="">
+                            &ndash; <?= _('Fach wählen') ?>
+                        </option>
+                    <? foreach ($studiengaenge as $studiengang_id):
+                         $studiengang = new Studiengang($studiengang_id);
+                    ?>
+                        <option value="<?= $studiengang_id ?>">
+                            <?= htmlReady($studiengang['name']) ?>
+                        </option>
+                    <? endforeach; ?>
+                    </select>
+                    <br>
+                    <select name="copy_to[abschluss_id]">
+                        <option value="">
+                            &ndash; <?= _('Abschluss wählen') ?>
+                        </option>
+                    <? foreach ($abschluesse as $abschluss): ?>
+                        <option value="<?= $abschluss->getId() ?>">
+                            <?= htmlReady($abschluss['name']) ?>
+                        </option>
+                    <? endforeach; ?>
+                    </select>
+                    <br>
+                    <select name="copy_to[status]">
+                        <option value="">
+                            &ndash; <?= _('Status wählen') ?>
+                        </option>
+                        <option value="discontinued"><?= _('Auslaufend') ?></option>
+                        <option value="current"><?= _('Aktuell') ?></option>
+                        <option value="planned"><?= _('Geplant') ?></option>
+                    </select>
+                    <br>
+                    <a href="<?= $controller->url_for('zsb_textbausteine/copy_to', array('studiengang_id' => null, 'abschluss_id' => null)) ?>">
+                        <?= makebutton('kopieren', 'img', 'copy_to') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <? endif; ?>
 </div>
 
 <div style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 12px;">
@@ -590,12 +788,12 @@ $abschlussfeld = $abschlusssuchfeld->render();
     </form>
 </div>
 
-<? 
+<?
 foreach ($studiengaenge as $studiengang_id) {
     $studiengang = new Studiengang($studiengang_id);
     $studiengang_suche .= '<option value="'. htmlReady($studiengang_id) .'" title="'.htmlReady($studiengang['name']).'"'.($studiengang_id === Request::get("studiengang_id") ? " selected" : "").'>'. htmlReady($studiengang['name']) .'</option>';
 }
-$studiengang_suche = 
+$studiengang_suche =
 '<form action="'.URLHelper::getLink("?").' method="get">
 <select name="studiengang_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>
@@ -605,7 +803,7 @@ $studiengang_suche =
 foreach ($abschluesse as $abschluss) {
     $abschluss_suche .= '<option value="'. htmlReady($abschluss->getId()).'" title="'.htmlReady($abschluss['name']).'"'.($abschluss->getId() === Request::get("abschluss_id") ? " selected" : "").'>'. htmlReady($abschluss['name']).'</option>';
 }
-$abschluss_suche = 
+$abschluss_suche =
 '<form action="?" method="get">
 <select name="abschluss_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen").'</option>

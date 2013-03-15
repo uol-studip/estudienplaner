@@ -12,9 +12,12 @@ if (!class_exists("DBHelper")) {
     include_once dirname(__file__).'/../models/DBHelper.class.php';
 }
 include_once 'lib/classes/exportdocument/ExportPDF.class.php';
+require_once __DIR__ . '/../models/Textbaustein.class.php';
+
+SimpleORMap::expireTableScheme();
 
 class ZsbStudiengangController extends ZSBController {
-    
+
     function before_filter($action, $args) {
         parent::before_filter($action, $args);
         if (!PersonalRechte::hasPermission()) {
@@ -40,7 +43,7 @@ class ZsbStudiengangController extends ZSBController {
             return;
         }
         $this->profile = array();
-        
+
         $this->studiengaenge = PersonalRechte::meineStudiengaenge(null, true);
         $this->abschluesse = Abschluss::findAllUsed();
         if (Request::submitted("abschluss_id") or Request::submitted("studiengang_id")) {
@@ -56,7 +59,7 @@ class ZsbStudiengangController extends ZSBController {
             }
         }
     }
-    
+
     /**
      * Hiernach wird die Action nicht mehr gerendert.
      */
@@ -71,11 +74,11 @@ class ZsbStudiengangController extends ZSBController {
         $this->moeglicheZulassungsvoraussetzungen_sose = DBHelper::getEnumOptions("stg_profil", "zulassungsvoraussetzung_sose");
         //Typen von Studiengängen:
         $this->moeglicheStgTypen = StgProfil::getMoeglicheTypen();
-        
+
         $this->studiengaenge = PersonalRechte::meineStudiengaenge(null, true);
         $this->abschluesse = Abschluss::findAllUsed();
         $this->profile = StgProfil::getMeineProfile(null, Request::get("studiengang_id"), Request::get("abschluss_id"));
-        
+
         //Neuen Eintrag in stg_profil erstellen
         if (Request::get("item_id") === "neu" && !Request::get("studiengang_id")) {
             //$this->profil = new StgProfil();
@@ -83,7 +86,7 @@ class ZsbStudiengangController extends ZSBController {
             $this->render_template('zsb_studiengang/details_studiengang', $this->layout);
             return;
         }
-        
+
         $this->profil = new StgProfil(Request::get("studienprofil_id") !== "neu" ? Request::get("studienprofil_id") : null);
         if (!$this->profil->hasPermission()) {
             throw new AccessDeniedException(_("Sie dürfen diesen Studiengang nicht bearbeiten"));
@@ -120,6 +123,13 @@ class ZsbStudiengangController extends ZSBController {
             }
             $this->profil->setTypen(Request::getArray("typen"));
             $this->profil->store();
+
+            $textcombinations = $_REQUEST['textcombination'];
+            Textbaustein::removeCombination($this->profil->getId());
+            foreach ($textcombinations as $code => $ids) {
+                Textbaustein::addCombination($this->profil->getId(), $code, $ids);
+            }
+
             $this->flash_now("success", _("Änderungen wurden übernommen"));
             if (Request::get("neues_dokument")) {
                 $dokument = new StgFile();
@@ -165,7 +175,7 @@ class ZsbStudiengangController extends ZSBController {
                 }
             }
         }
-        
+
         //Informationen:
         $this->informationen = $this->profil->getInformation();
 
@@ -175,18 +185,25 @@ class ZsbStudiengangController extends ZSBController {
         //Dateien:
         $this->dateien = StgFile::getByStgProfil($this->profil->getId());
         $this->dokumentensuche = $this->getDokumentensuche();
-        
+
         //Kontakte:
         $this->kontakte = StgAnsprechpartner::getByStgProfil($this->profil->getId());
         $this->kontakt_neu = new StgAnsprechpartner();
         $this->ansprechpartnertypen = StgAnsprechpartner::getAnsprechpartnerTypen();
-        
+
 
         //Aufbaustudiengänge:
         $this->mutterstudiengaenge = $this->profil->getAufbauendeStudiengaenge();
         $this->profilsuche = $this->getProfilSuche();
-        
-        
+
+
+        // Textbausteine
+        $this->textbausteine = array(
+            'de' => Textbaustein::loadAll('de'),
+            'en' => Textbaustein::loadAll('en'),
+        );
+        $this->textcombinations = Textbaustein::loadCombination($this->profil->getId());
+
         $this->ansprechpartnersuche = $this->getAnsprechpartnersuche();
         $this->datei_url = $this->link_for("zsb_dateien/download_file");
         $this->render_template('zsb_studiengang/details_studiengang', $this->layout);
@@ -301,10 +318,10 @@ class ZsbStudiengangController extends ZSBController {
         $profil->deleteAufbauendenStudiengang(Request::get("aufbau_stg_profil_id"));
         $this->render_nothing();
     }
-    
+
     public function kontakt_profil_order_action() {
         $profil = new StgProfil(Request::get("profil_id"));
-    	if (!$profil->hasPermission()) {
+        if (!$profil->hasPermission()) {
             throw new AccessDeniedException(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
             return;
         }
@@ -323,7 +340,7 @@ class ZsbStudiengangController extends ZSBController {
 
     public function dokumente_profil_order_action() {
         $profil = new StgProfil(Request::get("profil_id"));
-    	if (!$profil->hasPermission()) {
+        if (!$profil->hasPermission()) {
             throw new AccessDeniedException(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
             return;
         }
@@ -342,7 +359,7 @@ class ZsbStudiengangController extends ZSBController {
 
     public function profil_pdf_action() {
         $profil = new StgProfil(Request::option("stg_profil_id"));
-    	if (!$profil->hasPermission()) {
+        if (!$profil->hasPermission()) {
             throw new AccessDeniedException(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
             return;
         }
@@ -366,7 +383,7 @@ class ZsbStudiengangController extends ZSBController {
         $factsheettabelle .= "|\n";
         $factsheettabelle .= "| Zulassungsbeschränkung im Wintersemester | ".$profil['zulassungsvoraussetzung_wise']." |\n";
         $factsheettabelle .= "| Zulassungsbeschränkung im Sommersemester | ".$profil['zulassungsvoraussetzung_sose']." |\n";
-        
+
         $aufbauendeStudiengaenge = $profil->getAufbauendeStudiengaenge();
         if (count($aufbauendeStudiengaenge)) {
             $factsheettabelle .= "| Aufbaustudiengang | ";
@@ -376,7 +393,7 @@ class ZsbStudiengangController extends ZSBController {
             }
             $factsheettabelle .= " |\n";
         }
-        
+
         $kombinationen = $profil->getKombinationen();
         if (count($kombinationen)) {
             $factsheettabelle .= "| Mögliche Kombinationen | ";
@@ -393,7 +410,7 @@ class ZsbStudiengangController extends ZSBController {
             $pdf->addContent("!"._("Ausland"));
             $pdf->addContent($profil['ausland']);
         }
-        
+
         //Informationen
         $informationen = $profil->getInformation();
         foreach (StgProfil::getPossibleLanguages() as $sprache) {
@@ -448,7 +465,7 @@ class ZsbStudiengangController extends ZSBController {
 
             }
         }
-        
+
         //Ansprechpartner
         $pdf->addPage();
         $ansprechpartner = StgAnsprechpartner::getByStgProfil($profil->getId());
@@ -466,7 +483,7 @@ class ZsbStudiengangController extends ZSBController {
             $ansprechpartner_content .= "\n";
             $pdf->addContent($ansprechpartner_content);
         }
-        
+
         //Dokumente
         //$pdf->addPage();
         $dokumente = StgFile::getByStgProfil($profil->getId());
@@ -489,7 +506,7 @@ class ZsbStudiengangController extends ZSBController {
             $dokumententabelle .= "\n";
             $pdf->addContent($dokumententabelle);
         }
-        
+
         //Ausgabe:
         $pdf->dispatch("Datenblatt ".StgProfil::getName($profil->getId()));
 

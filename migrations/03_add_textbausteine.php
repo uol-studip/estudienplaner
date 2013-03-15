@@ -2,7 +2,7 @@
 
 /*
  *  Copyright (c) 2013 Jan-Hendrik Willms <tleilax+studip@gmail.com>
- * 
+ *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
  *  published by the Free Software Foundation; either version 2 of
@@ -13,7 +13,7 @@
 class AddTextbausteine extends DBMigration
 {
     function up(){
-        $query = "CREATE TABLE `stg_textbausteine` (
+        $query = "CREATE TABLE IF NOT EXISTS `stg_textbausteine` (
             `textbaustein_id` char(32) NOT NULL DEFAULT '',
             `code` varchar(64) NOT NULL DEFAULT '',
             `title` varchar(255) NOT NULL DEFAULT '',
