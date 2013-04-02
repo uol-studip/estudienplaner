@@ -533,6 +533,10 @@ ul.three-columns label {
 #texteditor-choices .ui-tabs-panel {
     padding: 0.5em 0;
 }
+#texteditor-choices > div {
+    height: 195px;
+    overflow-y: auto;
+}
 #texteditor-infobox {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
