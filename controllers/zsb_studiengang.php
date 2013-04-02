@@ -24,7 +24,11 @@ class ZsbStudiengangController extends ZSBController {
             throw new AccessDeniedException(_("Unbefugter Zutritt!"));
             return;
         }
-        PageLayout::addStylesheet('ui.multiselect.css');
+        if ($GLOBALS['SOFTWARE_VERSION'] < 2.3) {
+            PageLayout::addStylesheet('ui.multiselect.css');
+        } else {
+            PageLayout::addStylesheet('jquery-ui-multiselect.css');
+        }
         PageLayout::addScript('ui.multiselect.js');
         URLHelper::bindLinkParam("abschluss_id", Request::get("abschluss_id"));
         URLHelper::bindLinkParam("studiengang_id", Request::get("studiengang_id"));

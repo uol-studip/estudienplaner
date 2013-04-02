@@ -2,7 +2,7 @@
 <?
 $headers = array(_("Studiengang"), _("Abschluss"));
 $items = $profile;
-$neu = PersonalRechte::isRoot() ? URLHelper::getLink($url, array("item_id" => "neu")) : null;
+$neu = PersonalRechte::isRoot() ? $controller->url_for('zsb_studiengang/studiengaenge?item_id=neu&studienprofil_id=neu') : null;
 $type = "studienprofil";
 ?>
 

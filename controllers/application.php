@@ -21,7 +21,11 @@ class ApplicationController extends Trails_Controller{
         PageLayout::setTitle($this->plugin->getDisplayTitle());
 
         $this->assets_url = $this->plugin->getPluginUrl(). '/assets/';
-        PageLayout::addScript('jquery.tablesorter.min.js');
+        if ($GLOBALS['SOFTWARE_VERSION'] < 2.3) {
+            PageLayout::addScript('jquery.tablesorter.min.js');
+        } else {
+            PageLayout::addScript('jquery/jquery.tablesorter.js');
+        }
         PageLayout::addHeadElement("script", 
             array("src" => $this->assets_url.'javascripts/application.js'), 
             "");

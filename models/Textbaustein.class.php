@@ -14,6 +14,17 @@ class Textbaustein
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function loadAllIds()
+    {
+        $query = "SELECT textbaustein_id
+                  FROM stg_textbausteine
+                  ORDER BY code";
+        $statement = DBManager::get()->prepare($query);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     public static function load($id)
     {
         $query = "SELECT textbaustein_id, code, language, title, content, mkdate, chdate, user_id
