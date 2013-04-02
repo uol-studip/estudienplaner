@@ -128,7 +128,7 @@ class ZsbStudiengangController extends ZSBController {
             $this->profil->setTypen(Request::getArray("typen"));
             $this->profil->store();
 
-            $textcombinations = $_REQUEST['textcombination'];
+            $textcombinations = (array) @$_REQUEST['textcombination'];
             Textbaustein::removeCombination($this->profil->getId());
             foreach ($textcombinations as $code => $ids) {
                 Textbaustein::addCombination($this->profil->getId(), $code, $ids);

@@ -261,9 +261,18 @@ jQuery(function () {
 
 
 jQuery(function () {
-    jQuery(".accordion").accordion({
-        collapsible: true,
-        autoHeight: false
+    jQuery(".accordion").each(function () {
+        var active = jQuery(this).data().active || 0,
+            input  = jQuery('<input type="hidden" name="active_tab"/>').val(active);
+        jQuery(this).closest('form').append(input);
+        jQuery(this).accordion({
+            collapsible: true,
+            autoHeight: false,
+            active: active
+        });
+        jQuery(this).on('accordionchange', function (event, ui) {
+            input.val(ui.options.active || 0);
+        });
     });
     jQuery('.accordion textarea:not(.clean)').addToolbar(STUDIP.Markup ? STUDIP.Markup.buttonSet : STUDIP.Toolbar.buttonset);
 

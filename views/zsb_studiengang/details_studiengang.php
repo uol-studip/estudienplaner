@@ -20,7 +20,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
 <?= _("Neue Kombination Studiengang und Abschluss anlegen") ?>
 <? endif ?>
 </h2>
-<div id="settings" class="accordion">
+<div id="settings" class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <?  if (!((PersonalRechte::isPamt() || PersonalRechte::isIamt()) && !PersonalRechte::isRoot())) : ?>
     <h2><?= _("Einstellungen") ?></h2>
     <div>
@@ -516,22 +516,22 @@ $abschlussfeld = $abschlusssuchfeld->render();
             <li>
                 <?= _('Sprache') ?>:
                 <label>
-                    <input type="radio" name="language" value="de" checked>
+                    <input type="radio" name="language" value="de" <? if (Request::option('language', 'de') === 'de') echo 'checked'; ?>>
                     <?= _('deutsch') ?>
                 </label>
                 <label>
-                    <input type="radio" name="language" value="en">
+                    <input type="radio" name="language" value="en" <? if (Request::option('language', 'de') === 'en') echo 'checked'; ?>>
                     <?= _('englisch') ?>
                 </label>
             </li>
             <li class="language-de">
                 <?= _('Studienbeginn') ?>:
                 <label>
-                    <input type="radio" name="begin" value="1" checked>
+                    <input type="radio" name="begin" value="1" <? if (Request::option('begin', '1') === '1') echo 'checked'; ?>>
                     <?= _('1. Semester') ?>
                 </label>
                 <label>
-                    <input type="radio" name="begin" value="h">
+                    <input type="radio" name="begin" value="h" <? if (Request::option('begin', '1') === 'h') echo 'checked'; ?>>
                     <?= _('Höheres Semester') ?>
                 </label>
             </li>
@@ -540,26 +540,26 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <?= _('HZB') ?>
                 </abbr>:
                 <label>
-                    <input type="radio" name="qualification" value="de" checked>
+                    <input type="radio" name="qualification" value="de" <? if (Request::option('qualification', 'de') === 'de') echo 'checked'; ?>>
                     <?= _('deutsch') ?>
                 </label>
                 <label>
-                    <input type="radio" name="qualification" value="int">
+                    <input type="radio" name="qualification" value="int" <? if (Request::option('qualification', '1') === 'int') echo 'checked'; ?>>
                     <?= _('international') ?>
                 </label>
             </li>
             <li class="language-en">
                 <?= _('Studienbeginn') ?>:
                 <label>
-                    <input type="radio" name="begin_en" value="1" checked>
+                    <input type="radio" name="begin_en" value="1" <? if (Request::option('begin_en', '1') === '1') echo 'checked'; ?>>
                     <?= _('1. Semester') ?>
                 </label>
                 <label>
-                    <input type="radio" name="begin_en" value="h">
+                    <input type="radio" name="begin_en" value="h" <? if (Request::option('begin_en', '1') === 'h') echo 'checked'; ?>>
                     <?= _('Höheres Semester') ?>
                 </label>
                 <label>
-                    <input type="radio" name="begin_en" value="ex">
+                    <input type="radio" name="begin_en" value="ex" <? if (Request::option('begin_en', '1') === 'ex') echo 'checked'; ?>>
                     <?= _('Austauschstudent') ?>
                 </label>
             </li>
