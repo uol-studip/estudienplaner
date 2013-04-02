@@ -527,8 +527,8 @@ jQuery(function () {
                     var preview = $(response).filter('#preview');
                     $('<div/>').html(preview).dialog({
                         title: "Vorschau".toLocaleString(),
-                        width: $(document).width() * 3 / 4,
-                        height: $(document).height() * 3 / 4,
+                        width: $(window).width() * 3 / 4,
+                        height: $(window).height() * 3 / 4,
                         buttons: {
                             "Ok": function () { $(this).dialog('close'); }
                         },
@@ -550,8 +550,8 @@ jQuery(function () {
 
             $content.dialog({
                 title: title,
-                width: $(document).width() * 2 / 3,
-                height: $(document).height() * 2 / 3,
+                width: $(window).width() * 2 / 3,
+                height: $(window).height() * 2 / 3,
                 buttons: buttons,
                 modal: true
             });
@@ -563,6 +563,11 @@ jQuery(function () {
 
 //
 jQuery(function ($) {
+
+    jQuery('#texteditor-combinations').on('change', 'input[name=language]', function () {
+        var index = jQuery(this).val() === 'de' ? 0 : 1;
+        jQuery('#texteditor-choices').tabs('select', index);
+    });
 
     var addSelection = function (stage, element) {
         var stage_id = stage.attr('id'),
