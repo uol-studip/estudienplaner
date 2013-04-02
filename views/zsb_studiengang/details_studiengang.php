@@ -584,7 +584,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <li class="ui-widget-content">
                         <span class="options">
                             <a href="#" class="semester selector"><span <? if (in_array($c['semester'], array('always', 'w'))) echo 'class="selected"'; ?>>W</span><span <? if (in_array($c['semester'], array('always', 's'))) echo 'class="selected"'; ?>>S</span></a>
-                            <a href="#" class="restriction selector"><span <? if (in_array($c['restriction'], array('always', 'f'))) echo 'class="selected"'; ?>>F</span><span <? if (in_array($c['restriction'], array('always', 'b'))) echo 'class="selected"'; ?>>B</span></a>
+                            <a href="#" class="restriction selector"><span <? if (in_array($c['restriction'], array('always', 'f'))) echo 'class="selected"'; ?>>Z</span><span <? if (in_array($c['restriction'], array('always', 'b'))) echo 'class="selected"'; ?>>B</span></a>
                             <a href="#" class="remove">Eintrag entfernen</a>
                         </span>
                         <span class="content">

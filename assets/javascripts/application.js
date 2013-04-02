@@ -571,7 +571,7 @@ jQuery(function ($) {
             li       = $('<li class="ui-widget-content"/>').text(text);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][semester]" value="always"/>').appendTo(li);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][restriction]" value="always"/>').appendTo(li);
-        $('<span class="options"><a href="#" class="semester selector"><span class="selected">W</span><span class="selected">S</span></a> <a href="#" class="restriction selector"><span class="selected">F</span><span class="selected">B</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
+        $('<span class="options"><a href="#" class="semester selector"><span class="selected">W</span><span class="selected">S</span></a> <a href="#" class="restriction selector"><span class="selected">Z</span><span class="selected">B</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
         $('ul li.empty', stage).hide();
         $('ul', stage).append(li);
 
@@ -621,6 +621,9 @@ jQuery(function ($) {
             $('span', this).addClass('selected');
         } else if (state === 3) {
             value = $('span', this).removeClass('selected').first().addClass('selected').text().toLowerCase();
+        }
+        if (value === 'z') {
+            value = 'f';
         }
         $(this).closest('li').find('input[type=hidden][name*=' + index + ']').val(value);
         return false;
