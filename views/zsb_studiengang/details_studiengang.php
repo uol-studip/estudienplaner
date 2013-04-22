@@ -44,6 +44,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <label for="lehrsprache"><?= _("Lehrsprache") ?></label>
                 <select name="settings[lehrsprache]" id="lehrsprache">
                     <option value="de"<?= $profil['lehrsprache'] === "de" ? " selected" : "" ?>><?= _("Deutsch") ?></option>
+                    <option value="de/en"<?= $profil['lehrsprache'] === "de/en" ? " selected" : "" ?>><?= _("Deutsch/Englisch") ?></option>
                     <option value="en"<?= $profil['lehrsprache'] === "en" ? " selected" : "" ?>><?= _("Englisch") ?></option>
                 </select>
             </li>
