@@ -270,7 +270,7 @@ jQuery(function () {
             autoHeight: false,
             active: active
         });
-        jQuery(this).on('accordionchange', function (event, ui) {
+        jQuery(this).bind('accordionchange', function (event, ui) {
             input.val(ui.options.active || 0);
         });
     });

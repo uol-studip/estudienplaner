@@ -42,12 +42,12 @@
     <? endif ?>
     <h2><?= _("Daten") ?></h2>
     <div>
-        <table>
+        <table style="width: 80%; margin-left: auto; margin-right: auto;">
             <tbody>
                 <tr>
                     <td><label for="range_typ"><?= _("Typ:") ?></label></td>
                     <td>
-                        <select name="range_typ" id="range_typ" onChange="if (this.value == '') { jQuery('tr.freitext').show(); jQuery('tr#identitaet').hide(); } else { jQuery('tr.freitext').hide(); jQuery('tr#identitaet').show(); };">
+                        <select name="range_typ" id="range_typ" onChange="if (this.value == '') { jQuery('tr.freitext').show(); jQuery('tr#identitaet').hide(); } else { jQuery('tr.freitext').hide(); jQuery('tr#identitaet').show(); };" style="width: 100%;">
                             <option value=""<?= !$kontakt['range_typ'] ? " selected" : "" ?>><?= _("Externer Ansprechpartner") ?></option>
                             <option value="auth_user_md5"<?= $kontakt['range_typ'] === "auth_user_md5" ? " selected" : "" ?>><?= _("Nutzer im System") ?></option>
                             <option value="institute"<?= $kontakt['range_typ'] === "institute" ? " selected" : "" ?>><?= _("Einrichtung") ?></option>
@@ -56,10 +56,13 @@
                 </tr>
                 <tr id="identitaet" style="<?= !$kontakt['range_typ'] ? "display: none;" : "" ?>">
                     <td><?= _("Identität:") ?></td>
-                    <td><?= QuickSearch::get("range_id", $kontaktsuche)->defaultValue($kontakt['range_id'], $kontakt->getName())->render() ?></td>
+                    <td><?= QuickSearch::get("range_id", $kontaktsuche)
+                                ->defaultValue($kontakt['range_id'], $kontakt->getName())
+                                ->setInputStyle("width: 100%;")
+                                ->render() ?></td>
                 </tr>
                 <tr>
-                    <td><label><?= _("Ansprechpartner-Typ") ?></label></td>
+                    <td><label for="ansprechpartner_typ_id"><?= _("Ansprechpartner-Typ") ?></label></td>
                     <td>
                         <?
                         if (PersonalRechte::isRoot() || !$kontakt['ansprechpartner_typ_id']) {
@@ -74,7 +77,7 @@
                         }
                         ?>
                         <? if ($editieren) : ?>
-                        <select id="ansprechpartner_typ_id" name="ansprechpartner_typ_id">
+                        <select id="ansprechpartner_typ_id" name="ansprechpartner_typ_id" style="width: 100%;">
                             <? foreach ($typen as $typ) : ?>
                             <option value="<?= $typ['ansprechpartner_typ_id'] ?>"<?= $typ['ansprechpartner_typ_id'] === $kontakt['ansprechpartner_typ_id'] ? " selected" : ""?>><?= htmlReady($typ['name']) ?></option>
                             <? endforeach ?>
@@ -86,19 +89,19 @@
                 </tr>
                 <tr class="freitext" style="<?= !$kontakt['range_typ'] ? "" : "display: none;" ?>">
                     <td><label for="freitext_name"><?= _("Freitext Name") ?></label></td>
-                    <td><input type="text" id="freitext_name" name="freitext_name" value="<?= htmlReady($kontakt['freitext_name']) ?>"></td>
+                    <td><input type="text" id="freitext_name" name="freitext_name" value="<?= htmlReady($kontakt['freitext_name']) ?>" style="width: 100%;"></td>
                 </tr>
                 <tr class="freitext" style="<?= !$kontakt['range_typ'] ? "" : "display: none;" ?>">
                     <td><label for="freitext_homepage"><?= _("Freitext Homepage") ?></label></td>
-                    <td><input type="text" id="freitext_homepage" name="freitext_homepage" value="<?= htmlReady($kontakt['freitext_homepage']) ?>"></td>
+                    <td><input type="text" id="freitext_homepage" name="freitext_homepage" value="<?= htmlReady($kontakt['freitext_homepage']) ?>" style="width: 100%;"></td>
                 </tr>
                 <tr class="freitext" style="<?= !$kontakt['range_typ'] ? "" : "display: none;" ?>">
                     <td><label for="freitext_mail"><?= _("Freitext Email") ?></label></td>
-                    <td><input type="text" id="freitext_mail" name="freitext_mail" value="<?= htmlReady($kontakt['freitext_mail']) ?>"></td>
+                    <td><input type="text" id="freitext_mail" name="freitext_mail" value="<?= htmlReady($kontakt['freitext_mail']) ?>" style="width: 100%;"></td>
                 </tr>
                 <tr class="freitext" style="<?= !$kontakt['range_typ'] ? "" : "display: none;" ?>">
                     <td><label for="freitext_telefon"><?= _("Freitext Telefonnummer") ?></label></td>
-                    <td><input type="text" id="freitext_telefon" name="freitext_telefon" value="<?= htmlReady($kontakt['freitext_telefon']) ?>"></td>
+                    <td><input type="text" id="freitext_telefon" name="freitext_telefon" value="<?= htmlReady($kontakt['freitext_telefon']) ?>" style="width: 100%;"></td>
                 </tr>
             </tbody>
         </table>
