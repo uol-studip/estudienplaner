@@ -112,6 +112,7 @@ STUDIP.zsb = {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_kontakte/change_kontakt_profil?";
         url = url + "profil_id=" + id + "&kontakt_id=" + jQuery("#kontakt_id").val();
         STUDIP.zsb.addToList(id, name, "#stg_profile", "profil_id", url, false);
+        jQuery("#verknuepfte_studiengaenge [value=" + id + "]").attr("selected", "selected");
     },
     addAnsprechpartnerToStudiengaenge: function (id, name) {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_kontakte/change_kontakt_profil?";
