@@ -334,6 +334,7 @@ jQuery(".accordion ul#stg_profile li a.icon_trash").live("click", function (even
             jQuery(li).slideUp(function () {
                 jQuery(this).remove();
             });
+            jQuery("#verknuepfte_studiengaenge [value=" + id + "]").removeAttr("selected");
         }
     });
 });
