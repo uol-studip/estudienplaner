@@ -372,7 +372,7 @@ class PersonalRechte {
                         "OR (roles.rolename = 'stg_i-amt' AND stg_bereiche.sichtbar_iamt = '1') " .
                         "OR (roles.rolename = 'stg_stabstelle_akkreditierung' AND stg_bereiche.sichtbar_stab = '1') " .
                     " ) " .
-                "ORDER BY COLLATE latin1_german2_ci name " .
+                "ORDER BY name COLLATE latin1_german2_ci" .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             //FSB, StuKo
@@ -390,7 +390,7 @@ class PersonalRechte {
                         "OR (stg_fsb_rollen.rollen_typ = 'StuKo' OR stg_bereiche.sichtbar_stuko = '1') " .
                     ") " .
                     ($doku_typ_id ? "AND doku_typ_id = ".$db->quote($doku_typ_id)." " : "") .
-                "ORDER BY COLLATE latin1_german2_ci name " .
+                "ORDER BY name COLLATE latin1_german2_ci" .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
         if ($doku_typ_id === null) {
