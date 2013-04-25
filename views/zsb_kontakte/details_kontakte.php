@@ -157,11 +157,13 @@ if (count($ansprechpartner)) {
     }
     $nav_select .= "</select></form>";
     if ($lastone) {
-        $zurueck = '<a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('kontakt_id' => $lastone->getId())).'" title="'._("zurück").'"></a>';
+        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('kontakt_id' => $lastone->getId())).'" title="'._("zurück").'"></a></div>';
     }
     if ($nextone) {
         $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('kontakt_id' => $nextone->getId())).'" title="'._("vorwärts").'"></a></div>';
     }
+    $hoch = '<div style="text-align: center;"><a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('typ_id' => $kontakt['ansprechpartner_typ_id'])).'" title="'._("Zu den Ansprechpartnern").'"></a></div>';
+
 }
 
 foreach ($typen as $typ) {
@@ -185,7 +187,7 @@ $infobox = array(
             ),
             array(
                 "icon" => "",
-                "text" => $zurueck." ".$vor
+                "text" => $zurueck." ".$vor." ".$hoch
             )
         )
     ) : null),
