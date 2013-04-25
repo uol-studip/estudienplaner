@@ -564,7 +564,7 @@ jQuery(function () {
 //
 jQuery(function ($) {
 
-    jQuery('#texteditor-combinations').on('change', 'input[name=language]', function () {
+    jQuery('#texteditor-combinations').bind('change', 'input[name=language]', function () {
         var index = jQuery(this).val() === 'de' ? 0 : 1;
         jQuery('#texteditor-choices').tabs('select', index);
     });
