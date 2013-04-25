@@ -311,7 +311,7 @@ class PersonalRechte {
                         "OR (roles.rolename = 'stg_i-amt' AND stg_bereiche.sichtbar_iamt = '1') " .
                         "OR (roles.rolename = 'stg_stabstelle_akkreditierung' AND stg_bereiche.sichtbar_stab = '1') " .
                     " ) " .
-                    ($ansprechpartner_typ_id ? "AND ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
+                    ($ansprechpartner_typ_id ? "AND stg_ansprechpartner.ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
                 "ORDER BY freitext_name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
@@ -328,7 +328,7 @@ class PersonalRechte {
                         "(stg_fsb_rollen.rollen_typ = 'FSB' AND stg_bereiche.sichtbar_fsb = '1') " .
                         "OR (stg_fsb_rollen.rollen_typ = 'StuKo' OR stg_bereiche.sichtbar_stuko = '1') " .
                     ") " .
-                    ($ansprechpartner_typ_id ? "AND ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
+                    ($ansprechpartner_typ_id ? "AND stg_ansprechpartner.ansprechpartner_typ_id = ".$db->quote($ansprechpartner_typ_id)." " : "") .
                 "ORDER BY freitext_name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
