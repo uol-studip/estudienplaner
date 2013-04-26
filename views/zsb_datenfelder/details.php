@@ -12,7 +12,7 @@
         <ul>
             <li>
                 <label for="name"><?= _("Name") ?>:</label><br>
-                <input name="name" value="<?= $datenfeld->getName() ?>" size="30" maxlength="255">
+                <input name="name" value="<?= basename($datenfeld->getName(), '.profile') ?>" size="30" maxlength="255">
             </li>
             <li>
                 <label for="feldtyp"><?= _("Feldtyp") ?>:</label><br>
@@ -25,6 +25,13 @@
             <li id="typeparam-row"<?= in_array($datenfeld->getType(), words('selectbox radio combo')) ? '' : ' style="display: none;"' ?>>
                 <label for="typparam"><?= _("Optionen") ?>:</label><br>
                 <textarea name="typparam" id="typparam" class="clean" rows="5" cols="30" style="width: 250px;"><?= $datenfeld->getTypeParam() ?></textarea>
+            </li>
+            <li>
+                <label for="context"><?= _("Kontext") ?>:</label><br>
+                <select name="context" id="context">
+                    <option value="profile-text"><?= _('Profil: Informationen (4x)') ?></option>
+                    <option value="profile" <? if (preg_match('/\.profile$/', $datenfeld->getName())) echo 'selected'; ?>><?= _('Profil: Allgemein') ?></option>
+                </select>
             </li>
         </ul>
         <input type="hidden" name="datenfeld_id" value="<?= $datenfeld->getID() ?>">

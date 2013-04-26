@@ -140,6 +140,16 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <label for="ausland"><?= _("Ausland") ?></label>
                 <textarea name="settings[ausland]" id="ausland"><?= htmlReady($profil['ausland']) ?></textarea>
             </li>
+        <? foreach($informationen['datenfelder'] as $datafield_id => $datafield) : ?>
+            <li>
+                <label for="df_<?= $datafield->getId() ?>"><?= htmlReady(basename($datafield->getName(), '.profile')) ?>:</label><br>
+                <? if (PersonalRechte::isRoot()) : ?>
+                <?= $datafield->getHtml("informationen[datenfelder]") ?>
+                <? else : ?>
+                <div class="description"><?= $datafield->getDisplayValue("informationen[datenfelder]") ?></div>
+                <? endif ?>
+            </li>
+        <? endforeach ?>
         </ul>
     </div>
     <? foreach ($sprachen as $key => $sprache) : ?>
