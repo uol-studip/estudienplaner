@@ -125,7 +125,7 @@ class StgProfil extends SORM {
         $informationen = array();
         $plugin_info = PluginManager::getInstance()->getPluginInfo('eStudienplaner');
 
-        $informationen['datenfelder'] = array_filter(DataFieldEntry::getDataFieldEntries($plugin_info['id'], 'plugin', $plugin_info['id']), function ($item) {
+        $informationen['datenfelder'] = array_filter(DataFieldEntry::getDataFieldEntries($this->profil_id, 'plugin', $plugin_info['id']), function ($item) {
             return preg_match('/\.profile$/', $item->getName());
         });
 
@@ -176,7 +176,7 @@ class StgProfil extends SORM {
         $plugin_info = PluginManager::getInstance()->getPluginInfo('eStudienplaner');
 
         //Datenfelder aktualisieren:
-        $datafield_entries = DataFieldEntry::getDataFieldEntries($plugin_info['id'], 'plugin', $plugin_info['id']);
+        $datafield_entries = DataFieldEntry::getDataFieldEntries($this->profil_id, 'plugin', $plugin_info['id']);
         foreach ($datafield_entries as $datafield_id => $datafield_entry) {
             if (is_array($informationen['datenfelder'][$datafield_id])) {
                 //Kombo-Box
