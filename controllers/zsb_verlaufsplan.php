@@ -205,6 +205,45 @@ class ZsbVerlaufsplanController extends ZsbController {
         $verlaufsplan->store();
         $this->render_nothing();
     }
+//von Witali
+        public function pdf_action() {
+        $verlaufsplan = new StgVerlaufsplan(Request::get('item_id'));
+        $this->gettersetter_verlaufsplan = new Verlaufsplan($verlaufsplan->getId());
 
+        $this->set_layout('layout_empty');
+
+        $this->render_template("zsb_verlaufsplan/verlaufsplan_grid_pdf.php", $this->layout);
+        $html = $this->get_response();
+        $this->erase_response();
+        $this->render_nothing();
+
+        file_put_contents($GLOBALS['TMP_PATH'] . "/".$verlaufsplan->getId().".html", $html->body);
+
+
+
+        $file_html = $GLOBALS['TMP_PATH'] . "/".$verlaufsplan->getId().".html";
+        $file_pdf = $GLOBALS['TMP_PATH'] . "/".$verlaufsplan->getId().".pdf";
+        if(file_exists($file_pdf)) unlink ($file_pdf);
+        $cmd = $this->plugin->getPluginPath() . "/bin/wkhtmltopdf-amd64 --page-size A4 --orientation Landscape " . $file_html . " " . $file_pdf;
+
+
+        exec($cmd, $o, $r);
+        if ($r)
+        {
+            throw new Exception('PDF konnte nicht erzeugt werden.' . "\n" . join("\n", $o));
+        }
+        unlink ($file_html);
+        
+          header("Content-type: application/pdf");
+        header('Content-Disposition: attachment; filename="Verlaufsplan.pdf"');
+        
+      
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        readfile($file_pdf);
+        exit;
+        
+        
+    }
 }
 
