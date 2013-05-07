@@ -8,13 +8,15 @@ require_once dirname(__file__).'/../models/StgProfil.class.php';
 require_once dirname(__file__).'/../models/StgFile.class.php';
 require_once dirname(__file__).'/../models/StgAnsprechpartner.class.php';
 require_once dirname(__file__).'/../models/StgVerlaufsplan.class.php';
+require_once dirname(__file__).'/../models/Verlaufsplan.php';
 if (!class_exists("DBHelper")) {
     include_once dirname(__file__).'/../models/DBHelper.class.php';
 }
 include_once 'lib/classes/exportdocument/ExportPDF.class.php';
 require_once __DIR__ . '/../models/Textbaustein.class.php';
-
+include_once dirname(__file__).'/../vendor/fpdi/fpdi.php';
 SimpleORMap::expireTableScheme();
+
 
 class ZsbStudiengangController extends ZSBController {
 
@@ -372,8 +374,10 @@ class ZsbStudiengangController extends ZSBController {
             'en_GB' => _("Englisch")
         );
         $pdf = new ExportPDF();
-        $pdf->setHeaderTitle(StgProfil::getName($profil->getId()));
-        $pdf->setHeaderSubtitle("Datenblatt des Studiengangprofils");
+          $pdf->setHeaderData('../../../public/assets/images/blank.gif');
+           
+                $pdf->setPrintHeader(false);
+                $pdf->setPrintFooter(false);
         //Einstellungen / Allgemeine Daten
         $pdf->addPage();
         $pdf->addContent("!!"._("Allgemeine Daten"));
@@ -517,8 +521,75 @@ class ZsbStudiengangController extends ZSBController {
             $pdf->addContent($dokumententabelle);
         }
 
+                //Speichere Profil
+                $pdf->Output($GLOBALS['TMP_PATH'].'/profil.pdf', 'F');
+                //Erstelle verlaufspläne
+                $pdfs = array($GLOBALS['TMP_PATH'].'/profil.pdf');
+                foreach ($profil->getVerlaufsplaene() as $verlaufsplan)
+                {
+                        $this->gettersetter_verlaufsplan = new Verlaufsplan($verlaufsplan->getId());
+                        $this->name                      = $verlaufsplan->getValue('titel');
+                        $file_html                       = $GLOBALS['TMP_PATH']."/vp".$verlaufsplan->getId().".html";
+                        $file_pdf                        = $GLOBALS['TMP_PATH']."/vp".$verlaufsplan->getId().".pdf";
+                        $this->set_layout('layout_empty');
+
+                        $this->render_template("zsb_verlaufsplan/verlaufsplan_grid_pdf.php", $this->layout);
+                        $html = $this->get_response();
+                        $this->erase_response();
+
+                        file_put_contents($file_html, $html->body);
+
+
+
+
+                        if (file_exists($file_pdf)) unlink($file_pdf);
+                        $cmd = $this->plugin->getPluginPath()."/bin/wkhtmltopdf-amd64 --page-size A4 --orientation Landscape ".$file_html." ".$file_pdf;
+
+
+                        exec($cmd, $o, $r);
+                        if ($r)
+                        {
+                                throw new Exception('PDF konnte nicht erzeugt werden.'."\n".join("\n", $o));
+                        }
+                        $pdfs[] = $file_pdf;
+                        unlink($file_html);
+                }
+
+
+                $fpdf = new FPDI();
+                $fpdf->setHeaderTitle(StgProfil::getName($profil->getId()));
+                $fpdf->setHeaderSubtitle("Datenblatt des Studiengangprofils");
+                foreach ($pdfs as $num=> $file)
+                {
+
+                        $pagecount = $fpdf->setSourceFile($file);
+
+                        for ($i = 1; $i <= $pagecount; $i++)
+                        {
+
+                                $tplidx      = $fpdf->importPage($i);
+                                $s           = $fpdf->getTemplatesize($tplidx);
+                                $orientation = 'P';
+                                $marginY     = 0;
+                                if ($num > 0)
+                                { //erstes PDF wird durch TCPDF erzeugt weitere durch wkhtmltopdf
+                                        $marginY     = 10;
+                                        $orientation = 'L';
+                                }
+
+                                $fpdf->AddPage($orientation, array($s['w'], $s['h']));
+                                $fpdf->useTemplate($tplidx, 0, $marginY);
+                        }
+                }
+
+
+
+
+                // StgProfil::getName($profil->getId())
+                $fpdf->Output("Datenblatt ".StgProfil::getName($profil->getId()).".pdf", 'I');
+
         //Ausgabe:
-        $pdf->dispatch("Datenblatt ".StgProfil::getName($profil->getId()));
+       // $pdf->dispatch("Datenblatt ".StgProfil::getName($profil->getId()));
 
         $this->render_nothing();
     }

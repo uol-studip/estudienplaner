@@ -7,7 +7,7 @@ class StgProfil extends SORM {
     protected $db_table = 'stg_profil';
 
     static protected $infos = array();
-    
+
     static public function get($profil_id) {
         return new StgProfil($profil_id);
     }
@@ -33,7 +33,7 @@ class StgProfil extends SORM {
                 ($abschluss_id ? "AND stg_profil.abschluss_id = ".$db->quote($abschluss_id)." " : "") .
         "")->fetchAll(PDO::FETCH_COLUMN, 0);
         $ret = array();
-    	foreach ($profile as $profil_id) {
+        foreach ($profile as $profil_id) {
             $ret[] = new StgProfil($profil_id);
         }
         return $ret;
@@ -125,6 +125,10 @@ class StgProfil extends SORM {
         $informationen = array();
         $plugin_info = PluginManager::getInstance()->getPluginInfo('eStudienplaner');
 
+        $informationen['datenfelder'] = array_filter(DataFieldEntry::getDataFieldEntries($this->profil_id, 'plugin', $plugin_info['id']), function ($item) {
+            return preg_match('/\.profile$/', $item->getName());
+        });
+
         foreach (self::getPossibleLanguages() as $lang) {
             if ($language !== null && $language !== $lang) {
                 continue;
@@ -151,8 +155,13 @@ class StgProfil extends SORM {
                 $info['lang']['information_id'] = 'eStudienplaner_info_lang';
             }
 
-            $info['kurz']['datenfelder'] = DataFieldEntry::getDataFieldEntries($info['kurz']['information_id'], 'plugin', $plugin_info['id']);
-            $info['lang']['datenfelder'] = DataFieldEntry::getDataFieldEntries($info['lang']['information_id'], 'plugin', $plugin_info['id']);
+            $info['kurz']['datenfelder'] = array_filter(DataFieldEntry::getDataFieldEntries($info['kurz']['information_id'], 'plugin', $plugin_info['id']), function ($item) {
+                return !preg_match('/\.profile$/', $item->getName());
+            });
+            $info['lang']['datenfelder'] = array_filter(DataFieldEntry::getDataFieldEntries($info['lang']['information_id'], 'plugin', $plugin_info['id']), function ($item) {
+                return !preg_match('/\.profile$/', $item->getName());
+            });
+
             if ($language !== null && $language === $lang) {
                 return $info;
             } else {
@@ -165,6 +174,20 @@ class StgProfil extends SORM {
     public function setInformation($informationen) {
         $db = DBManager::get();
         $plugin_info = PluginManager::getInstance()->getPluginInfo('eStudienplaner');
+
+        //Datenfelder aktualisieren:
+        $datafield_entries = DataFieldEntry::getDataFieldEntries($this->profil_id, 'plugin', $plugin_info['id']);
+        foreach ($datafield_entries as $datafield_id => $datafield_entry) {
+            if (is_array($informationen['datenfelder'][$datafield_id])) {
+                //Kombo-Box
+                $value = $informationen['datenfelder'][$datafield_id][$informationen['datenfelder'][$datafield_id]['combo']];
+            } else {
+                $value = $informationen['datenfelder'][$datafield_id];
+            }
+            $datafield_entry->setValue($value);
+            $datafield_entry->store();
+        }
+
 
         foreach ($informationen as $language => $sprach_infos) {
             foreach (array('kurz', 'lang') as $info_form) {
@@ -217,15 +240,17 @@ class StgProfil extends SORM {
                     }
                     //Datenfelder aktualisieren:
                     $datafield_entries = DataFieldEntry::getDataFieldEntries($profil_information_id, 'plugin', $plugin_info['id']);
-                    foreach ($datafield_entries as $datafield_id => $datafield_entry) {
-                        if (is_array($sprach_infos[$info_form]['datenfelder'][$datafield_id])) {
-                            //Kombo-Box
-                            $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id][$sprach_infos[$info_form]['datenfelder'][$datafield_id]['combo']];
-                        } else {
-                            $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id];
+                    if (is_array($datafield_entries)) {
+                        foreach ($datafield_entries as $datafield_id => $datafield_entry) {
+                            if (is_array($sprach_infos[$info_form]['datenfelder'][$datafield_id])) {
+                                //Kombo-Box
+                                $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id][$sprach_infos[$info_form]['datenfelder'][$datafield_id]['combo']];
+                            } else {
+                                $value = $sprach_infos[$info_form]['datenfelder'][$datafield_id];
+                            }
+                            $datafield_entry->setValue($value);
+                            $datafield_entry->store();
                         }
-                        $datafield_entry->setValue($value);
-                        $datafield_entry->store();
                     }
                 }
             }
@@ -249,7 +274,7 @@ class StgProfil extends SORM {
         foreach ($mutterstudiengaenge as $key => $profil_id) {
             $mutterstudiengaenge[$key] = new StgProfil($profil_id);
         }
-    	return $mutterstudiengaenge ? $mutterstudiengaenge : array();
+        return $mutterstudiengaenge ? $mutterstudiengaenge : array();
     }
     public function addAufbauendenStudiengang($stg_profil_id) {
         $db = DBManager::get();

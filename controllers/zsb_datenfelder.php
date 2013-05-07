@@ -24,8 +24,9 @@ class ZsbDatenfelderController extends ZsbController {
         foreach ($datafields as $datafield) {
             $this->datenfelder[] = array(
                 'content' => array(
-                    $datafield->getName(),
+                    basename($datafield->getName(), '.profile'),
                     $datafield->getType(),
+                    preg_match('/\.profile$/', $datafield->getName()) ? _('Profil') : _('Profiltext'),
                     $datafield->getCachedNumEntries(),
                     $datafield->getPriority()),
                 'url' => URLHelper::getLink("?", array('datenfeld_id' => $datafield->getId())),
@@ -51,8 +52,9 @@ class ZsbDatenfelderController extends ZsbController {
         }
 
         if (Request::get('absenden_x')) {
+            $postfix = Request::option('context') === 'profile' ? '.profile' : '';
             $this->datenfeld->setID(Request::get('datenfeld_id'));
-            $this->datenfeld->setName(Request::get('name'));
+            $this->datenfeld->setName(Request::get('name') . $postfix);
             $this->datenfeld->setType(Request::get('feldtyp'));
             $this->datenfeld->setTypeParam(Request::get('typparam'));
             $this->datenfeld->setObjectClass($this->plugin->getPluginId());
