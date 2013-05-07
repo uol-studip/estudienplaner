@@ -400,11 +400,17 @@ class ZsbStudiengangController extends ZSBController {
 
         $kombinationen = $profil->getKombinationen();
         if (count($kombinationen)) {
-            $factsheettabelle .= "| Mögliche Kombinationen | ";
+            $factsheettabelle .= "| Mögliche Zwei-Fächer-Kombinationen zu diesem Studiengang | ";
+            $studiengaenge = array();
             foreach ($kombinationen as $key => $studiengang) {
-                $key === 0 || ($factsheettabelle .= "; ");
-                $factsheettabelle .= StgProfil::getName($studiengang['stg_profil_id']) . " - " .StgProfil::getName($studiengang['kombi_stg_profil_id']);
+                if ($studiengang['stg_profil_id'] === $profil->getId()) {
+                    $studiengaenge[] = StgProfil::find("StgProfil", $studiengang['kombi_stg_profil_id'])->getStudiengang();
+                } else {
+                    $studiengaenge[] = StgProfil::find("StgProfil", $studiengang['stg_profil_id'])->getStudiengang();
+                }
             }
+            sort($studiengaenge, SORT_LOCALE_STRING);
+            $factsheettabelle .= implode(", ", $studiengaenge);
             $factsheettabelle .= " |\n";
         }
 
