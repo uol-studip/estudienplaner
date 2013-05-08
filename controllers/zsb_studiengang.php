@@ -414,6 +414,7 @@ class ZsbStudiengangController extends ZSBController {
                 }
             }
             sort($studiengaenge, SORT_LOCALE_STRING);
+            $studiengaenge = array_unique($studiengaenge);
             $factsheettabelle .= implode(", ", $studiengaenge);
             $factsheettabelle .= " |\n";
         }
