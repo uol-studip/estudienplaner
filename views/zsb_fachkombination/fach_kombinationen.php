@@ -4,6 +4,7 @@ $headers = array(_("Erstes Fach"), _("Zweites Fach"), _("Beschreibung"));
 $items = array();
 foreach ($kombinationen as $kombo_fach) {
     $items[] = array(
+        'item' => $kombo_fach,
         'content' => array(
             StgProfil::getName($kombo_fach['stg_profil_id']),
             StgProfil::getName($kombo_fach['kombi_stg_profil_id']),

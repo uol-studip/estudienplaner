@@ -65,8 +65,8 @@ class ZsbFachkombinationController extends ZSBController {
                 }
             }
         }
-        if (Request::get("delete_x") && Request::submitted("fach_kombi_id")) {
-            $kombi = new StgFachkombination(Request::get("fach_kombi_id"));
+        if (Request::get("delete_x") && (Request::submitted("fach_kombi_id") || Request::submitted("item_id"))) {
+            $kombi = new StgFachkombination(Request::get("fach_kombi_id") ? Request::get("fach_kombi_id") : Request::get("item_id"));
             $kombi->delete();
             $this->flash_now("success", _("Fächerkombination gelöscht"));
         } elseif (Request::submitted("fach_kombi_id")) {

@@ -38,4 +38,8 @@ class StgFachkombination extends SORM {
         $name2 = StgProfil::getName($this['kombi_stg_profil_id']);
         return $name1." / ".$name2;
     }
+
+    public function is_deletable() {
+        return PersonalRechte::isRoot();
+    }
 }
