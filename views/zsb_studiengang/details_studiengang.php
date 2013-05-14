@@ -730,7 +730,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
 </form>
 
 <div id="neues_dokument_window" style="display: none;">
-    <form action="?" method="post" enctype="multipart/form-data">
+    <form action="<?= PluginEngine::getLink($plugin, array('studiengang_id' => Request::option("studiengang_id"), 'abschluss_id' => Request::option("abschluss_id"), 'studienprofil_id' => $profil->getId()), "zsb_studiengang/studiengaenge") ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" id="profil_id" name="item_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
         <input type="hidden" name="neues_dokument" value="1">
         <table>
