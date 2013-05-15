@@ -84,7 +84,7 @@ class DBFile extends SimpleORMap {
             exit;
         }
         header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
+        header('Pragma: ');
         header('Content-Length: ' . filesize($this->getUploadPath()));
 
         print file_get_contents($this->getUploadPath());
