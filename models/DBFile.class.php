@@ -23,7 +23,7 @@ class DBFile extends SimpleORMap {
      * Diese Funktion sollte an einer Stelle aufgerufen werden, wo die Datei schon 
      * de facto hochgeladen ist. Diese Funktion ordnet die Datei dann nur noch der 
      * Datenbank zu.
-     * Ruft am Ende store() auf, damit die Datenbank die Änderungen übernimmt. Alle 
+     * Ruft am Ende store() auf, damit die Datenbank die ï¿½nderungen ï¿½bernimmt. Alle 
      * Variablen sollten also vorher schon mal in die Datenbank geschrieben werden.
      */
     public function upload() {
@@ -47,7 +47,7 @@ class DBFile extends SimpleORMap {
                 throw new Exception("Could not copy");
             }
         }
-        //Datei im temp-Verzeichnis löschen und fertig:
+        //Datei im temp-Verzeichnis lï¿½schen und fertig:
         if (file_exists($result['path'])) {
             unlink($result['path']);
         }
@@ -70,7 +70,7 @@ class DBFile extends SimpleORMap {
     
     /**
      * Diese Methode liefert die Datei aus und beendet alle anderen Ausgaben. So beware!
-     * Es darf dafür auch keine Ausgabe zuvor geschehen sein.
+     * Es darf dafï¿½r auch keine Ausgabe zuvor geschehen sein.
      */
     public function download($attachment = false) {
         //kein Rechtecheck
@@ -85,7 +85,8 @@ class DBFile extends SimpleORMap {
         }
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
-        
+        header('Content-Length: ' . filesize($this->getUploadPath()));
+
         print file_get_contents($this->getUploadPath());
         page_close();
         exit;
