@@ -1,4 +1,3 @@
-
 STUDIP.zsb = {
     /**
      * Creates an hls-color from a given string. This color is like a hash-box
@@ -71,7 +70,7 @@ STUDIP.zsb = {
             }
             var vorhanden = true;
             jQuery.each(value, function (index, word) {
-                //die Wörter müssen alle vorhanden sein:
+                //die Wï¿½rter mï¿½ssen alle vorhanden sein:
                 if (rows.text().toUpperCase().indexOf(word.toUpperCase()) === -1) {
                     vorhanden = false;
                 }
@@ -189,8 +188,8 @@ STUDIP.zsb = {
         var id = jQuery(this).parents("tr[id]")[0].id;
         var type = id.substr(0, id.lastIndexOf("_"));
         id = id.substr(id.lastIndexOf("_") + 1);
-        jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsächlich löschen?<br>' +
-                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type, 'addDocument': 0}) + "'" + '">löschen</div> ' +
+        jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsï¿½chlich lï¿½schen?<br>' +
+                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type, 'addDocument': 0}) + "'" + '">lï¿½schen</div> ' +
                         '<div class="studip_button" onClick="' + "jQuery(this).parent().parent().find('.ui-dialog-titlebar-close').trigger('click');" + '">abbrechen</div></div>').dialog({
             title: "Sicherheitsabfrage",
             hide: "fade",
@@ -319,7 +318,7 @@ jQuery(function () {
 
 
 
-//Und hier die Mülltonnen-Logik:
+//Und hier die Mï¿½lltonnen-Logik:
 
 jQuery(".accordion ul#stg_profile li a.icon_trash").live("click", function (event) {
     var li = jQuery(this).parent()[0];
@@ -393,7 +392,7 @@ jQuery(".accordion ul#aufbaustudiengaenge li a.icon_trash").live("click", functi
         }
     });
 });
-//Löschen aus der Liste im Punkt Personal. Zu jedem Typ des Personals (FSB oder StuKo) gibt es eine Liste.
+//Lï¿½schen aus der Liste im Punkt Personal. Zu jedem Typ des Personals (FSB oder StuKo) gibt es eine Liste.
 //Der Typ wird aus der ID des ul-Tags gefiltert:
 jQuery(".accordion ul[id^=role_] li a.icon_trash").live("click", function (event) {
     var li = jQuery(this).parent()[0];
@@ -567,7 +566,7 @@ jQuery(function () {
 jQuery(function ($) {
 
     jQuery('#texteditor-combinations').bind('change', 'input[name=language]', function () {
-        var index = jQuery(this).val() === 'de' ? 0 : 1;
+        var index = (jQuery(this).val() === 'en') ? 1 : 0;
         jQuery('#texteditor-choices').tabs('select', index);
     });
 
@@ -578,7 +577,7 @@ jQuery(function ($) {
             li       = $('<li class="ui-widget-content"/>').text(text);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][semester]" value="always"/>').appendTo(li);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][restriction]" value="always"/>').appendTo(li);
-        $('<span class="options"><a href="#" class="semester selector"><span class="selected" title="Wintersemester">W</span><span class="selected" title="Sommersemester">S</span></a> <a href="#" class="restriction selector"><span class="selected" title="zulassungsbeschränkt">Z</span><span class="selected" title="zulassungsfrei">F</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
+        $('<span class="options"><a href="#" class="semester selector"><span class="selected" title="Wintersemester">W</span><span class="selected" title="Sommersemester">S</span></a> <a href="#" class="restriction selector"><span class="selected" title="zulassungsbeschrï¿½nkt">Z</span><span class="selected" title="zulassungsfrei">F</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
         $('ul li.empty', stage).hide();
         $('ul', stage).append(li);
 
@@ -663,7 +662,7 @@ jQuery(function ($) {
             ids.push(val)
         });
         if (ids.length === 0) {
-            alert('Keine Textbausteine ausgewählt');
+            alert('Keine Textbausteine ausgewï¿½hlt');
         } else {
             $('<div/>').load(url, {ids: ids}, function () {
                 $(this).dialog({
@@ -716,7 +715,7 @@ jQuery(function ($) {
                 if (json === false) {
                     alert("Es gibt keinen Studiengang mit dieser Fach-/Abschlusskombination.".toLocaleString());
                 } else if (json !== true) {
-                    if ($.isArray(json) && !json.length && !confirm("Dem ausgewählten Studiengang sind keine Textbausteine zugeordnet. Wollen Sie wirklich fortfahren?\nIhre aktuelle Textkombinationen werden gelöscht, wenn Sie fortfahren.")) {
+                    if ($.isArray(json) && !json.length && !confirm("Dem ausgewï¿½hlten Studiengang sind keine Textbausteine zugeordnet. Wollen Sie wirklich fortfahren?\nIhre aktuelle Textkombinationen werden gelï¿½scht, wenn Sie fortfahren.")) {
                         return;
                     }
                     $('.selection li:not(.empty)').remove();
@@ -730,7 +729,7 @@ jQuery(function ($) {
                 }
             });
         } else {
-            alert("Bitte wählen Sie sowohl ein Fach als auch einen Abschluss aus.".toLocaleString());
+            alert("Bitte wï¿½hlen Sie sowohl ein Fach als auch einen Abschluss aus.".toLocaleString());
         }
         return false;
     });
@@ -751,7 +750,7 @@ jQuery(function ($) {
         });
 
         if (count === 0) {
-            alert("Sie müssen mindestens ein Fach, einen Abschluss oder einen Status auswählen.".toLocaleString());
+            alert("Sie mï¿½ssen mindestens ein Fach, einen Abschluss oder einen Status auswï¿½hlen.".toLocaleString());
         } else {
             $('.stage input[type=hidden][name^=textcombination]').each(function () {
                 var temp  = $(this).attr('name').split(/\[|\]\[|\]/),
