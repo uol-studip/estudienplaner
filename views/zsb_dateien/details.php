@@ -71,10 +71,10 @@
             <li>
                 <? if ($datei['filename']) : ?>
                 <a href="<?= URLHelper::getLink('downloads/esis/' . $datei->getId() . '/' . urlencode($datei['filename'])) ?>">
-                <?= Assets::img("icons/16/grey/file.png", array('class' => "text-bottom", 'title' => _("Es ist eine Datei angeh√§ngt, sie wird allerdings nur pr√§sentiert, wenn keine URL angegeben wurde.")))." "._("Dateiname") ?>: <span id="filename"><?= htmlReady($datei['filename']) ?></span>
+                <?= Assets::img("icons/16/grey/file.png", array('class' => "text-bottom", 'title' => _("Es ist eine Datei angeh‰ngt, sie wird allerdings nur pr‰sentiert, wenn keine URL angegeben wurde.")))." "._("Dateiname") ?>: <span id="filename"><?= htmlReady($datei['filename']) ?></span>
                 </a>
                 <? endif ?>
-                <!-- lokalisierte Text f√ºr die Buttons und Dateiliste -->
+                <!-- lokalisierte Text f¸r die Buttons und Dateiliste -->
                 <div id="text-button" style="display:none;"><?= $datei['filename'] ? _("Neu hochladen") : _("Datei hochladen") ?></div>
                 <div id="text-droparea" style="display:none;"><?= _("Dateien hier abladen!") ?></div>
                 <div id="text-failed" style="display:none;"><?= _("Fehler!") ?></div>
@@ -83,10 +83,10 @@
                 <div id="file-uploader">
                     <noscript>
                         <p>Please enable JavaScript to use file uploader.</p>
-                        <!-- oder iframe f√ºr non-JS-Uploader -->
+                        <!-- oder iframe f¸r non-JS-Uploader -->
                     </noscript>
                 </div>
-                <i><?= _("Alte Datei wird √ºberschrieben.") ?></i>
+                <i><?= _("Alte Datei wird ¸berschrieben.") ?></i>
                 <script>
                     var uploader = new qq.FileUploader({
                         element: jQuery('#file-uploader')[0],
@@ -104,16 +104,16 @@
             </li>
             <? endif ?>
             <li>
-                <label for="tags"><?= _("Schlagw√∂rter") ?></label>
+                <label for="tags"><?= _("Schlagwˆrter") ?></label>
                 <textarea id="tags" name="tags" class="clean"><?= htmlReady(implode(" ", $datei->getTags())) ?></textarea>
             </li>
         </ul>
         <p class="info">
-            <?= _("Sie k√∂nnen sowohl ein Bild hochladen, als auch eine URL angeben. Ausgegeben wird am Ende aber immer die URL, falls es eine gibt, und nur ansonsten die hochgeladene Datei. L√∂schen Sie die URL, damit wieder das hochgeladene Bild erreichbar wird.") ?>
+            <?= _("Sie kˆnnen sowohl ein Bild hochladen, als auch eine URL angeben. Ausgegeben wird am Ende aber immer die URL, falls es eine gibt, und nur ansonsten die hochgeladene Datei. Lˆschen Sie die URL, damit wieder das hochgeladene Bild erreichbar wird.") ?>
         </p>
     </div>
     <? if (!$datei->isNew()) : ?>
-    <h2><?= _("Studieng√§nge") ?></h2>
+    <h2><?= _("Studieng‰nge") ?></h2>
     <div>
         <div>
             <?= QuickSearch::get("profil_id", $profilsuche)
@@ -129,7 +129,7 @@
             </ul>
         </div>
         <? if (PersonalRechte::isPamt() || PersonalRechte::isIamt()) : ?>
-        <a class="icon_folder-empty" onClick="jQuery(this).hide().next().show(); STUDIP.MultiSelect.create('#verknuepfte_studiengaenge', '<?= _("Studieng√§nge") ?>'); return false;"><?= _("Gro√ües Auswahlfeld anzeigen") ?></a>
+        <a class="icon_folder-empty" onClick="jQuery(this).hide().next().show(); STUDIP.MultiSelect.create('#verknuepfte_studiengaenge', '<?= _("Studieng‰nge") ?>'); return false;"><?= _("Groﬂes Auswahlfeld anzeigen") ?></a>
         <div style="display: none;">
             <select name="verknuepfte_studiengaenge[]" id="verknuepfte_studiengaenge" multiple style="width: 80%; height: 150px;">
             <? foreach (StgProfil::getMeineProfile() as $profil) : ?>
@@ -166,10 +166,10 @@ if (count($dokumente)) {
     }
     $nav_select .= "</select></form>";
     if ($lastone) {
-        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('doku_id' => $lastone->getId())).'" title="'._("zur√ºck").'"></a></div>';
+        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('doku_id' => $lastone->getId())).'" title="'._("zur¸ck").'"></a></div>';
     }
     if ($nextone) {
-        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('doku_id' => $nextone->getId())).'" title="'._("vorw√§rts").'"></a></div>';
+        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('doku_id' => $nextone->getId())).'" title="'._("vorw‰rts").'"></a></div>';
     }
 }
 
@@ -179,7 +179,7 @@ foreach ($typen as $typ) {
 $typ_suche =
 '<form action="?" method="get">
 <select name="typ_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
-    <option value="">'. _("ausw√§hlen") .'</option>
+    <option value="">'. _("ausw‰hlen") .'</option>
     '.$typ_suche.'
 </select>
 </form>';
@@ -195,7 +195,7 @@ $infobox = array(
             ),
             array(
                 "icon" => "",
-                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('doku_id' => null, 'typ_id' => Request::get('typ_id'))).'" title="'._("Zur Dokument√ºbersicht").'"></a> '.$vor.'</div>'
+                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('doku_id' => null, 'typ_id' => Request::get('typ_id'))).'" title="'._("Zur Dokument¸bersicht").'"></a> '.$vor.'</div>'
             )
         )
     ) : null),
