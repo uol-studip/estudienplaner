@@ -163,6 +163,7 @@ class StgProfil extends SORM {
             });
 
             if ($language !== null && $language === $lang) {
+                $info['datenfelder'] = $informationen['datenfelder'];
                 return $info;
             } else {
                 $informationen[$lang] = $info;

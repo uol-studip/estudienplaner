@@ -375,7 +375,7 @@ class ZsbStudiengangController extends ZSBController {
         );
         $pdf = new ExportPDF();
           $pdf->setHeaderData('../../../public/assets/images/blank.gif');
-           
+
                 $pdf->setPrintHeader(false);
                 $pdf->setPrintFooter(false);
         //Einstellungen / Allgemeine Daten
