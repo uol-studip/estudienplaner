@@ -29,7 +29,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             <li>
                 <label for="studiengang_id_2"><?= _("Studiengang") ?></label>
                 <?= QuickSearch::get("studiengang_id", $fachsuche)->render() ?>
-                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
+                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wï¿½hlen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <? endif ?>
             <li>
@@ -37,7 +37,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <input type="text" name="settings[studiendauer]" id="studiendauer" value="<?= htmlReady($profil['studiendauer']) ?>">
             </li>
             <li>
-                <label for="studienplaetze"><?= _("Studienplätze") ?></label>
+                <label for="studienplaetze"><?= _("Studienplï¿½tze") ?></label>
                 <input type="text" name="settings[studienplaetze]" id="studienplaetze" value="<?= htmlReady($profil['studienplaetze']) ?>">
             </li>
             <li>
@@ -57,13 +57,13 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 </select>
             </li>
             <li>
-                <label for="sichtbar"><?= _("Sichtbar nach Außen") ?></label>
+                <label for="sichtbar"><?= _("Sichtbar nach Auï¿½en") ?></label>
                 <input type="checkbox" value="1" name="settings[sichtbar]" id="sichtbar"<?= $profil['sichtbar'] ? " checked" : "" ?>>
             </li>
             <li>
                 <label for="abschluss_id_1"><?= _("Abschluss") ?></label>
                 <?= $abschlussfeld ?>
-                <p class="info"><?= _("Tippen Sie den Namen des Abschlusses ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
+                <p class="info"><?= _("Tippen Sie den Namen des Abschlusses ein und wï¿½hlen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <li>
                 <label for="stg_typ"><?= _("Typen") ?></label><br>
@@ -80,7 +80,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 </script>
             </li>
             <li>
-                <label for="zulassungsvorraussetzung_wise"><?= _("Zulassungsbeschränkung im Wintersemester") ?></label>
+                <label for="zulassungsvorraussetzung_wise"><?= _("Zulassungsbeschrï¿½nkung im Wintersemester") ?></label>
                 <select name="settings[zulassungsvoraussetzung_wise]" id="zulassungsvorraussetzung_wise">
                 <? foreach ($moeglicheZulassungsvoraussetzungen_wise as $option) : ?>
                     <option value="<?= htmlReady($option) ?>"<?= $option === $profil['zulassungsvoraussetzung_wise'] ? " selected" : "" ?>><?= htmlReady($option) ?></option>
@@ -88,7 +88,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 </select>
             </li>
             <li>
-                <label for="zulassungsvorraussetzung_sose"><?= _("Zulassungsbeschränkung im Sommersemester") ?></label>
+                <label for="zulassungsvorraussetzung_sose"><?= _("Zulassungsbeschrï¿½nkung im Sommersemester") ?></label>
                 <select name="settings[zulassungsvoraussetzung_sose]" id="zulassungsvorraussetzung_sose">
                 <? foreach ($moeglicheZulassungsvoraussetzungen_sose as $option) : ?>
                     <option value="<?= htmlReady($option) ?>"<?= $option === $profil['zulassungsvoraussetzung_sose'] ? " selected" : "" ?>><?= htmlReady($option) ?></option>
@@ -110,7 +110,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                             ->noSelectbox()
                             ->fireJSFunctionOnSelect("STUDIP.zsb.addAufbaustudiengang")
                             ->render() ?>
-                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
+                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wï¿½hlen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <? endif ?>
             <? if ($profil) : ?>
@@ -154,7 +154,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
     </div>
     <? foreach ($sprachen as $key => $sprache) : ?>
     <? foreach (array('kurz', 'lang') as $info_form) : ?>
-    <h2><?= sprintf(_("%s Informationen auf %s"), $info_form === "kurz" ? _("Kurze") : _("Ausführliche"), $sprachname[$sprache] ? $sprachname[$sprache] : $sprache) ?></h2>
+    <h2><?= sprintf(_("%s Informationen auf %s"), $info_form === "kurz" ? _("Kurze") : _("Ausfï¿½hrliche"), $sprachname[$sprache] ? $sprachname[$sprache] : $sprache) ?></h2>
     <div>
         <ul class="zsb_detail_list">
             <? //dgettext funktioniert nicht, da nur eine Domain angemeldet ist in Stud.IP. Laufen sollte es trotzdem. ?>
@@ -191,7 +191,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Gründe") ?></label>
+                <label for="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Grï¿½nde") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][gruende]" id="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['gruende']) ?></textarea>
                 <? else : ?>
@@ -255,7 +255,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="vollstaendig_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Vollständig") ?></label>
+                <label for="vollstaendig_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Vollstï¿½ndig") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <input type="checkbox" name="informationen[<?= $sprache ?>][<?= $info_form ?>][vollstaendig]" id="vollstaendig_<?= $sprache ?>_<?= $info_form ?>" value="1"<?= $informationen[$sprache][$info_form]['vollstaendig'] ? " checked" : "" ?>>
                 <? else : ?>
@@ -297,7 +297,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
     <? endforeach ?>
     <? endif ?>
     <? if ($profil) : ?>
-    <h2><?= _("Verlaufspläne") ?></h2>
+    <h2><?= _("Verlaufsplï¿½ne") ?></h2>
     <div>
         <ul>
             <? foreach ($verlaufsplaene as $verlaufsplan) : ?>
@@ -316,12 +316,12 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </a>
         </div>
     </div>
-    <h2 id="documents"><?= _("Verknüpfte öffentliche Dokumente") ?></h2>
+    <h2 id="documents"><?= _("Verknï¿½pfte ï¿½ffentliche Dokumente") ?></h2>
     <div>
         <?
-        $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
+        $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Grï¿½ï¿½e"));
         $items = array();
-        $footer_controls = '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
+        $footer_controls = '<a class="icon_plus" title="'._("Neues Dokument hinzufï¿½gen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufï¿½gen").'\'});"></a>';
         $footer_controls .= QuickSearch::get("doku_id", $dokumentensuche)
                         ->setInputStyle("width: 49%;")
                         ->noSelectbox()
@@ -349,7 +349,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
 
         <div style="float:left; width: 45%;">
             <div id="dokument_delete_question" style="display: none;">
-                <?= _("Möchten Sie wirklich die Verbindung zu dem Dokument löschen?") ?>
+                <?= _("Mï¿½chten Sie wirklich die Verbindung zu dem Dokument lï¿½schen?") ?>
                 <input type="hidden" id="dokument_delete_question_id">
                 <br>
                 <a href="" onClick="STUDIP.zsb.deleteDokumentFromProfil(); return false;"><?= makebutton("ok") ?></a>
@@ -359,7 +359,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
     </div>
     <? endif ?>
     <? if ($profil) : ?>
-    <h2><?= _("Verknüpfte Ansprechpartner") ?></h2>
+    <h2><?= _("Verknï¿½pfte Ansprechpartner") ?></h2>
     <div>
         <div style="float:left; width: 45%;">
             <?= QuickSearch::get("ansprechpartner_id", $ansprechpartnersuche)
@@ -385,10 +385,10 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endforeach ?>
             </ul>
             <p class="info">
-                <?= _("Ziehen Sie die Ansprechpartner, um die interne Reihenfolge zu bestimmen. Diese Änderung wird sofort wirksam, auch wenn Sie nicht auf <i>absenden</i> klicken.") ?>
+                <?= _("Ziehen Sie die Ansprechpartner, um die interne Reihenfolge zu bestimmen. Diese ï¿½nderung wird sofort wirksam, auch wenn Sie nicht auf <i>absenden</i> klicken.") ?>
             </p>
             <div id="ansprechpartner_delete_question" style="display: none;">
-                <?= _("Möchten Sie wirklich die Verbindung zu dem Dokument löschen?") ?>
+                <?= _("Mï¿½chten Sie wirklich die Verbindung zu dem Dokument lï¿½schen?") ?>
                 <input type="hidden" id="ansprechpartner_delete_question_id">
                 <br>
                 <a href="" onClick="STUDIP.zsb.deleteAnsprechpartnerFromProfil(); return false;"><?= makebutton("ok") ?></a>
@@ -397,7 +397,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
         </div>
         <div style="float:left; width: 45%; margin-left: 5px; border: thin solid #aaaaaa; -moz-border-radius: 10px; padding: 5px;">
             <?= _("Gesuchter Ansprechpartner nicht auffindbar?") ?><br>
-            <label for="neuer_ansprechpartner"><?= _("Ansprechpartner erstellen und hinzufügen:") ?></label>
+            <label for="neuer_ansprechpartner"><?= _("Ansprechpartner erstellen und hinzufï¿½gen:") ?></label>
             <input type="checkbox" id="neuer_ansprechpartner" name="neuer_ansprechpartner" onClick="jQuery('#neuer_ansprechpartner_daten').toggle('slide');" value="1">
             <table id="neuer_ansprechpartner_daten" style="display: none;">
                 <tbody>
@@ -412,7 +412,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                         </td>
                     </tr>
                     <tr>
-                        <td><?= _("Identität:") ?></td>
+                        <td><?= _("Identitï¿½t:") ?></td>
                         <td><?= QuickSearch::get("range_id", StgAnsprechpartner::getAnsprechpartnerIdentitaetSuche())->defaultValue($kontakt_neu['range_id'], $kontakt_neu->getName())->render() ?></td>
                     </tr>
                     <tr>
@@ -543,7 +543,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 </label>
                 <label>
                     <input type="radio" name="begin" value="h" <? if (Request::option('begin', '1') === 'h') echo 'checked'; ?>>
-                    <?= _('Höheres Semester') ?>
+                    <?= _('Hï¿½heres Semester') ?>
                 </label>
             </li>
             <li class="language-de">
@@ -567,7 +567,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 </label>
                 <label>
                     <input type="radio" name="begin_en" value="h" <? if (Request::option('begin_en', '1') === 'h') echo 'checked'; ?>>
-                    <?= _('Höheres Semester') ?>
+                    <?= _('Hï¿½heres Semester') ?>
                 </label>
                 <label>
                     <input type="radio" name="begin_en" value="ex" <? if (Request::option('begin_en', '1') === 'ex') echo 'checked'; ?>>
@@ -595,7 +595,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <li class="ui-widget-content">
                         <span class="options">
                             <a href="#" class="semester selector"><span title="<?= _('Wintersemester') ?>" <? if (in_array($c['semester'], array('always', 'w'))) echo 'class="selected"'; ?>>W</span><span title="<?= _('Sommersemester') ?>" <? if (in_array($c['semester'], array('always', 's'))) echo 'class="selected"'; ?>>S</span></a>
-                            <a href="#" class="restriction selector"><span title="<?= _('zulassungsbeschränkt') ?>" <? if (in_array($c['restriction'], array('always', 'b'))) echo 'class="selected"'; ?>>Z</span><span title="<?= _('zulassungsfrei') ?>" <? if (in_array($c['restriction'], array('always', 'f'))) echo 'class="selected"'; ?>>F</span></a>
+                            <a href="#" class="restriction selector"><span title="<?= _('zulassungsbeschrï¿½nkt') ?>" <? if (in_array($c['restriction'], array('always', 'b'))) echo 'class="selected"'; ?>>Z</span><span title="<?= _('zulassungsfrei') ?>" <? if (in_array($c['restriction'], array('always', 'f'))) echo 'class="selected"'; ?>>F</span></a>
                             <a href="#" class="remove">Eintrag entfernen</a>
                         </span>
                         <span class="content">
@@ -626,7 +626,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                         <li class="draggable choice ui-widget-content" id="tb-<?= $textbaustein['textbaustein_id'] ?>">
                             <span class="options">
                                 <a href="#" class="add">
-                                    <?= _('Eintrag zur Auswahl hinzufügen') ?>
+                                    <?= _('Eintrag zur Auswahl hinzufï¿½gen') ?>
                                 </a>
                             </span>
                             <input type="hidden" name="not-visible" value="<?= $textbaustein['textbaustein_id'] ?>">
@@ -650,7 +650,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <div id="copy-from">
                     <select name="copy_from[studiengang_id]">
                         <option value="">
-                            &ndash; <?= _('Fach wählen') ?>
+                            &ndash; <?= _('Fach wï¿½hlen') ?>
                         </option>
                     <? foreach ($studiengaenge as $studiengang_id):
                          $studiengang = new Studiengang($studiengang_id);
@@ -663,7 +663,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <br>
                     <select name="copy_from[abschluss_id]">
                         <option value="">
-                            &ndash; <?= _('Abschluss wählen') ?>
+                            &ndash; <?= _('Abschluss wï¿½hlen') ?>
                         </option>
                     <? foreach ($abschluesse as $abschluss): ?>
                         <option value="<?= $abschluss->getId() ?>">
@@ -679,7 +679,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <div id="copy-to">
                     <select name="copy_to[studiengang_id]">
                         <option value="">
-                            &ndash; <?= _('Fach wählen') ?>
+                            &ndash; <?= _('Fach wï¿½hlen') ?>
                         </option>
                     <? foreach ($studiengaenge as $studiengang_id):
                          $studiengang = new Studiengang($studiengang_id);
@@ -692,7 +692,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <br>
                     <select name="copy_to[abschluss_id]">
                         <option value="">
-                            &ndash; <?= _('Abschluss wählen') ?>
+                            &ndash; <?= _('Abschluss wï¿½hlen') ?>
                         </option>
                     <? foreach ($abschluesse as $abschluss): ?>
                         <option value="<?= $abschluss->getId() ?>">
@@ -703,7 +703,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <br>
                     <select name="copy_to[status]">
                         <option value="">
-                            &ndash; <?= _('Status wählen') ?>
+                            &ndash; <?= _('Status wï¿½hlen') ?>
                         </option>
                         <option value="discontinued"><?= _('Auslaufend') ?></option>
                         <option value="current"><?= _('Aktuell') ?></option>
@@ -730,7 +730,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
 </form>
 
 <div id="neues_dokument_window" style="display: none;">
-    <form action="<?= PluginEngine::getLink($plugin, array('studiengang_id' => Request::option("studiengang_id"), 'abschluss_id' => Request::option("abschluss_id"), 'studienprofil_id' => $profil->getId()), "zsb_studiengang/studiengaenge") ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= PluginEngine::getLink($plugin, array('studiengang_id' => Request::option("studiengang_id"), 'abschluss_id' => Request::option("abschluss_id"), 'studienprofil_id' => ($profil && !$profil->isNew() ? $profil->getId() : '')), "zsb_studiengang/studiengaenge") ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" id="profil_id" name="item_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
         <input type="hidden" name="neues_dokument" value="1">
         <table>
@@ -779,12 +779,12 @@ $abschlussfeld = $abschlusssuchfeld->render();
                         <?= _("URL") ?><br>
                         <input type="text" name="neues_dokument_quick_link" id="neues_dokument_quick_link"><br>
                         <?= _("oder hochladen") ?><br>
-                        <input type="file" name="qqfile"><!-- muss qqfile heißen, damit es angenommen wird -->
+                        <input type="file" name="qqfile"><!-- muss qqfile heiï¿½en, damit es angenommen wird -->
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="neues_dokument_tags"><?= _("Schlagwörter") ?></label>
+                        <label for="neues_dokument_tags"><?= _("Schlagwï¿½rter") ?></label>
                     </td>
                     <td>
                         <textarea name="neues_dokument_tags" id="neues_dokument_tags" class="clean" style="width: 270px; height: 70px;"></textarea>
@@ -807,7 +807,7 @@ foreach ($studiengaenge as $studiengang_id) {
 $studiengang_suche =
 '<form action="'.URLHelper::getLink("?").' method="get">
 <select name="studiengang_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
-    <option value="">'. _("auswählen") .'</option>
+    <option value="">'. _("auswï¿½hlen") .'</option>
     '.$studiengang_suche.'
 </select>
 </form>';
@@ -817,7 +817,7 @@ foreach ($abschluesse as $abschluss) {
 $abschluss_suche =
 '<form action="?" method="get">
 <select name="abschluss_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
-    <option value="">'. _("auswählen").'</option>
+    <option value="">'. _("auswï¿½hlen").'</option>
     '.$abschluss_suche.'
 </select>
 </form>';
@@ -841,10 +841,10 @@ if (count($profile)) {
     }
     $nav_select .= "</select></form>";
     if ($lastone) {
-        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('studienprofil_id' => $lastone->getId())).'" title="'._("zurück").'"></a></div>';
+        $zurueck = '<div style="float: left;"><a class="icon_arr_1left" href="'.URLHelper::getLink("?", array('studienprofil_id' => $lastone->getId())).'" title="'._("zurï¿½ck").'"></a></div>';
     }
     if ($nextone) {
-        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('studienprofil_id' => $nextone->getId())).'" title="'._("vorwärts").'"></a></div>';
+        $vor = '<div style="float: right;"><a class="icon_arr_1right" href="'.URLHelper::getLink("?", array('studienprofil_id' => $nextone->getId())).'" title="'._("vorwï¿½rts").'"></a></div>';
     }
 }
 $infobox = array(
@@ -857,7 +857,7 @@ $infobox = array(
             ),
             array(
                 "icon" => "",
-                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('studiengang_id' => Request::get('studiengang_id'), 'abschluss_id' => Request::get('abschluss_id'))).'" title="'._("Zur Profilübersicht").'"></a> '.$vor.'</div>'
+                "text" => '<div style="text-align: center;">'.$zurueck.' <a class="icon_arr_1up" href="'.URLHelper::getLink("?", array('studiengang_id' => Request::get('studiengang_id'), 'abschluss_id' => Request::get('abschluss_id'))).'" title="'._("Zur Profilï¿½bersicht").'"></a> '.$vor.'</div>'
             )
         )
     ) : null),
