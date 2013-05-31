@@ -86,6 +86,12 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <option value="<?= htmlReady($option) ?>"<?= $option === $profil['zulassungsvoraussetzung_wise'] ? " selected" : "" ?>><?= htmlReady($option) ?></option>
                 <? endforeach ?>
                 </select>
+                <br>
+                <label for="application_exceptional_wise">
+                    <?= _('Bewerbung/Einschreibung ins Wintersemester nur in begründeten Ausnahmefällen möglich') ?>
+                    <input type="hidden" name="settings[application_exceptional_wise]" value="0">
+                    <input type="checkbox" name="settings[application_exceptional_wise]" value="1" <? if ($profil['application_exceptional_wise']) echo 'checked'; ?>>
+                </label>
             </li>
             <li>
                 <label for="zulassungsvorraussetzung_sose"><?= _("Zulassungsbeschränkung im Sommersemester") ?></label>
@@ -94,6 +100,12 @@ $abschlussfeld = $abschlusssuchfeld->render();
                     <option value="<?= htmlReady($option) ?>"<?= $option === $profil['zulassungsvoraussetzung_sose'] ? " selected" : "" ?>><?= htmlReady($option) ?></option>
                 <? endforeach ?>
                 </select>
+                <br>
+                <label for="application_exceptional_sose">
+                    <?= _('Bewerbung/Einschreibung ins Sommersemester nur in begründeten Ausnahmefällen möglich') ?>
+                    <input type="hidden" name="settings[application_exceptional_sose]" value="0">
+                    <input type="checkbox" name="settings[application_exceptional_sose]" value="1" <? if ($profil['application_exceptional_sose']) echo 'checked'; ?>>
+                </label>
             </li>
             <? if ($profil) : ?>
             <li>

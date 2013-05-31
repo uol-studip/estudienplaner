@@ -15,7 +15,6 @@ if (!class_exists("DBHelper")) {
 include_once 'lib/classes/exportdocument/ExportPDF.class.php';
 require_once __DIR__ . '/../models/Textbaustein.class.php';
 include_once dirname(__file__).'/../vendor/fpdi/fpdi.php';
-SimpleORMap::expireTableScheme();
 
 
 class ZsbStudiengangController extends ZSBController {
