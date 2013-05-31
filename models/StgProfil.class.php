@@ -147,7 +147,7 @@ class StgProfil extends SORM {
                                    "AND info_form = 'lang' "
             )->fetch();
             //Datenfelder auslesen:
-            // Noch keine Informationen gespeichert? Dann temporäre ID verwenden...
+            // Noch keine Informationen gespeichert? Dann temporï¿½re ID verwenden...
             if (!$info['kurz']['information_id']) {
                 $info['kurz']['information_id'] = 'eStudienplaner_info_kurz';
             }
@@ -191,6 +191,9 @@ class StgProfil extends SORM {
 
 
         foreach ($informationen as $language => $sprach_infos) {
+            if ($language === 'datenfelder') {
+                continue;
+            }
             foreach (array('kurz', 'lang') as $info_form) {
                 if ($info_form === "lang" || PersonalRechte::isRoot()) {
                     $exists = $db->query(
@@ -312,7 +315,7 @@ class StgProfil extends SORM {
 
     public function addAnsprechpartner($StgAnsprechpartner_id) {
         if (!$this->hasPermission()) {
-            throw new Exception(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
+            throw new Exception(_("Sie dï¿½rfen diesen Studiengang nicht bearbeiten."));
             return;
         }
         $db = DBManager::get();
@@ -322,7 +325,7 @@ class StgProfil extends SORM {
     }
     public function deleteAnsprechpartner($StgAnsprechpartner_id) {
         if (!$this->hasPermission()) {
-            throw new Exception(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
+            throw new Exception(_("Sie dï¿½rfen diesen Studiengang nicht bearbeiten."));
             return;
         }
         $db = DBManager::get();
@@ -333,7 +336,7 @@ class StgProfil extends SORM {
 
     public function addDoku($doku_id) {
         if (!$this->hasPermission()) {
-            throw new Exception(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
+            throw new Exception(_("Sie dï¿½rfen diesen Studiengang nicht bearbeiten."));
             return;
         }
         $db = DBManager::get();
@@ -344,7 +347,7 @@ class StgProfil extends SORM {
 
     public function deleteDoku($doku_id) {
         if (!$this->hasPermission()) {
-            throw new Exception(_("Sie dürfen diesen Studiengang nicht bearbeiten."));
+            throw new Exception(_("Sie dï¿½rfen diesen Studiengang nicht bearbeiten."));
             return;
         }
         $db = DBManager::get();
@@ -385,7 +388,7 @@ class StgProfil extends SORM {
             $db->exec("DELETE FROM stg_bewerben WHERE stg_profil_id = ".$db->quote($this->getId()));
             return parent::delete();
         } else {
-            throw new Exception(_("Dieses Studiengangprofil darf nicht gelöscht werden, weil noch Fächerkombinationen mit ihm existieren."));
+            throw new Exception(_("Dieses Studiengangprofil darf nicht gelï¿½scht werden, weil noch Fï¿½cherkombinationen mit ihm existieren."));
             return false;
         }
     }
@@ -403,7 +406,7 @@ class StgProfil extends SORM {
 
     public function offsetSet($offset, $value) {
         parent::offsetSet($offset, $value);
-        //Trigger werden danach auf dem aktualisierten Bestand ausgeführt.
+        //Trigger werden danach auf dem aktualisierten Bestand ausgefï¿½hrt.
         //Aber die Datenbank mag noch nicht aktuell sein.
         $this->trigger($offset);
     }
