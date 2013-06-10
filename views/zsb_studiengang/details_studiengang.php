@@ -333,7 +333,8 @@ $abschlussfeld = $abschlusssuchfeld->render();
         <?
         $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
         $items = array();
-        $footer_controls = '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
+        $footer_controls = '';
+#        $footer_controls .= '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
         $footer_controls .= QuickSearch::get("doku_id", $dokumentensuche)
                         ->setInputStyle("width: 49%;")
                         ->noSelectbox()
