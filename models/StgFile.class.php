@@ -3,9 +3,9 @@
 require_once dirname(__file__)."/DBFile.class.php";
 
 class StgFile extends DBFile {
-    
+
     static protected $publicTypes = array();
-    
+
     static public function getByStgProfil($profil_id) {
         $db = DBManager::get();
         $dateien = $db->query(
@@ -81,9 +81,9 @@ class StgFile extends DBFile {
             "")->fetchAll(PDO::FETCH_ASSOC);
         }
     }
-    
+
     protected $db_table = 'stg_dokumente';
-    
+
     public function __construct($id = null) {
         parent::__construct($id);
     }
@@ -94,7 +94,7 @@ class StgFile extends DBFile {
             "SELECT * FROM stg_dokument_typ " .
         "")->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     public function isPublic() {
         if (isset(self::$publicTypes[$this['doku_typ_id']])) {
             return self::$publicTypes[$this['doku_typ_id']];
@@ -110,7 +110,7 @@ class StgFile extends DBFile {
             "GROUP BY stg_bereiche.bereichs_id " .
         "")->fetch(PDO::FETCH_COLUMN, 0);
     }
-    
+
     public function getStudiengaenge() {
         $db = DBManager::get();
         $studiengaenge = $db->query(
@@ -140,7 +140,7 @@ class StgFile extends DBFile {
         $this['filename'] = $file_properties['filename'];
         $this['filesize'] = $file_properties['filesize'];
     }
-    
+
     protected function getUploadPath() {
         $directory = $GLOBALS['UPLOAD_PATH'].'/stg_dokumente';
         if (!file_exists($directory)) {
@@ -148,21 +148,21 @@ class StgFile extends DBFile {
         }
         return $directory.'/'.$this->getId();
     }
-    
+
     /**
      * returns unix-timestamp of last time, this file was edited
      */
     public function getLastDate() {
         return $this->mysqlTimestamp2UnixTimestamp($this['chdate']);
     }
-    
+
     protected function mysqlTimestamp2UnixTimestamp($mtimestamp) {
         return mktime(substr($mtimestamp,8,2),substr($mtimestamp,10,2),substr($mtimestamp,12,2),substr($mtimestamp,4,2),substr($mtimestamp,6,2),substr($mtimestamp,0,4));
     }
-    
+
     public function store()
     {
-    	$db = DBManager::get();
+        $db = DBManager::get();
         $where_query = $this->getWhereQuery();
         foreach ($this->content as $key => $value) {
             if (is_float($value)) $value = str_replace(',','.',$value);
@@ -197,8 +197,8 @@ class StgFile extends DBFile {
             return false;
         }
     }
-    
-    
+
+
     public function download($attachment) {
         if (!trim($this['quick_link'])) {
             parent::download($attachment);
@@ -206,18 +206,18 @@ class StgFile extends DBFile {
             header("Location: ".$this['quick_link']);
         }
     }
-    
+
     public function getSize($precision = 2) {
         $base = log($this['filesize']) / log(1024);
         $suffixes = array('', 'k', 'M', 'G', 'T');
         return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)]."B";
     }
-    
+
     public function getTags() {
         $db = DBManager::get();
         return $db->query("SELECT tag FROM stg_dokument_tags WHERE doku_id = ".$db->quote($this->getId()))->fetchAll(PDO::FETCH_COLUMN, 0);
     }
-    
+
     public function setTags($text) {
         $db = DBManager::get();
         $db->query("DELETE FROM stg_dokument_tags WHERE doku_id = ".$db->quote($this->getId()));
@@ -240,6 +240,26 @@ class StgFile extends DBFile {
 
     public function is_deletable() {
         return true;
+    }
+
+    public function getDownloadLink()
+    {
+        static $types = null;
+        if ($types === null) {
+            $temp = $this->getTyp();
+            $types = array();
+            foreach ($temp as $row) {
+                $name = strtolower($row['name']);
+                $name = str_replace('ä', 'ae', $name);
+                $name = str_replace('ö', 'oe', $name);
+                $name = str_replace('ü', 'ue', $name);
+                $name = str_replace('ß', 'ss', $name);
+                $name = preg_replace('/\W/', '-', $name);
+                $name = preg_replace('/-+/', '-', $name);
+                $types[$row['doku_typ_id']] = $name;
+            }
+        }
+        return rtrim($GLOBALS['ABSOLUTE_URI_STUDIP'], '/') . URLHelper::getURL('downloads/esis/' . $this->doku_id . '/' . $types[$this->doku_typ_id] . '/' . $this->filename);
     }
 }
 

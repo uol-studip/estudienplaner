@@ -70,7 +70,7 @@
             <? if (!$datei['quick_link'] || $datei->isNew()) : ?>
             <li>
                 <? if ($datei['filename']) : ?>
-                <a href="<?= URLHelper::getLink('downloads/esis/' . $datei->getId() . '/' . urlencode($datei['filename'])) ?>">
+                <a href="<?= $datei->getDownloadLink() ?>">
                 <?= Assets::img("icons/16/grey/file.png", array('class' => "text-bottom", 'title' => _("Es ist eine Datei angehängt, sie wird allerdings nur präsentiert, wenn keine URL angegeben wurde.")))." "._("Dateiname") ?>: <span id="filename"><?= htmlReady($datei['filename']) ?></span>
                 </a>
                 <? endif ?>
