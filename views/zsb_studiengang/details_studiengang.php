@@ -334,7 +334,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
         $headers = array(_("Name"), _("Dateiname"), _("Typ"), _("Datum"), _("Größe"));
         $items = array();
         $footer_controls = '';
-#        $footer_controls .= '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
+        $footer_controls .= '<a class="icon_plus" title="'._("Neues Dokument hinzufügen").'" style="width: 45%" onClick="jQuery(\'#neues_dokument_window\').dialog({ \'width\': \'50%\', \'title\': \''._("Neues Dokument hinzufügen").'\'});"></a>';
         $footer_controls .= QuickSearch::get("doku_id", $dokumentensuche)
                         ->setInputStyle("width: 49%;")
                         ->noSelectbox()
@@ -746,6 +746,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
     <form action="<?= PluginEngine::getLink($plugin, array('studiengang_id' => Request::option("studiengang_id"), 'abschluss_id' => Request::option("abschluss_id"), 'studienprofil_id' => ($profil && !$profil->isNew() ? $profil->getId() : '')), "zsb_studiengang/studiengaenge") ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" id="profil_id" name="item_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
         <input type="hidden" name="neues_dokument" value="1">
+        <input type="hidden" name="abschluss_id" value="<?= $profil ? $profil['abschluss_id'] : "" ?>">
         <table>
             <tbody>
                 <tr>

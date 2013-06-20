@@ -112,7 +112,9 @@ class ZsbStudiengangController extends ZSBController {
                 $this->profil->store(); //Nachher wird noch einmal gestored, aber jetzt wollen wir IDs bekommen.
             }
             $this->profil->setInformation(Request::getArray("informationen"));
-            $this->profil['abschluss_id'] = Request::get("abschluss_id");
+            if (Request::submitted("abschluss_id")) {
+                $this->profil['abschluss_id'] = Request::get("abschluss_id");
+            }
             $settings = Request::getArray("settings");
             foreach ($settings as $key => $value) {
                 $this->profil[$key] = $value;
