@@ -8,7 +8,7 @@ if (!class_exists("DBHelper")) {
 }
 
 class ZsbKontakteController extends ZsbController {
-    
+
     function before_filter($action, $args) {
         parent::before_filter($action, $args);
         if (!PersonalRechte::hasPermission()) {
@@ -19,7 +19,7 @@ class ZsbKontakteController extends ZsbController {
         PageLayout::addScript('ui.multiselect.js');
         URLHelper::bindLinkParam("typ_id", Request::get("typ_id"));
     }
-    
+
     public function kontakte_action() {
         if (Request::get("delete_x") && Request::get("item_id")) {
             $kontakt = new StgAnsprechpartner(Request::get("item_id"));
@@ -36,10 +36,13 @@ class ZsbKontakteController extends ZsbController {
             foreach ($ansprechpartner as $key => $ansprechpartner_id) {
                 $this->ansprechpartner[$key] = new StgAnsprechpartner($ansprechpartner_id);
             }
+            usort($this->ansprechpartner, function ($a, $b) {
+                return strcmp($a->getName('no_title_rev'), $b->getName('no_title_rev'));
+            });
         }
         $this->typen = StgAnsprechpartner::getAnsprechpartnerTypen();
     }
-    
+
     public function kontakte_details($kontakt_id) {
         $this->kontakt = new StgAnsprechpartner($kontakt_id !== "neu" ? $kontakt_id : null);
         if (Request::get("absenden_x")) {
@@ -63,7 +66,7 @@ class ZsbKontakteController extends ZsbController {
             $this->kontakt->store();
             $this->flash_now("success", _("Änderungen wurden übernommen"));
         }
-        
+
         //letztes als auch nächstes Profil herausfinden:
         if (Request::get("typ_id")) {
             $this->ansprechpartner = PersonalRechte::meineAnsprechpartner(null, Request::get("typ_id"));
@@ -71,14 +74,14 @@ class ZsbKontakteController extends ZsbController {
                 $this->ansprechpartner[$key] = new StgAnsprechpartner($ansprechpartner_id);
             }
         }
-        
+
         $this->typen = StgAnsprechpartner::getAnsprechpartnerTypen();
-        
+
         $this->kontaktsuche = StgAnsprechpartner::getAnsprechpartnerIdentitaetSuche();
         $this->profilsuche = $this->getProfilSuche();
         $this->render_template('zsb_kontakte/details_kontakte', $this->layout);
     }
-    
+
     public function change_kontakt_profil_action() {
         if (Request::get("kontakt_id") && Request::get("profil_id")) {
             $profil = new StgProfil(Request::get("profil_id"));
@@ -93,7 +96,7 @@ class ZsbKontakteController extends ZsbController {
         }
         $this->render_nothing();
     }
-    
-    
+
+
 }
 

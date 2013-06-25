@@ -161,12 +161,12 @@ class StgAnsprechpartner extends SORM {
         }
     }
 
-    public function getName() {
+    public function getName($format = 'full') {
         if ($this['range_typ'] === "institute") {
             $useless_array = get_object_name($this['range_id'], "inst");
             return $useless_array['name'];
         } elseif ($this['range_typ'] === "auth_user_md5") {
-            return get_fullname($this['range_id']);
+            return get_fullname($this['range_id'], $format);
         } else {
             return $this['freitext_name'];
         }

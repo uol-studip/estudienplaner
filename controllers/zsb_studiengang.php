@@ -203,6 +203,9 @@ class ZsbStudiengangController extends ZSBController {
 
         //Kontakte:
         $this->kontakte = StgAnsprechpartner::getByStgProfil($this->profil->getId());
+        usort($this->kontakte, function ($a, $b) {
+            return strcmp($a->getName('no_title_rev'), $b->getName('no_title_rev'));
+        });
         $this->kontakt_neu = new StgAnsprechpartner();
         $this->ansprechpartnertypen = StgAnsprechpartner::getAnsprechpartnerTypen();
 
