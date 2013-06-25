@@ -3,6 +3,9 @@
 <form action="?" method="post">
 <?= add_safely_security_token() ?>
 <input type="hidden" id="doku_id" name="doku_id" value="<?= $datei->getId() ? $datei->getId() : "neu" ?>">
+<? if ($datei->getId()): ?>
+<input type="hidden" name="typ_id" value="<?= $datei->doku_typ_id ?>">
+<? endif; ?>
 <h2 style="text-align: center;"><?= _("Datei:") ?> <?= htmlReady($datei['name']) ?></h2>
 
 <div class="accordion">
