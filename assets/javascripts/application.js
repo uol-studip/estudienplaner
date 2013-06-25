@@ -575,6 +575,7 @@ jQuery(function ($) {
             id       = element.find('input[type=hidden]').val(),
             text     = element.find('span.content').text(),
             li       = $('<li class="ui-widget-content"/>').text(text);
+        $('<input type="hidden" name="tb_id" value="' + id + '"/>').appendTo(li);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][semester]" value="always"/>').appendTo(li);
         $('<input type="hidden" name="textcombination[' + stage_id + '][' + id +'][restriction]" value="always"/>').appendTo(li);
         $('<span class="options"><a href="#" class="semester selector"><span class="selected" title="Wintersemester">W</span><span class="selected" title="Sommersemester">S</span></a> <a href="#" class="restriction selector"><span class="selected" title="zulassungsbeschr�nkt">Z</span><span class="selected" title="zulassungsfrei">F</span></a> <a href="#" class="remove">Eintrag entfernen</a></span>').prependTo(li);
