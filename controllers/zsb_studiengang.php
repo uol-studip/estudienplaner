@@ -111,16 +111,20 @@ class ZsbStudiengangController extends ZSBController {
                 $this->profil['fach_id'] = Request::get("studiengang_id");
                 $this->profil->store(); //Nachher wird noch einmal gestored, aber jetzt wollen wir IDs bekommen.
             }
-            $this->profil->setInformation(Request::getArray("informationen"));
+            if (Request::submitted('informationen')) {
+                $this->profil->setInformation(Request::getArray("informationen"));
+            }
             if (Request::submitted("abschluss_id")) {
                 $this->profil['abschluss_id'] = Request::get("abschluss_id");
             }
-            $settings = Request::getArray("settings");
-            foreach ($settings as $key => $value) {
-                $this->profil[$key] = $value;
-            }
-            if (!$settings['sichtbar']) {
-                $this->profil['sichtbar'] = 0;
+            if (Request::submitted('settings')) {
+                $settings = Request::getArray("settings");
+                foreach ($settings as $key => $value) {
+                    $this->profil[$key] = $value;
+                }
+                if (!$settings['sichtbar']) {
+                    $this->profil['sichtbar'] = 0;
+                }
             }
             if (Request::submitted("zielvereinbarung")) {
                 $this->profil['zielvereinbarung'] = Request::get("zielvereinbarung");
@@ -128,13 +132,17 @@ class ZsbStudiengangController extends ZSBController {
             if (Request::submitted("einleitungstext")) {
                 $this->profil['einleitungstext'] = Request::get("einleitungstext");
             }
-            $this->profil->setTypen(Request::getArray("typen"));
+            if (Request::submitted('typen')) {
+                $this->profil->setTypen(Request::getArray("typen"));
+            }
             $this->profil->store();
 
-            $textcombinations = (array) @$_REQUEST['textcombination'];
-            Textbaustein::removeCombination($this->profil->getId());
-            foreach ($textcombinations as $code => $ids) {
-                Textbaustein::addCombination($this->profil->getId(), $code, $ids);
+            if (Request::submitted('textcombination')) {
+                $textcombinations = (array) @$_REQUEST['textcombination'];
+                Textbaustein::removeCombination($this->profil->getId());
+                foreach ($textcombinations as $code => $ids) {
+                    Textbaustein::addCombination($this->profil->getId(), $code, $ids);
+                }
             }
 
             $this->flash_now("success", _("Änderungen wurden übernommen"));
