@@ -2,7 +2,7 @@
 
 <input type="hidden" name="studiengang_id" id="studiengang_id" value="<?= $studiengang->getId() ?>">
 
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <h2><?= _("Daten") ?></h2>
     <div>
         <ul>
@@ -18,7 +18,7 @@
                                 _("Dozenten hinzufügen"),
                                 "user_id",
                                 array(
-                                    'permission' => 'dozent', 
+                                    'permission' => 'dozent',
                                     'exclude_user' => array()
                                 )
                             )
@@ -43,7 +43,7 @@ foreach ($studiengaenge as $studiengang_id) {
     $studiengang = new Studiengang($studiengang_id);
     $studiengang_suche .= '<option value="'. htmlReady($studiengang_id) .'" title="'.htmlReady($studiengang['name']).'"'.($studiengang_id === Request::get("studiengang_id") ? " selected" : "").'>'. htmlReady($studiengang['name']) .'</option>';
 }
-$studiengang_suche = 
+$studiengang_suche =
 '<form action="'.URLHelper::getLink("?").' method="get">
 <select name="studiengang_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>

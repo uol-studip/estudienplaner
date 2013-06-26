@@ -3,7 +3,7 @@
 <input type="hidden" id="bereichs_id" name="bereichs_id" value="<?= $bereich->getId() ? $bereich->getId() : "neu" ?>">
 <h2 style="text-align: center;"><?= _("Bereich:") ?> <?= htmlReady($bereich['bereich_name']) ?></h2>
 
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <h2><?= _("Daten") ?></h2>
     <div>
         <ul>
@@ -46,16 +46,16 @@
             <? endforeach ?>
         </select>
         <script>
-        STUDIP.MultiSelect.create("#stg_dokument_typ", "<?= _("Dokument-Typ") ?>"); 
+        STUDIP.MultiSelect.create("#stg_dokument_typ", "<?= _("Dokument-Typ") ?>");
         </script>
         <br>
         <label for="stg_dokument_typ_neu"><?= _("Neuen Dokument-Typen anlegen:") ?></label>
         <input type="text" name="stg_dokument_typ_neu" id="stg_dokument_typ_neu">
         <input type="image" src="<?= Assets::image_path("icons/16/blue/plus.png") ?>" name="create">
         <br>
-        <label for="delete_stg_dokument_typ_id"><?= _("Dokument-Typ löschen:") ?></label> 
+        <label for="delete_stg_dokument_typ_id"><?= _("Dokument-Typ löschen:") ?></label>
         <select name="delete_stg_dokument_typ_id" id="delete_stg_dokument_typ_id">
-        	<? foreach ($alle_dokument_typen as $typ) : ?>
+            <? foreach ($alle_dokument_typen as $typ) : ?>
             <option value="<?= $typ['doku_typ_id'] ?>"<?= StgBereich::isDokumententypDeletable($typ['doku_typ_id']) ? "" : ' disabled title="'._("Dieser Typ kann nicht gelöscht werden, da er noch verwendet wird.").'"' ?>><?= htmlReady($typ['name']) ?></option>
             <? endforeach ?>
         </select>
@@ -65,7 +65,7 @@
     <div>
         <ul id="ansprechpartner_typen">
         <? foreach ($ansprechpartner_typen as $typ) : ?>
-        	<li id="anprechpartner_typ_<?= $typ['ansprechpartner_typ_id']?>"><?= $typ['name'] ?>
+            <li id="anprechpartner_typ_<?= $typ['ansprechpartner_typ_id']?>"><?= $typ['name'] ?>
                <? if ($bereich->isAnsprechpartnerDeletable($typ['ansprechpartner_typ_id'])) : ?>
                <a class="icon_trash"></a>
                <? else : ?>
@@ -85,7 +85,7 @@
         <?= makebutton('loeschen', 'input', _("Bereich löschen - kann nicht rückgängig gemacht werden."), 'delete') ?>
     </div>
     <? endif ?>
-    
+
 </div>
 
 <div style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 12px;">

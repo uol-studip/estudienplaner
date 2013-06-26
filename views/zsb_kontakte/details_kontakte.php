@@ -4,7 +4,7 @@
 <input type="hidden" id="kontakt_id" name="kontakt_id" value="<?= $kontakt->getId() ? $kontakt->getId() : "neu" ?>">
 <h2 style="text-align: center;"><?= _("Ansprechpartner:") ?> <?= htmlReady($kontakt->getName()) ?></h2>
 
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <? if (!$kontakt->isNew()) : ?>
     <h2><?= _("Angezeigte Informationen") ?></h2>
     <div>
@@ -172,7 +172,7 @@ if (count($ansprechpartner)) {
 foreach ($typen as $typ) {
     $typ_suche .= '<option value="'. htmlReady($typ['ansprechpartner_typ_id']) .'" title="'.htmlReady($typ['name']).'"'.(Request::get('typ_id') === $typ['ansprechpartner_typ_id'] ? " selected" : "").'>'. htmlReady($typ['name']) .'</option>';
 }
-$typ_suche = 
+$typ_suche =
 '<form action="?" method="get">
 <select name="typ_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>

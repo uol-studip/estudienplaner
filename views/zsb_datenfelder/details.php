@@ -6,7 +6,7 @@
 <input type="hidden" id="datenfeld_id" name="datenfeld_id" value="<?= $datenfeld->getId() ? $datenfeld->getId() : "neu" ?>">
 <h2 style="text-align: center;"><?= _("Datenfeld:") ?> <?= htmlReady($datenfeld->getName()) ?></h2>
 
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <h2><?= _("Daten") ?></h2>
     <div>
         <ul>

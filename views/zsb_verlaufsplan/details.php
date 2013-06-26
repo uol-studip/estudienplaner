@@ -4,7 +4,7 @@
 <input type="hidden" id="item_id" name="item_id" value="<?= $verlaufsplan->getId() ? $verlaufsplan->getId() : "neu" ?>">
 <h2 style="text-align: center;"><?= _("Verlaufsplan:") ?> <?= htmlReady($verlaufsplan['titel']) ?></h2>
 
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <h2><?= _("Daten") ?></h2>
     <div>
         <ul>
@@ -89,7 +89,7 @@
         )) ?>
     </div>
     <? endif ?>
-    
+
 </div>
 
 <div style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 12px;">

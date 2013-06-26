@@ -1,7 +1,7 @@
 <form action="?" method="post">
 <?= add_safely_security_token() ?>
 <h2 style="text-align: center;"><?= _("Fächerkombination") ?></h2>
-<div class="accordion">
+<div class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <h2><?= _("Details") ?></h2>
     <div>
     <ul>
@@ -28,7 +28,7 @@
     <? endif ?>
 </div>
 <div style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 12px;">
-    <?= makebutton("absenden", "input") ?> 
+    <?= makebutton("absenden", "input") ?>
     <? if ($kombination) : ?>
     <a href="?"><?= makebutton("abbrechen") ?></a>
     <? endif ?>
@@ -36,12 +36,12 @@
 </form>
 
 
-<? 
+<?
 foreach ($studiengaenge as $studiengang_id) {
     $studiengang = new Studiengang($studiengang_id);
     $studiengang_suche .= '<option value="'. htmlReady($studiengang_id) .'" title="'.htmlReady($studiengang['name']).'"'.($studiengang_id === Request::get("studiengang_id") ? " selected" : "").'>'. htmlReady($studiengang['name']) .'</option>';
 }
-$studiengang_suche = 
+$studiengang_suche =
 '<form action="'.URLHelper::getLink("?").' method="get">
 <select name="studiengang_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>
@@ -51,7 +51,7 @@ $studiengang_suche =
 foreach ($abschluesse as $abschluss) {
     $abschluss_suche .= '<option value="'. htmlReady($abschluss->getId()).'" title="'.htmlReady($abschluss['name']).'"'.($abschluss->getId() === Request::get("abschluss_id") ? " selected" : "").'>'. htmlReady($abschluss['name']).'</option>';
 }
-$abschluss_suche = 
+$abschluss_suche =
 '<form action="?" method="get">
 <select name="abschluss_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen").'</option>
