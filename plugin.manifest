@@ -1,5 +1,5 @@
 pluginclassname=eStudienplaner
 pluginname=eStudienplaner
 origin=data-quest
-version=1.4.1
+version=1.4.2
 dbscheme=install.sql
