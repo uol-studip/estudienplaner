@@ -797,3 +797,19 @@ jQuery(function ($) {
         return false;
     });
 });
+
+(function ($) {
+    var THRESHOLD = false;
+
+    $(document).scroll(function () {
+        if (THRESHOLD !== false) {
+            return $('body').toggleClass('zsb-fixed', $(this).scrollTop() > THRESHOLD);
+        }
+    });
+
+    $(document).ready(function ($) {
+        THRESHOLD = ~~$('#syntax-help').offset().top;
+        console.log(THRESHOLD);
+        $(document).scroll();
+    });
+}(jQuery));

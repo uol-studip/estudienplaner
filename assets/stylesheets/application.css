@@ -622,3 +622,28 @@ select.copy-error {
     color: red;
     font-weight: bold;
 }
+
+#syntax-help ul, #syntax-help li {
+    margin: 0;
+    padding: 0;
+}
+#syntax-help li {
+    list-style: square;
+    margin-left: 1em;
+}
+#syntax-help h2 {
+    background: #ddd;
+    border-bottom: 1px solid #888;
+    border-top: 1px solid #888;
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 0 5px;
+}
+.zsb-fixed #syntax-help {
+    right: 22px;
+    top: 91px;
+    position: fixed;
+    width: 206px;
+}

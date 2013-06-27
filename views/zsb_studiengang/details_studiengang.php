@@ -898,6 +898,16 @@ if ($profil) {
     );
 }
 
+$infobox[] = array(
+    'kategorie' => _('Formatierungshilfen:'),
+    'eintrag'   => array(
+        array(
+            'icon' => 'icons/16/black/comment.png',
+            'text' => $this->render_partial('syntax'),
+        )
+    ),
+);
+
 $infobox = array(
     'picture' => $assets_url . "/images/monument.jpg",
     'content' => $infobox
