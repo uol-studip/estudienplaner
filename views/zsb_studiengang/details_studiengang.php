@@ -13,13 +13,13 @@ $abschlussfeld = $abschlusssuchfeld->render();
 <form action="?" method="post" enctype="multipart/form-data">
 <?= add_safely_security_token() ?>
 <input type="hidden" id="profil_id" name="studienprofil_id" value="<?= $profil ? $profil->getId() : "neu" ?>">
-<h2 style="text-align: center;">
+<h1 style="text-align: center;">
 <? if ($profil) : ?>
-<?= $profil->getStudiengang()." ".$profil->getAbschluss() ?>
+<?= $profil->getStudiengang() ?> (<?= $profil->getAbschluss() ?>)
 <? else : ?>
-<?= _("Neue Kombination Studiengang und Abschluss anlegen") ?>
+<?= _("Neue Kombination Fach und Abschluss anlegen") ?>
 <? endif ?>
-</h2>
+</h1>
 <div id="settings" class="accordion" data-active="<?= Request::int('active_tab', 0) ?>">
     <?  if (!((PersonalRechte::isPamt() || PersonalRechte::isIamt()) && !PersonalRechte::isRoot())) : ?>
     <h2><?= _("Einstellungen") ?></h2>
@@ -27,7 +27,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
         <ul class="zsb_detail_list">
             <? if (!$profil) : ?>
             <li>
-                <label for="studiengang_id_2"><?= _("Studiengang") ?></label>
+                <label for="studiengang_id_2"><?= _("Fach") ?></label>
                 <?= QuickSearch::get("studiengang_id", $fachsuche)->render() ?>
                 <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
@@ -149,7 +149,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </li>
             <? endif ?>
             <li>
-                <label for="ausland"><?= _("Ausland") ?></label>
+                <label for="ausland"><?= _("Auslandsstudium") ?></label>
                 <textarea name="settings[ausland]" id="ausland"><?= htmlReady($profil['ausland']) ?></textarea>
             </li>
         <? foreach($informationen['datenfelder'] as $datafield_id => $datafield) : ?>
@@ -179,7 +179,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="profil_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Profil") ?></label>
+                <label for="profil_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Ausrichtung und Ziele") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][profil]" id="profil_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['profil']) ?></textarea>
                 <? else : ?>
@@ -187,7 +187,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="inhalte_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Inhalte") ?></label>
+                <label for="inhalte_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Studienaufbau und -inhalte") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][inhalte]" id="inhalte_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['inhalte']) ?></textarea>
                 <? else : ?>
@@ -195,7 +195,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="lernformen_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Lernformen") ?></label>
+                <label for="lernformen_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Lehr- und Lernformen") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][lernformen]" id="lernformen_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['lernformen']) ?></textarea>
                 <? else : ?>
@@ -203,7 +203,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Gründe") ?></label>
+                <label for="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Gründe für ein Studium") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][gruende]" id="gruende_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['gruende']) ?></textarea>
                 <? else : ?>
@@ -211,7 +211,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Berufsfelder") ?></label>
+                <label for="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Berufs- und Tätigkeitsfelder") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][berufsfelder]" id="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['berufsfelder']) ?></textarea>
                 <? else : ?>
@@ -219,39 +219,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="weitere_infos_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Weitere Infos") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][weitere_infos]" id="weitere_infos_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['weitere_infos']) ?></textarea>
-                <? else : ?>
-                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['weitere_infos']) ?></div>
-                <? endif ?>
-            </li>
-            <li>
-                <label for="aktuelles_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Aktuelles") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][aktuelles]" id="aktuelles_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['aktuelles']) ?></textarea>
-                <? else : ?>
-                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['aktuelles']) ?></div>
-                <? endif ?>
-            </li>
-            <li>
-                <label for="besonderezugangsvoraussetzungen_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Besondere Zugangsvoraussetzungen") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][besonderezugangsvoraussetzungen]" id="besonderezugangsvoraussetzungen_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['besonderezugangsvoraussetzungen']) ?></textarea>
-                <? else : ?>
-                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['besonderezugangsvoraussetzungen']) ?></div>
-                <? endif ?>
-            </li>
-            <li>
-                <label for="schwerpunkte_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Schwerpunkte") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][schwerpunkte]" id="schwerpunkte_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['schwerpunkte']) ?></textarea>
-                <? else : ?>
-                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['schwerpunkte']) ?></div>
-                <? endif ?>
-            </li>
-            <li>
-                <label for="sprachkenntnisse_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Sprachkentnisse") ?></label>
+                <label for="sprachkenntnisse_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Fremdsprachenkentnisse") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][sprachkenntnisse]" id="sprachkenntnisse_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['sprachkenntnisse']) ?></textarea>
                 <? else : ?>
@@ -259,19 +227,11 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <? endif ?>
             </li>
             <li>
-                <label for="sichtbar_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Sichtbar") ?></label>
+                <label for="besonderezugangsvoraussetzungen_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Zugangsvoraussetzungen") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <input type="checkbox" name="informationen[<?= $sprache ?>][<?= $info_form ?>][sichtbar]" id="sichtbar_<?= $sprache ?>_<?= $info_form ?>" value="1"<?= $informationen[$sprache][$info_form]['sichtbar'] ? " checked" : "" ?>>
+                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][besonderezugangsvoraussetzungen]" id="besonderezugangsvoraussetzungen_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['besonderezugangsvoraussetzungen']) ?></textarea>
                 <? else : ?>
-                <div class="description"><?= $informationen[$sprache][$info_form]['sichtbar'] ? Assets::img("icons/16/grey/accept.png") : Assets::img("icons/16/grey/decline.png") ?></div>
-                <? endif ?>
-            </li>
-            <li>
-                <label for="vollstaendig_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Vollständig") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <input type="checkbox" name="informationen[<?= $sprache ?>][<?= $info_form ?>][vollstaendig]" id="vollstaendig_<?= $sprache ?>_<?= $info_form ?>" value="1"<?= $informationen[$sprache][$info_form]['vollstaendig'] ? " checked" : "" ?>>
-                <? else : ?>
-                <div class="description"><?= $informationen[$sprache][$info_form]['vollstaendig'] ? Assets::img("icons/16/grey/accept.png") : Assets::img("icons/16/grey/decline.png") ?></div>
+                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['besonderezugangsvoraussetzungen']) ?></div>
                 <? endif ?>
             </li>
             <li>
@@ -290,6 +250,22 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['bewerbungsverfahren']) ?></div>
                 <? endif ?>
             </li>
+            <li>
+                <label for="weitere_infos_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Weiterführende Informationen") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][weitere_infos]" id="weitere_infos_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['weitere_infos']) ?></textarea>
+                <? else : ?>
+                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['weitere_infos']) ?></div>
+                <? endif ?>
+            </li>
+            <li>
+                <label for="schwerpunkte_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Schwerpunkte") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][schwerpunkte]" id="schwerpunkte_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['schwerpunkte']) ?></textarea>
+                <? else : ?>
+                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['schwerpunkte']) ?></div>
+                <? endif ?>
+            </li>
             <? if (is_array($informationen[$sprache][$info_form]['datenfelder'])) : ?>
             <? foreach($informationen[$sprache][$info_form]['datenfelder'] as $datafield_id => $datafield) : ?>
             <li>
@@ -302,6 +278,30 @@ $abschlussfeld = $abschlusssuchfeld->render();
             </li>
             <? endforeach ?>
             <? endif ?>
+            <li>
+                <label for="aktuelles_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Aktuelles") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][aktuelles]" id="aktuelles_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['aktuelles']) ?></textarea>
+                <? else : ?>
+                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['aktuelles']) ?></div>
+                <? endif ?>
+            </li>
+            <li>
+                <label for="sichtbar_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Sichtbar") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <input type="checkbox" name="informationen[<?= $sprache ?>][<?= $info_form ?>][sichtbar]" id="sichtbar_<?= $sprache ?>_<?= $info_form ?>" value="1"<?= $informationen[$sprache][$info_form]['sichtbar'] ? " checked" : "" ?>>
+                <? else : ?>
+                <div class="description"><?= $informationen[$sprache][$info_form]['sichtbar'] ? Assets::img("icons/16/grey/accept.png") : Assets::img("icons/16/grey/decline.png") ?></div>
+                <? endif ?>
+            </li>
+            <li>
+                <label for="vollstaendig_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Vollständig") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <input type="checkbox" name="informationen[<?= $sprache ?>][<?= $info_form ?>][vollstaendig]" id="vollstaendig_<?= $sprache ?>_<?= $info_form ?>" value="1"<?= $informationen[$sprache][$info_form]['vollstaendig'] ? " checked" : "" ?>>
+                <? else : ?>
+                <div class="description"><?= $informationen[$sprache][$info_form]['vollstaendig'] ? Assets::img("icons/16/grey/accept.png") : Assets::img("icons/16/grey/decline.png") ?></div>
+                <? endif ?>
+            </li>
         </ul>
 
     </div>
@@ -887,8 +887,16 @@ $infobox = array(
                 "text" => "<label>"._("Filter nach Abschluss")." ".$abschluss_suche."</label>"
             )
         )
-    )
+    ),
 );
+
+if ($profil) {
+    $infobox[0]['eintrag'][] = array(
+        'icon' => 'icons/16/black/link-extern.png',
+        'text' => sprintf('<a href="http://www.uni-oldenburg.de/nc/studium/studiengang/?id_studg=%u&refresh-cache" target="_blank">Zum Profil im Infoportal</a>',
+                          $profil->getId())
+    );
+}
 
 $infobox = array(
     'picture' => $assets_url . "/images/monument.jpg",
