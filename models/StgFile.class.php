@@ -245,6 +245,11 @@ class StgFile extends DBFile {
     public function getDownloadLink()
     {
         static $types = null;
+
+        if ($this->quick_link) {
+            return $this->quick_link;
+        }
+
         if ($types === null) {
             $temp = $this->getTyp();
             $types = array();
