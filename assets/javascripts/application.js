@@ -111,7 +111,7 @@ STUDIP.zsb = {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_kontakte/change_kontakt_profil?";
         url = url + "profil_id=" + id + "&kontakt_id=" + jQuery("#kontakt_id").val();
         STUDIP.zsb.addToList(id, name, "#stg_profile", "profil_id", url, false);
-        jQuery("#verknuepfte_studiengaenge [value=" + id + "]").attr("selected", "selected");
+//        jQuery("#verknuepfte_studiengaenge option[value=" + id + "]").attr("selected", true);
     },
     addAnsprechpartnerToStudiengaenge: function (id, name) {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_kontakte/change_kontakt_profil?";
@@ -123,6 +123,17 @@ STUDIP.zsb = {
         var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_dateien/change_datei_profil?";
         url = url + "profil_id=" + id + "&doku_id=" + jQuery("#doku_id").val();
         STUDIP.zsb.addToList(id, name, "#stg_dokumente_profil", "doku_id", url, false);
+
+        var select = jQuery('#verknuepfte_studiengaenge'),
+            option = select.find('option[value="' + id + '"]'),
+            title  = option.text(),
+            multi  = select.next('.ui-multiselect');
+        if (multi.length !== 0) {
+            multi.find('[title="' + title + '"] a').click();
+        } else {
+            option.attr('selected', true);
+        }
+
     },
     profilAddDokumentToStudiengaenge: function (id, name) {
         /*var url = STUDIP.ABSOLUTE_URI_STUDIP + "plugins.php/estudienplaner/zsb_dateien/change_datei_profil?";
@@ -369,6 +380,16 @@ jQuery(".accordion ul#stg_dokumente_profil li a.icon_trash").live("click", funct
             profil_id: id
         },
         success: function () {
+            var select = jQuery('#verknuepfte_studiengaenge'),
+                option = select.find('option[value="' + id + '"]'),
+                title  = option.text(),
+                multi  = select.next('.ui-multiselect');
+            if (multi.length !== 0) {
+                multi.find('[title="' + title + '"] a').click();
+            } else {
+                option.attr('selected', false);
+            }
+
             jQuery(li).slideUp(function () {
                 jQuery(this).remove();
             });
