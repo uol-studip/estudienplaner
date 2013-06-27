@@ -238,6 +238,8 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['besonderezugangsvoraussetzungen']) ?></div>
                 <? endif ?>
             </li>
+<?php
+/*
             <li>
                 <label for="einschreibungsverfahren_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Einschreibungsverfahren") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
@@ -246,6 +248,8 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['einschreibungsverfahren']) ?></div>
                 <? endif ?>
             </li>
+*/
+?>
             <li>
                 <label for="bewerbungsverfahren_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Bewerbungsverfahren") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
