@@ -66,6 +66,10 @@ $abschlussfeld = $abschlusssuchfeld->render();
                 <p class="info"><?= _("Tippen Sie den Namen des Abschlusses ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <li>
+                <label for="title"><?= _('Angestrebter Titel') ?></label>
+                <input type="text" name="settings[title]" id="title" value="<?= htmlReady($profil['title']) ?>">
+            </li>
+            <li>
                 <label for="stg_typ"><?= _("Typen") ?></label><br>
                 <select name="typen[]" id="stg_typ" multiple style="display:block; width: 80%; height: 150px;">
                 <? foreach ($moeglicheStgTypen as $typ) : ?>
