@@ -1,4 +1,4 @@
-<h2 style="text-align: center;"><?= _("Studiengang:") ?> <?= htmlReady($studiengang['name']) ?></h2>
+<h2 style="text-align: center;"><?= _("Fach:") ?> <?= htmlReady($studiengang['name']) ?></h2>
 
 <input type="hidden" name="studiengang_id" id="studiengang_id" value="<?= $studiengang->getId() ?>">
 
@@ -57,7 +57,7 @@ $infobox = array(
         array(
             array(
                 "icon" => "icons/16/black/search.png",
-                "text" => "<label>"._("Studiengang auswählen")." ".$studiengang_suche."</label>"
+                "text" => "<label>"._("Fach auswählen")." ".$studiengang_suche."</label>"
             )
         )
     )

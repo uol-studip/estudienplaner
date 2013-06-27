@@ -104,7 +104,7 @@ $infobox = array(
         array(
             array(
                 "icon" => "icons/16/black/search.png",
-                "text" => "<label>"._("Filter nach Studiengang")." ".$studiengang_suche."</label>"
+                "text" => "<label>"._("Filter nach Fach")." ".$studiengang_suche."</label>"
             ),
             array(
                 "icon" => "icons/16/black/search.png",

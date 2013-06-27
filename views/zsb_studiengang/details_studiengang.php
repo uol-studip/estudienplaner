@@ -29,7 +29,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
             <li>
                 <label for="studiengang_id_2"><?= _("Fach") ?></label>
                 <?= QuickSearch::get("studiengang_id", $fachsuche)->render() ?>
-                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
+                <p class="info"><?= _("Tippen Sie den Namen des Faches ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <? endif ?>
             <li>
@@ -122,7 +122,7 @@ $abschlussfeld = $abschlusssuchfeld->render();
                             ->noSelectbox()
                             ->fireJSFunctionOnSelect("STUDIP.zsb.addAufbaustudiengang")
                             ->render() ?>
-                <p class="info"><?= _("Tippen Sie den Namen des Studiengangs ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
+                <p class="info"><?= _("Tippen Sie den Namen des Faches ein und wählen Sie aus der Liste das Richtige aus.") ?></p>
             </li>
             <? endif ?>
             <? if ($profil) : ?>
@@ -880,7 +880,7 @@ $infobox = array(
         array(
             array(
                 "icon" => "icons/16/black/search.png",
-                "text" => "<label>"._("Filter nach Studiengang")." ".$studiengang_suche."</label>"
+                "text" => "<label>"._("Filter nach Fach")." ".$studiengang_suche."</label>"
             ),
             array(
                 "icon" => "icons/16/black/search.png",

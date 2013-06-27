@@ -25,12 +25,12 @@ $preformatted = true;
 <?= MessageBox::info(_("Bitte wählen Sie in der Infobox einen Filter aus.")) ?>
 <? endif ?>
 
-<? 
+<?
 foreach ($studiengaenge as $studiengang_id) {
     $studiengang = new Studiengang($studiengang_id);
     $studiengang_suche .= '<option value="'. htmlReady($studiengang_id) .'" title="'.htmlReady($studiengang['name']).'"'.($studiengang_id === Request::get("studiengang_id") ? " selected" : "").'>'. htmlReady($studiengang['name']) .'</option>';
 }
-$studiengang_suche = 
+$studiengang_suche =
 '<form action="'.URLHelper::getLink("?").' method="get">
 <select name="studiengang_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen") .'</option>
@@ -41,7 +41,7 @@ foreach ($abschluesse as $abschluss_id) {
     $abschluss = new Abschluss($abschluss_id);
     $abschluss_suche .= '<option value="'. htmlReady($abschluss->getId()).'" title="'.htmlReady($abschluss['name']).'"'.($abschluss->getId() === Request::get("abschluss_id") ? " selected" : "").'>'. htmlReady($abschluss['name']).'</option>';
 }
-$abschluss_suche = 
+$abschluss_suche =
 '<form action="?" method="get">
 <select name="abschluss_id" onChange="jQuery(this).closest('."'form'".').submit();" style="max-width: 200px;">
     <option value="">'. _("auswählen").'</option>
@@ -55,7 +55,7 @@ $infobox = array(
         array(
             array(
                 "icon" => "icons/16/black/search.png",
-                "text" => "<label>"._("Filter nach Studiengang")." ".$studiengang_suche."</label>"
+                "text" => "<label>"._("Filter nach Fach")." ".$studiengang_suche."</label>"
             ),
             array(
                 "icon" => "icons/16/black/search.png",
