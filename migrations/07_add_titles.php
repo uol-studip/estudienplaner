@@ -15,6 +15,6 @@ class AddTitles extends DBMigration
             DBManager::get()->exec("DROP TABLE stg_studycourse_titles");
         }
 
-        SORM::expireTableSchemes();
+        SORM::expireTableScheme();
     }
 }
