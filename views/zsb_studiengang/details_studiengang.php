@@ -8,7 +8,7 @@ if ($profil) {
     $abschlusssuchfeld->defaultValue($profil['abschluss_id'], $profil->getAbschluss());
 }
 $abschlussfeld = $abschlusssuchfeld->render();
-
+$this_id = $profil ? $profil->getId() : false;
 ?>
 <form action="?" method="post" enctype="multipart/form-data">
 <?= add_safely_security_token() ?>
@@ -898,11 +898,11 @@ $infobox = array(
     ),
 );
 
-if ($profil) {
+if ($this_id) {
     $infobox[0]['eintrag'][] = array(
         'icon' => 'icons/16/black/link-extern.png',
         'text' => sprintf('<a href="http://www.uni-oldenburg.de/nc/studium/studiengang/?id_studg=%u&refresh-cache" target="_blank">Zum Profil im Infoportal</a>',
-                          $profil->getId())
+                          $this_id)
     );
 }
 
