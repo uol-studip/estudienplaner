@@ -809,7 +809,6 @@ jQuery(function ($) {
 
     $(document).ready(function ($) {
         THRESHOLD = ~~$('#syntax-help').offset().top;
-        console.log(THRESHOLD);
         $(document).scroll();
     });
 }(jQuery));
