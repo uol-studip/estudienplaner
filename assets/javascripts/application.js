@@ -199,8 +199,8 @@ STUDIP.zsb = {
         var id = jQuery(this).parents("tr[id]")[0].id;
         var type = id.substr(0, id.lastIndexOf("_"));
         id = id.substr(id.lastIndexOf("_") + 1);
-        jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsï¿½chlich lï¿½schen?<br>' +
-                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type, 'addDocument': 0}) + "'" + '">lï¿½schen</div> ' +
+        jQuery('<div style="text-align: center;">Wollen Sie den Datensatz tatsächlich löschen?<br>' +
+                        '<div class="studip_button" onClick="' + "location.href='" + STUDIP.URLHelper.getURL(location.href, {'delete_x': 1, 'item_id': id, 'type': type, 'addDocument': 0}) + "'" + '">löschen</div> ' +
                         '<div class="studip_button" onClick="' + "jQuery(this).parent().parent().find('.ui-dialog-titlebar-close').trigger('click');" + '">abbrechen</div></div>').dialog({
             title: "Sicherheitsabfrage",
             hide: "fade",
@@ -329,7 +329,7 @@ jQuery(function () {
 
 
 
-//Und hier die Mï¿½lltonnen-Logik:
+//Und hier die Mülltonnen-Logik:
 
 jQuery(".accordion ul#stg_profile li a.icon_trash").live("click", function (event) {
     var li = jQuery(this).parent()[0];
