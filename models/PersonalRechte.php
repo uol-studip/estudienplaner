@@ -52,12 +52,13 @@ class PersonalRechte {
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             $studiengaenge = $db->query(
-                "SELECT studiengaenge.studiengang_id " .
+                "SELECT DISTINCT studiengaenge.studiengang_id " .
                 "FROM studiengaenge " .
                     "INNER JOIN stg_fsb_rollen ON (studiengaenge.studiengang_id = stg_fsb_rollen.studiengang_id) " .
                     ($existent !== false ? "INNER JOIN stg_profil ON (studiengaenge.studiengang_id = stg_profil.fach_id)" : "") .
                 "WHERE stg_fsb_rollen.rollen_typ IN ('FSB', 'StuKo') " .
                     "AND stg_fsb_rollen.user_id = ".$db->quote($user_id)." " .
+                "GROUP BY studiengaenge.studiengang_id " .
                 "ORDER BY name COLLATE latin1_german2_ci ASC " .
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         }
