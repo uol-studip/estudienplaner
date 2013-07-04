@@ -808,7 +808,9 @@ jQuery(function ($) {
     });
 
     $(document).ready(function ($) {
-        THRESHOLD = ~~$('#syntax-help').offset().top;
-        $(document).scroll();
+        if ($('#syntax-help').length > 0) {
+            THRESHOLD = ~~$('#syntax-help').offset().top;
+            $(document).scroll();
+        }
     });
 }(jQuery));
