@@ -50,7 +50,7 @@ class ZsbStudiengangController extends ZSBController {
         $this->profile = array();
 
         $this->studiengaenge = PersonalRechte::meineStudiengaenge(null, true);
-        $this->abschluesse = Abschluss::findAllUsed();
+        $this->abschluesse = array_map(function ($id) { return new Abschluss($id); }, PersonalRechte::meineAbschluesse());
         if (Request::get("abschluss_id") or Request::get("studiengang_id")) {
             foreach (StgProfil::getMeineProfile(null, Request::get("studiengang_id"), Request::get("abschluss_id")) as $profil) {
                 $this->profile[] = array(

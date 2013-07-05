@@ -3,6 +3,7 @@
 class PersonalRechte {
 
     protected static $usersStudiengaenge = array();
+    protected static $usersAbschluesse = array();
     protected static $usersVerlaufsplaene = array();
     protected static $usersAnsprechpartner = array();
     protected static $usersDateien = array();
@@ -70,6 +71,44 @@ class PersonalRechte {
     }
 
     /**
+     * Gibt zu dem Nutzer einen Array von abschluss_id's an, die er/sie
+     * administrieren darf.
+     * @return: array of id's (maybe empty array)
+     */
+    static public function meineAbschluesse($user_id = null, $existent = false) {
+        global $user;
+        $db = DBManager::get();
+        $user_id || $user_id = $user->id;
+        if (isset(self::$usersAbschluesse[$user_id]) && $existent === false) {
+            return self::$usersAbschluesse[$user_id];
+        }
+        $abschluesse = array();
+        if (self::isRoot($user_id) || self::isPamt($user_id) || self::isIamt($user_id)) {
+            $abschluesse = $db->query(
+                "SELECT DISTINCT abschluss.abschluss_id " .
+                "FROM abschluss " .
+                    ($existent !== false ? "INNER JOIN stg_profil ON (abschluss.abschluss_id = stg_profil.abschluss_id)" : "") .
+                "ORDER BY abschluss.name COLLATE latin1_german2_ci ASC " .
+            "")->fetchAll(PDO::FETCH_COLUMN, 0);
+        } else {
+            $abschluesse = $db->query(
+                "SELECT DISTINCT abschluss.abschluss_id " .
+                "FROM abschluss " .
+                    "INNER JOIN stg_profil ON (stg_profil.abschluss_id = abschluss.abschluss_id) " .
+                    "INNER JOIN stg_fsb_rollen ON (stg_profil.fach_id = stg_fsb_rollen.studiengang_id) " .
+                "WHERE stg_fsb_rollen.rollen_typ IN ('FSB', 'StuKo') " .
+                    "AND stg_fsb_rollen.user_id = ".$db->quote($user_id)." " .
+                "ORDER BY abschluss.name COLLATE latin1_german2_ci ASC " .
+            "")->fetchAll(PDO::FETCH_COLUMN, 0);
+        }
+        $abschluesse = $abschluesse ? $abschluesse : array();
+        if ($existent === false) {
+            self::$usersAbschluesse[$user_id] = $abschluesse;
+        }
+        return $abschluesse;
+    }
+
+    /**
      * Gibt zu dem Nutzer einen Array von Stg_profil_id's an, die er/sie
      * administrieren darf.
      * @return: array of id's (maybe empty array)
@@ -89,7 +128,7 @@ class PersonalRechte {
             "")->fetchAll(PDO::FETCH_COLUMN, 0);
         } else {
             $profile = $db->query(
-                "SELECT stg_profil.profil_id " .
+                "SELECT DISTINCT stg_profil.profil_id " .
                 "FROM stg_profil " .
                     "INNER JOIN studiengaenge ON (stg_profil.fach_id = studiengaenge.studiengang_id) " .
                     "INNER JOIN stg_fsb_rollen ON (studiengaenge.studiengang_id = stg_fsb_rollen.studiengang_id) " .
