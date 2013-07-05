@@ -51,8 +51,19 @@ class ZsbStudiengangController extends ZSBController {
 
         $this->studiengaenge = PersonalRechte::meineStudiengaenge(null, true);
         $this->abschluesse = Abschluss::findAllUsed();
-        if (Request::submitted("abschluss_id") or Request::submitted("studiengang_id")) {
+        if (Request::get("abschluss_id") or Request::get("studiengang_id")) {
             foreach (StgProfil::getMeineProfile(null, Request::get("studiengang_id"), Request::get("abschluss_id")) as $profil) {
+                $this->profile[] = array(
+                    'content' => array(
+                        $profil->getStudiengang(),
+                        $profil->getAbschluss()
+                    ),
+                    'url' => $this->link_for("zsb_studiengang/studiengaenge", array('studienprofil_id' => $profil->getId())),
+                    'item' => $profil
+                );
+            }
+        } elseif(!PersonalRechte::isRoot() && !PersonalRechte::isPamt() && !PersonalRechte::isIamt() && !PersonalRechte::isStab()) {
+            foreach (StgProfil::getMeineProfile() as $profil) {
                 $this->profile[] = array(
                     'content' => array(
                         $profil->getStudiengang(),
