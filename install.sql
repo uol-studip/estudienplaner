@@ -1,4 +1,4 @@
-CREATE TABLE `stg_ansprech_zuord` (
+CREATE TABLE IF NOT EXISTS `stg_ansprech_zuord` (
   `ansprech_zuord_id` int(11) NOT NULL auto_increment,
   `stg_ansprechpartner_id` int(11) NOT NULL,
   `stg_profil_id` int(11) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE `stg_ansprech_zuord` (
   UNIQUE KEY `stg_ansprech_zuord_unique` (`stg_ansprechpartner_id`,`stg_profil_id`)
 );
 
-CREATE TABLE `stg_ansprechpartner` (
+CREATE TABLE IF NOT EXISTS `stg_ansprechpartner` (
   `ansprechpartner_id` int(10) unsigned NOT NULL auto_increment,
   `range_id` char(32) NOT NULL,
   `ansprechpartner_typ_id` int(11) default NULL,
@@ -20,21 +20,21 @@ CREATE TABLE `stg_ansprechpartner` (
   PRIMARY KEY  (`ansprechpartner_id`)
 );
 
-CREATE TABLE `stg_ansprechpartner_typ` (
+CREATE TABLE IF NOT EXISTS `stg_ansprechpartner_typ` (
   `ansprechpartner_typ_id` int(11) NOT NULL auto_increment,
   `name` varchar(200) default NULL,
   `stg_bereichs_id` int(11) default NULL,
   PRIMARY KEY  (`ansprechpartner_typ_id`)
 );
 
-CREATE TABLE `stg_aufbaustudiengang` (
+CREATE TABLE IF NOT EXISTS `stg_aufbaustudiengang` (
   `stg_range_id` int(11) NOT NULL,
   `aufbau_stg_profil_id` int(11) NOT NULL,
   `range_typ` varchar(45) default NULL,
   PRIMARY KEY  (`stg_range_id`,`aufbau_stg_profil_id`)
 );
 
-CREATE TABLE `stg_bereiche` (
+CREATE TABLE IF NOT EXISTS `stg_bereiche` (
   `bereichs_id` int(11) NOT NULL auto_increment,
   `bereich_name` varchar(200) default NULL,
   `sichtbar_fsb` tinyint(1) default NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `stg_bereiche` (
   PRIMARY KEY  (`bereichs_id`)
 );
 
-CREATE TABLE `stg_bewerben` (
+CREATE TABLE IF NOT EXISTS `stg_bewerben` (
   `stg_profil_id` int(11) NOT NULL,
   `startzeit_wise` timestamp NULL default NULL,
   `endzeit_wise` timestamp NULL default NULL,
@@ -59,13 +59,13 @@ CREATE TABLE `stg_bewerben` (
   PRIMARY KEY  USING BTREE (`stg_profil_id`,`de_eu`,`erst_hoeher`)
 );
 
-CREATE TABLE `stg_doku_typ_bereich_zuord` (
+CREATE TABLE IF NOT EXISTS `stg_doku_typ_bereich_zuord` (
   `stg_doku_typ_id` int(11) NOT NULL,
   `stg_bereichs_id` int(11) NOT NULL,
   PRIMARY KEY  (`stg_doku_typ_id`,`stg_bereichs_id`)
 );
 
-CREATE TABLE `stg_doku_zuord` (
+CREATE TABLE IF NOT EXISTS `stg_doku_zuord` (
   `doku_zuord_id` int(11) NOT NULL auto_increment,
   `doku_id` int(11) NOT NULL,
   `stg_profil_id` int(11) NOT NULL,
@@ -73,18 +73,18 @@ CREATE TABLE `stg_doku_zuord` (
   PRIMARY KEY  (`doku_zuord_id`)
 );
 
-CREATE TABLE `stg_dokument_tags` (
+CREATE TABLE IF NOT EXISTS `stg_dokument_tags` (
   `doku_id` int(11) NOT NULL,
   `tag` varchar(64) NOT NULL
 );
 
-CREATE TABLE `stg_dokument_typ` (
+CREATE TABLE IF NOT EXISTS `stg_dokument_typ` (
   `doku_typ_id` int(11) NOT NULL auto_increment,
   `name` varchar(200) default NULL,
   PRIMARY KEY  (`doku_typ_id`)
 );
 
-CREATE TABLE `stg_dokumente` (
+CREATE TABLE IF NOT EXISTS `stg_dokumente` (
   `doku_id` int(11) NOT NULL auto_increment,
   `user_id` char(32) default NULL,
   `name` varchar(400) default NULL,
@@ -100,7 +100,7 @@ CREATE TABLE `stg_dokumente` (
   PRIMARY KEY  (`doku_id`)
 );
 
-CREATE TABLE `stg_fach_kombination` (
+CREATE TABLE IF NOT EXISTS `stg_fach_kombination` (
   `fach_kombi_id` int(11) NOT NULL AUTO_INCREMENT,
   `stg_profil_id` int(11) NOT NULL,
   `kombi_stg_profil_id` int(11) NOT NULL,
@@ -108,14 +108,14 @@ CREATE TABLE `stg_fach_kombination` (
   PRIMARY KEY  (`fach_kombi_id`)
 );
 
-CREATE TABLE `stg_fach_master_kombi` (
+CREATE TABLE IF NOT EXISTS `stg_fach_master_kombi` (
   `kombi_id` int(11) NOT NULL auto_increment,
   `studiengang_id` char(32) NOT NULL,
   `abschluss_id` char(32) NOT NULL,
   PRIMARY KEY  (`kombi_id`)
 );
 
-CREATE TABLE `stg_fsb_rollen` (
+CREATE TABLE IF NOT EXISTS `stg_fsb_rollen` (
   `user_id` char(32) NOT NULL,
   `studiengang_id` char(32) NOT NULL,
   `lehreinheit_id` char(32) default NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `stg_fsb_rollen` (
   PRIMARY KEY  (`user_id`,`studiengang_id`)
 );
 
-CREATE TABLE `stg_profil` (
+CREATE TABLE IF NOT EXISTS `stg_profil` (
   `profil_id` int(11) NOT NULL auto_increment,
   `fach_id` char(32) default NULL,
   `abschluss_id` char(32) default NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `stg_profil` (
   PRIMARY KEY  (`profil_id`)
 );
 
-CREATE TABLE `stg_profil_information` (
+CREATE TABLE IF NOT EXISTS `stg_profil_information` (
   `information_id` int(11) NOT NULL auto_increment,
   `stg_profil_id` int(11) NOT NULL,
   `info_form` enum('kurz','lang') default NULL,
@@ -166,26 +166,26 @@ CREATE TABLE `stg_profil_information` (
   PRIMARY KEY  (`information_id`)
 );
 
-CREATE TABLE `stg_typ` (
+CREATE TABLE IF NOT EXISTS `stg_typ` (
   `stg_typ_id` int(11) NOT NULL auto_increment,
   `typ_name` varchar(100) default NULL COMMENT 'Typen: FB, ZWB, Weiterbildener, OnlineStg, Kostenpflichtig',
   PRIMARY KEY  (`stg_typ_id`)
 );
 
-CREATE TABLE `stg_typ_zuordnung` (
+CREATE TABLE IF NOT EXISTS `stg_typ_zuordnung` (
   `stg_typ_id` int(11) NOT NULL,
   `stg_profil_id` int(11) NOT NULL,
   PRIMARY KEY  (`stg_profil_id`,`stg_typ_id`)
 );
 
-CREATE TABLE `stg_verlauf_typ` (
+CREATE TABLE IF NOT EXISTS `stg_verlauf_typ` (
   `verlauf_typ_id` int(11) NOT NULL auto_increment,
   `farbcode` varchar(16) default NULL,
   `typ_name` varchar(200) default NULL,
   PRIMARY KEY  (`verlauf_typ_id`)
 );
 
-CREATE TABLE `stg_verlaufsplan` (
+CREATE TABLE IF NOT EXISTS `stg_verlaufsplan` (
   `verlaufsplan_id` int(11) NOT NULL auto_increment,
   `stg_profil_id` int(11) NOT NULL,
   `version` smallint(4) NOT NULL,
@@ -199,7 +199,7 @@ CREATE TABLE `stg_verlaufsplan` (
   PRIMARY KEY  (`verlaufsplan_id`)
 );
 
-CREATE TABLE `stg_verlaufsplan_eintraege` (
+CREATE TABLE IF NOT EXISTS `stg_verlaufsplan_eintraege` (
   `stg_verlaufsplan_id` int(11) NOT NULL,
   `fachsem` tinyint(3) NOT NULL,
   `position` tinyint(3) NOT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE `stg_verlaufsplan_eintraege` (
   PRIMARY KEY (`stg_verlaufsplan_id`,`fachsem`,`position`,`sem_tree_id`)
 );
 
-CREATE TABLE `stg_verlaufsplan_kp` (
+CREATE TABLE IF NOT EXISTS `stg_verlaufsplan_kp` (
   `verlaufsplan_id` int(11) NOT NULL,
   `fachsem` tinyint(3) NOT NULL,
   `kp` int(11) default NULL,
