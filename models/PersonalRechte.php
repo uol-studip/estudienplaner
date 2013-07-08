@@ -75,7 +75,7 @@ class PersonalRechte {
      * administrieren darf.
      * @return: array of id's (maybe empty array)
      */
-    static public function meineAbschluesse($user_id = null, $existent = false) {
+    static public function meineAbschluesse($user_id = null, $existent = true) {
         global $user;
         $db = DBManager::get();
         $user_id || $user_id = $user->id;
