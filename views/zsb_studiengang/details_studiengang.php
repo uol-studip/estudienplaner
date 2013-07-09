@@ -215,19 +215,19 @@ $this_id = $profil ? $profil->getId() : false;
                 <? endif ?>
             </li>
             <li>
-                <label for="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Berufs- und Tätigkeitsfelder") ?></label>
-                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
-                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][berufsfelder]" id="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['berufsfelder']) ?></textarea>
-                <? else : ?>
-                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['berufsfelder']) ?></div>
-                <? endif ?>
-            </li>
-            <li>
                 <label for="sprachkenntnisse_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Fremdsprachenkentnisse") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][sprachkenntnisse]" id="sprachkenntnisse_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['sprachkenntnisse']) ?></textarea>
                 <? else : ?>
                 <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['sprachkenntnisse']) ?></div>
+                <? endif ?>
+            </li>
+            <li>
+                <label for="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Berufs- und Tätigkeitsfelder") ?></label>
+                <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
+                <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][berufsfelder]" id="berufsfelder_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['berufsfelder']) ?></textarea>
+                <? else : ?>
+                <div class="description"><?= htmlReady($informationen[$sprache][$info_form]['berufsfelder']) ?></div>
                 <? endif ?>
             </li>
             <li>
@@ -251,7 +251,7 @@ $this_id = $profil ? $profil->getId() : false;
 */
 ?>
             <li>
-                <label for="bewerbungsverfahren_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Bewerbungsverfahren") ?></label>
+                <label for="bewerbungsverfahren_<?= $sprache ?>_<?= $info_form ?>"><?= dgettext($sprache, "Bewerbung/Zulassungsmodalitäten") ?></label>
                 <? if ($info_form === "lang" || PersonalRechte::isRoot()) : ?>
                 <textarea name="informationen[<?= $sprache ?>][<?= $info_form ?>][bewerbungsverfahren]" id="bewerbungsverfahren_<?= $sprache ?>_<?= $info_form ?>"><?= htmlReady($informationen[$sprache][$info_form]['bewerbungsverfahren']) ?></textarea>
                 <? else : ?>
