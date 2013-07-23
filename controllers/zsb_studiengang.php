@@ -169,6 +169,7 @@ class ZsbStudiengangController extends ZSBController {
                 $dokument['jahr'] = Request::get("neues_dokument_jahr");
                 $dokument['doku_typ_id'] = Request::get("neues_dokument_doku_typ_id");
                 $dokument['quick_link'] = Request::get("neues_dokument_quick_link");
+                $dokument['user_id'] = $GLOBALS['user']->id;
                 $dokument->store();
                 $dokument->setTags(Request::get("neues_dokument_tags"));
                 $this->profil->addDoku($dokument->getId());

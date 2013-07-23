@@ -2,7 +2,7 @@
 
 <form action="?" method="post">
 <?= add_safely_security_token() ?>
-<input type="hidden" id="doku_id" name="doku_id" value="<?= $datei->getId() ? $datei->getId() : "neu" ?>">
+<input type="hidden" id="doku_id" name="doku_id" value="<?= $datei->getId() ?: "neu" ?>">
 <? if ($datei->getId()): ?>
 <input type="hidden" name="typ_id" value="<?= $datei->doku_typ_id ?>">
 <? endif; ?>
@@ -45,9 +45,11 @@
                 ?>
                 <? if ($editieren) : ?>
                 <select id="doku_typ_id" name="doku_typ_id">
-                    <? foreach ($typen as $typ) : ?>
-                    <option value="<?= htmlReady($typ['doku_typ_id']) ?>"<?= $typ['doku_typ_id'] === $datei['doku_typ_id'] ? " selected" : "" ?>><?= htmlReady($typ['name']) ?></option>
-                    <? endforeach ?>
+                <? foreach ($typen as $typ) : ?>
+                    <option value="<?= htmlReady($typ['doku_typ_id']) ?>" <? if ($typ['doku_typ_id'] == Request::int('typ_id', $datei['doku_typ_id'])) echo 'selected'; ?>>
+                        <?= htmlReady($typ['name']) ?>
+                    </option>
+                <? endforeach ?>
                 </select>
                 <? else : ?>
                 <?= htmlReady(StgFile::getDokuTypName($datei['doku_typ_id'])) ?>
@@ -96,6 +98,9 @@
                         // path to server-side upload script
                         action: '<?= URLHelper::getURL("plugins.php/estudienplaner/zsb_dateien/upload") ?>',
                         params: {<?= $datei->isNew() ? "" : " doku_id : '".$datei->getId()."'" ?>},
+                        onSubmit: function (id, filename) {
+                            this.params.typ_id = jQuery('#doku_typ_id').val();
+                        },
                         onComplete: function(id, fileName, responseJSON) {
                             uploader.setParams({ doku_id : responseJSON.id });
                             jQuery("#doku_id").val(responseJSON.id);

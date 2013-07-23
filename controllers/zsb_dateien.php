@@ -58,9 +58,10 @@ class ZsbDateienController extends ZsbController {
         }
 
         $this->datei = new StgFile($doku_id !== 'neu' ? $doku_id : null);
-        if (Request::get("absenden_x")) {
+        if (Request::submitted("absenden")) {
             $this->datei['name'] = Request::get("name");
             $this->datei['quick_link'] = Request::get("quick_link");
+            $this->datei['user_id'] = $GLOBALS['user']->id;
             if ($this->datei['quick_link']) {
 
             }
@@ -102,6 +103,7 @@ class ZsbDateienController extends ZsbController {
 
     public function upload_action() {
         $datei = new StgFile(Request::get("doku_id") !== 'neu' ? Request::get("doku_id") : null);
+        $datei->doku_typ_id = $datei->doku_typ_id ?: Request::int('typ_id');
         $datei->upload();
         $this->render_nothing();
     }
